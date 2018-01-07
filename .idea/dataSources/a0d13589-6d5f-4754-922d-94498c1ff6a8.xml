@@ -736,7 +736,7 @@ sold - продано. Когда лот был продан.</Comment>
       <Comment>Имя пользователя</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="162" parent="29" name="second_name">
+    <column id="162" parent="29" name="last_name">
       <Position>6</Position>
       <Comment>Фамилия пользователя</Comment>
       <DataType>varchar(50)|0</DataType>
