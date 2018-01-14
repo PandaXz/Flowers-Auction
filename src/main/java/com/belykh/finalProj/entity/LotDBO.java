@@ -10,13 +10,13 @@ public class LotDBO {
     private Long ownerId;
     private Long flowerId;
     private Long addressId;
-    private Long startPrice;
-    private Long currentPrice;
-    private int state;
+    private Double startPrice;
+    private Double currentPrice;
+    private LotState state;
     private int count;
     private String description;
 
-    public LotDBO(Long id, Long buyerId, Long auctionId, Long ownerId, Long flowerId, Long addressId, Long startPrice, Long currentPrice, int state, int count, String description) {
+    public LotDBO(Long id, Long buyerId, Long auctionId, Long ownerId, Long flowerId, Long addressId, Double startPrice, Double currentPrice, LotState state, int count, String description) {
         this.id = id;
         this.buyerId = buyerId;
         this.auctionId = auctionId;
@@ -81,27 +81,27 @@ public class LotDBO {
         this.addressId = addressId;
     }
 
-    public Long getStartPrice() {
+    public Double getStartPrice() {
         return startPrice;
     }
 
-    public void setStartPrice(Long startPrice) {
+    public void setStartPrice(Double startPrice) {
         this.startPrice = startPrice;
     }
 
-    public Long getCurrentPrice() {
+    public Double getCurrentPrice() {
         return currentPrice;
     }
 
-    public void setCurrentPrice(Long currentPrice) {
+    public void setCurrentPrice(Double currentPrice) {
         this.currentPrice = currentPrice;
     }
 
-    public int getState() {
+    public LotState getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(LotState state) {
         this.state = state;
     }
 
@@ -151,7 +151,7 @@ public class LotDBO {
         result = 31 * result + addressId.hashCode();
         result = 31 * result + startPrice.hashCode();
         result = 31 * result + currentPrice.hashCode();
-        result = 31 * result + state;
+        result = 31 * result + state.hashCode();
         result = 31 * result + count;
         result = 31 * result + description.hashCode();
         return result;
