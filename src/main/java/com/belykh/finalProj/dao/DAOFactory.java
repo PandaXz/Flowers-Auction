@@ -1,5 +1,6 @@
 package com.belykh.finalProj.dao;
 
+import com.belykh.finalProj.dao.impl.CountryDAOImpl;
 import com.belykh.finalProj.dao.impl.UserDAOImpl;
 
 /**
@@ -7,7 +8,9 @@ import com.belykh.finalProj.dao.impl.UserDAOImpl;
  */
 public class DAOFactory {
     private static DAOFactory instance = new DAOFactory();
+
     private final UserDAO userDAO = new UserDAOImpl();
+    private final CountryDAO countryDAO = new CountryDAOImpl();
 
     public static DAOFactory getInstance() {
         return instance;
@@ -18,5 +21,9 @@ public class DAOFactory {
 
     public UserDAO getUserDAO() {
         return userDAO;
+    }
+
+    public CountryDAO getCountryDAO() {
+        return countryDAO;
     }
 }

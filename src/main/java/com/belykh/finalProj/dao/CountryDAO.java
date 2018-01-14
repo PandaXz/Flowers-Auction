@@ -1,6 +1,7 @@
 package com.belykh.finalProj.dao;
 
-import com.belykh.finalProj.entity.Country;
+import com.belykh.finalProj.entity.CountryDBO;
+import com.belykh.finalProj.exception.DAOException;
 
 import java.util.List;
 
@@ -9,9 +10,9 @@ import java.util.List;
  */
 public interface CountryDAO {
 
-    Country findCountryById(Long id);
-    List<Country> findAllCountries();
+    CountryDBO findCountryById(Long id) throws DAOException;
+    List<CountryDBO> findAllCountries() throws DAOException;
 
-    boolean addCountry(Country country);
-    boolean delete(Long id);
+    boolean addCountry(CountryDBO countryDBO) throws DAOException;
+    boolean delete(Long id) throws DAOException;
 }

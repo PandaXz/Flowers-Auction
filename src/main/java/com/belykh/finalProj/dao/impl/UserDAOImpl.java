@@ -1,7 +1,7 @@
 package com.belykh.finalProj.dao.impl;
 
 import com.belykh.finalProj.dao.UserDAO;
-import com.belykh.finalProj.entity.User;
+import com.belykh.finalProj.entity.UserDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
 import com.belykh.finalProj.pool.exception.ConnectionPoolException;
@@ -40,7 +40,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String USER_ROLE = "role";
 
     
-    @Override public List<User> findAllUsers() throws DAOException {
+    @Override public List<UserDBO> findAllUsers() throws DAOException {
 
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_GET_USER_BY_LOGIN)) {
@@ -53,8 +53,8 @@ public class UserDAOImpl implements UserDAO {
     }
 
     
-    @Override public User findUserByLogin(String login) throws DAOException {
-        User result =null;
+    @Override public UserDBO findUserByLogin(String login) throws DAOException {
+        UserDBO result =null;
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_GET_USER_BY_LOGIN)) {
             statement.setString(1,login);
@@ -68,8 +68,8 @@ public class UserDAOImpl implements UserDAO {
         }
         return result;
     }
-    @Override public User findUserById(Long id) throws DAOException {
-        User result =null;
+    @Override public UserDBO findUserById(Long id) throws DAOException {
+        UserDBO result =null;
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_GET_USER_BY_ID)) {
             statement.setLong(1,id);
@@ -84,10 +84,10 @@ public class UserDAOImpl implements UserDAO {
         return result;
     }
 
-    @Override public boolean addUser(User user) throws DAOException {
+    @Override public boolean addUser(UserDBO userDBO) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_ADD_USER)) {
-            setStatement(statement,user);
+            setStatement(statement, userDBO);
             return (statement.executeUpdate()!=0);
         } catch (SQLException|ConnectionPoolException e) {
             throw new DAOException(e);
@@ -159,24 +159,24 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-    private void setStatement(PreparedStatement ps,User user) throws SQLException, DAOException {
-        ps.setString(1,user.getLogin());
-        ps.setString(2,user.getPass());
-        ps.setString(3,user.getEmail());
-        ps.setString(4,user.getFirstName());
-        ps.setString(5,user.getLastName());
-        ps.setString(6,ROLE.valueByNumber(user.getRole()).name());
-        ps.setLong(7,user.getMoney());
+    private void setStatement(PreparedStatement ps,UserDBO userDBO) throws SQLException, DAOException {
+        ps.setString(1, userDBO.getLogin());
+        ps.setString(2, userDBO.getPass());
+        ps.setString(3, userDBO.getEmail());
+        ps.setString(4, userDBO.getFirstName());
+        ps.setString(5, userDBO.getLastName());
+        ps.setString(6,ROLE.valueByNumber(userDBO.getRole()).name());
+        ps.setLong(7, userDBO.getMoney());
     }
 
-    private List<User> createUserList(ResultSet resultSet) throws SQLException {
-        List<User> resultList = new ArrayList<>();
+    private List<UserDBO> createUserList(ResultSet resultSet) throws SQLException {
+        List<UserDBO> resultList = new ArrayList<>();
         while(resultSet.next()){
             resultList.add(createUser(resultSet));
         }
         return resultList;
     }
-    private User createUser(ResultSet resultSet) throws SQLException {
+    private UserDBO createUser(ResultSet resultSet) throws SQLException {
         Long id = resultSet.getLong(USER_ID);
         String firstName = resultSet.getString(USER_FIRST_NAME);
         String email = resultSet.getString(USER_EMAIL);
@@ -185,7 +185,7 @@ public class UserDAOImpl implements UserDAO {
         String lastName = resultSet.getString(USER_LAST_NAME);
         Long money = resultSet.getLong(USER_MONEY);
         int role = ROLE.valueOf(resultSet.getString(USER_ROLE)).ordinal();
-        return new User(id,login,password,email,firstName,lastName,role,money);
+        return new UserDBO(id,login,password,email,firstName,lastName,role,money);
     }
 
     private enum ROLE{

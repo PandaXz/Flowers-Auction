@@ -1,6 +1,6 @@
 package com.belykh.finalProj.dao;
 
-import com.belykh.finalProj.entity.City;
+import com.belykh.finalProj.entity.CityDBO;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ import java.util.List;
  */
 public interface CityDAO {
 
-    City findCityById(Long id);
-    List<City> findAllCities();
-    List<City> findCitiesByCountryId(Long countryId);
+    CityDBO findCityById(Long id);
+    List<CityDBO> findAllCities();
+    List<CityDBO> findCitiesByCountryId(Long countryId);
 
-    boolean addCity(City city);
+    boolean addCity(CityDBO cityDBO);
     boolean delete(Long id);
 }

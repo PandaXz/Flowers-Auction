@@ -1,6 +1,6 @@
 package com.belykh.finalProj.dao;
 
-import com.belykh.finalProj.entity.User;
+import com.belykh.finalProj.entity.UserDBO;
 import com.belykh.finalProj.exception.DAOException;
 
 import java.util.List;
@@ -9,13 +9,13 @@ import java.util.List;
  * Created by panda on 7.1.18.
  */
 public interface UserDAO {
-    List<User> findAllUsers() throws DAOException;
+    List<UserDBO> findAllUsers() throws DAOException;
 
-    User findUserByLogin(String login) throws DAOException;
+    UserDBO findUserByLogin(String login) throws DAOException;
 
-    User findUserById(Long id) throws DAOException;
+    UserDBO findUserById(Long id) throws DAOException;
 
-    boolean addUser(User user) throws DAOException;
+    boolean addUser(UserDBO userDBO) throws DAOException;
 
     boolean isLoginFree(String login) throws DAOException;
 

@@ -1,6 +1,6 @@
 package com.belykh.finalProj.dao;
 
-import com.belykh.finalProj.entity.Flower;
+import com.belykh.finalProj.entity.FlowerDBO;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import java.util.List;
  * Created by panda on 7.1.18.
  */
 public interface FlowerDAO {
-    Flower findFlowerById(Long id);
-    List<Flower> findAllFlowers();
+    FlowerDBO findFlowerById(Long id);
+    List<FlowerDBO> findAllFlowers();
 
-    boolean addFlower(Flower flower);
+    boolean addFlower(FlowerDBO flowerDBO);
     boolean delete(Long id);
 }

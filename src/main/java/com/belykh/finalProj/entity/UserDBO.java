@@ -3,7 +3,7 @@ package com.belykh.finalProj.entity;
 /**
  * Created by panda on 6.1.18.
  */
-public class User {
+public class UserDBO {
     private Long id;
     private String login;
     private String pass;
@@ -13,7 +13,7 @@ public class User {
     private int role;
     private Long money;
 
-    public User(Long id, String login, String pass, String email, String firstName, String lastName, int role, Long money) {
+    public UserDBO(Long id, String login, String pass, String email, String firstName, String lastName, int role, Long money) {
         this.id = id;
         this.login = login;
         this.pass = pass;
@@ -94,16 +94,16 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        UserDBO userDBO = (UserDBO) o;
 
-        if (role != user.role) return false;
-        if (!id.equals(user.id)) return false;
-        if (!login.equals(user.login)) return false;
-        if (!pass.equals(user.pass)) return false;
-        if (!email.equals(user.email)) return false;
-        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
-        return money.equals(user.money);
+        if (role != userDBO.role) return false;
+        if (!id.equals(userDBO.id)) return false;
+        if (!login.equals(userDBO.login)) return false;
+        if (!pass.equals(userDBO.pass)) return false;
+        if (!email.equals(userDBO.email)) return false;
+        if (firstName != null ? !firstName.equals(userDBO.firstName) : userDBO.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(userDBO.lastName) : userDBO.lastName != null) return false;
+        return money.equals(userDBO.money);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserDBO{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
                 ", pass='" + pass + '\'' +

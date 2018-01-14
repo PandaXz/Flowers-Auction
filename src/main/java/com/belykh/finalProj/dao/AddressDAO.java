@@ -1,6 +1,6 @@
 package com.belykh.finalProj.dao;
 
-import com.belykh.finalProj.entity.Address;
+import com.belykh.finalProj.entity.AddressDBO;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ import java.util.List;
  */
 public interface AddressDAO {
 
-    Address findAddressById(Long id);
-    List<Address> findAllAddresses();
-    List<Address> findAddressesByCityId(Long cityId);
+    AddressDBO findAddressById(Long id);
+    List<AddressDBO> findAllAddresses();
+    List<AddressDBO> findAddressesByCityId(Long cityId);
 
-    boolean addAddress(Address address);
+    boolean addAddress(AddressDBO addressDBO);
     boolean delete(Long id);
 }

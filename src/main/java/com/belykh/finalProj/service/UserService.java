@@ -2,7 +2,7 @@ package com.belykh.finalProj.service;
 
 import com.belykh.finalProj.dao.DAOFactory;
 import com.belykh.finalProj.dao.UserDAO;
-import com.belykh.finalProj.entity.User;
+import com.belykh.finalProj.entity.UserDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.util.MD5Util;
@@ -17,9 +17,9 @@ public class UserService {
         String passHash = MD5Util.getInstance().getMD5Hash(password);
         UserDAO dao = DAOFactory.getInstance().getUserDAO();
         try {
-            User user = dao.findUserByLogin(login);
-            if(user!=null){
-                result =user.getPass().toUpperCase().equals(passHash.toUpperCase());
+            UserDBO userDBO = dao.findUserByLogin(login);
+            if(userDBO !=null){
+                result = userDBO.getPass().toUpperCase().equals(passHash.toUpperCase());
             }
 
         } catch (DAOException e) {

@@ -3,15 +3,14 @@ package com.belykh.finalProj.entity;
 /**
  * Created by panda on 8.1.18.
  */
-public class City {
+public class CountryDBO {
+
     private Long id;
     private String name;
-    private Country country;
 
-    public City(Long id, String name, Country country) {
+    public CountryDBO(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.country = country;
     }
 
     public Long getId() {
@@ -30,31 +29,29 @@ public class City {
         this.name = name;
     }
 
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        City city = (City) o;
+        CountryDBO countryDBO = (CountryDBO) o;
 
-        if (!id.equals(city.id)) return false;
-        if (!name.equals(city.name)) return false;
-        return country.equals(city.country);
+        if (!id.equals(countryDBO.id)) return false;
+        return name.equals(countryDBO.name);
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + name.hashCode();
-        result = 31 * result + country.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "CountryDBO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

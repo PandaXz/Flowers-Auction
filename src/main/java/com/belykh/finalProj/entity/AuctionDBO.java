@@ -1,16 +1,20 @@
 package com.belykh.finalProj.entity;
 
+import java.util.Date;
+
 /**
  * Created by panda on 7.1.18.
  */
-public class Flower {
+public class AuctionDBO {
     private Long id;
-    private String name;
+    private Date start;
+    private Date end;
     private String description;
 
-    public Flower(Long id, String name, String description) {
+    public AuctionDBO(Long id, Date start, Date end, String description) {
         this.id = id;
-        this.name = name;
+        this.start = start;
+        this.end = end;
         this.description = description;
     }
 
@@ -22,12 +26,20 @@ public class Flower {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Date getStart() {
+        return start;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
     }
 
     public String getDescription() {
@@ -43,26 +55,29 @@ public class Flower {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Flower flower = (Flower) o;
+        AuctionDBO auctionDBO = (AuctionDBO) o;
 
-        if (!id.equals(flower.id)) return false;
-        if (!name.equals(flower.name)) return false;
-        return description.equals(flower.description);
+        if (!id.equals(auctionDBO.id)) return false;
+        if (!start.equals(auctionDBO.start)) return false;
+        if (!end.equals(auctionDBO.end)) return false;
+        return description.equals(auctionDBO.description);
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + name.hashCode();
+        result = 31 * result + start.hashCode();
+        result = 31 * result + end.hashCode();
         result = 31 * result + description.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "Flower{" +
+        return "AuctionDBO{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", start=" + start +
+                ", end=" + end +
                 ", description='" + description + '\'' +
                 '}';
     }
