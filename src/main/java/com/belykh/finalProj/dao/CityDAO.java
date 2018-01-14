@@ -1,6 +1,7 @@
 package com.belykh.finalProj.dao;
 
 import com.belykh.finalProj.entity.CityDBO;
+import com.belykh.finalProj.exception.DAOException;
 
 import java.util.List;
 
@@ -9,10 +10,10 @@ import java.util.List;
  */
 public interface CityDAO {
 
-    CityDBO findCityById(Long id);
-    List<CityDBO> findAllCities();
-    List<CityDBO> findCitiesByCountryId(Long countryId);
+    CityDBO findCityById(Long id) throws DAOException;
+    List<CityDBO> findAllCities() throws DAOException;
+    List<CityDBO> findCitiesByCountryId(Long countryId) throws DAOException;
 
-    boolean addCity(CityDBO cityDBO);
-    boolean delete(Long id);
+    boolean addCity(CityDBO cityDBO) throws DAOException;
+    boolean delete(Long id) throws DAOException;
 }
