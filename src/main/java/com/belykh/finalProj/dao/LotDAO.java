@@ -13,9 +13,8 @@ public interface LotDAO {
 
     LotDBO findLotById(Long id) throws DAOException;
     List<LotDBO> findAllLots() throws DAOException;
-    boolean changeCurrentPrice(Double newPrice);
-    boolean changeBuyer(Long userId);
-    boolean changeState(LotState state);
+    boolean changeBuyerAndPrice(Long id,Long userId,Double newPrice) throws DAOException;
+    boolean changeState(Long id,LotState state) throws DAOException;
 
     boolean addLot(LotDBO lotDBO) throws DAOException;
     boolean delete(Long id) throws DAOException;
