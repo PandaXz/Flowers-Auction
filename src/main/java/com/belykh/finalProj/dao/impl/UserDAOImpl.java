@@ -130,26 +130,26 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public long findUserMoney(String login) throws DAOException {
+    public Double findUserMoney(String login) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_GET_MONEY_BY_LOGIN)) {
             statement.setString(1,login);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()){
 
-                return resultSet.getLong(USER_MONEY);
+                return resultSet.getDouble(USER_MONEY);
             }
         } catch (SQLException|ConnectionPoolException e) {
             throw new DAOException(e);
         }
-        return 0;
+        return 0d;
     }
 
     @Override
-    public boolean changeMoney(long money,String login) throws DAOException {
+    public boolean changeMoney(Double money,String login) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_MONEY)) {
-            statement.setLong(1,money);
+            statement.setDouble(1,money);
             statement.setString(2,login);
             ResultSet resultSet = statement.executeQuery();
             return !resultSet.next();
@@ -166,7 +166,7 @@ public class UserDAOImpl implements UserDAO {
         ps.setString(4, userDBO.getFirstName());
         ps.setString(5, userDBO.getLastName());
         ps.setString(6,ROLE.valueByNumber(userDBO.getRole()).name());
-        ps.setLong(7, userDBO.getMoney());
+        ps.setDouble(7, userDBO.getMoney());
     }
 
     private List<UserDBO> createUserList(ResultSet resultSet) throws SQLException {
@@ -183,7 +183,7 @@ public class UserDAOImpl implements UserDAO {
         String password = resultSet.getString(USER_PASSWORD);
         String login = resultSet.getString(USER_LOGIN);
         String lastName = resultSet.getString(USER_LAST_NAME);
-        Long money = resultSet.getLong(USER_MONEY);
+        Double money = resultSet.getDouble(USER_MONEY);
         int role = ROLE.valueOf(resultSet.getString(USER_ROLE)).ordinal();
         return new UserDBO(id,login,password,email,firstName,lastName,role,money);
     }

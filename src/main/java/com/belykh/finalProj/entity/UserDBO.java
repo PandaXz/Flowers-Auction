@@ -11,9 +11,9 @@ public class UserDBO {
     private String firstName;
     private String lastName;
     private int role;
-    private Long money;
+    private Double money;
 
-    public UserDBO(Long id, String login, String pass, String email, String firstName, String lastName, int role, Long money) {
+    public UserDBO(Long id, String login, String pass, String email, String firstName, String lastName, int role, Double money) {
         this.id = id;
         this.login = login;
         this.pass = pass;
@@ -81,11 +81,11 @@ public class UserDBO {
         this.role = role;
     }
 
-    public Long getMoney() {
+    public Double getMoney() {
         return money;
     }
 
-    public void setMoney(Long money) {
+    public void setMoney(Double money) {
         this.money = money;
     }
 

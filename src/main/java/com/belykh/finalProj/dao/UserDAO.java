@@ -23,7 +23,7 @@ public interface UserDAO {
 
     boolean deleteUser(String login) throws DAOException;
 
-    long findUserMoney(String login) throws DAOException;
+    Double findUserMoney(String login) throws DAOException;
 
-    boolean changeMoney(long money,String login) throws  DAOException;
+    boolean changeMoney(Double money,String login) throws  DAOException;
 }
