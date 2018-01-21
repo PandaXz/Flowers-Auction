@@ -10,7 +10,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${lang}" scope="session"/>
 <fmt:setBundle basename="text" var="rb"/>
-<header class="bg-dark">
+<div class="header">
+    <div class="row">
+        <div class="btn-group-xs pull-right" role="group">
+            <a href="auction?command=English_language" class="btn btn-xs btn-default" role="button">Eng</a>
+            <a href="auction?command=Russian_language" class="btn btn-xs btn-default" role="button">Рус</a>
+
+        </div>
+        <h1 class>Flowers Auctions</h1>
+
+    </div>
+</div>
+
+<!--<header class="bg-dark">
     <div class="card-body ">
         <div class="btn-group-sm row">
             <form action="controller">
@@ -37,3 +49,4 @@
         </div>
     </nav>
 </header>
+-->

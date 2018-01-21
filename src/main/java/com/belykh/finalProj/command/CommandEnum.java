@@ -1,7 +1,6 @@
 package com.belykh.finalProj.command;
 
-import com.belykh.finalProj.command.impl.AdminForwardCommand;
-import com.belykh.finalProj.command.impl.ForwardCommand;
+import com.belykh.finalProj.command.impl.*;
 
 /**
  * Created by panda on 16.11.17.
@@ -9,7 +8,12 @@ import com.belykh.finalProj.command.impl.ForwardCommand;
 public enum CommandEnum {
 
     FORWARD(new ForwardCommand()),
-    ADMIN_FORWARD(new AdminForwardCommand());
+    ADMIN_FORWARD(new AdminForwardCommand()),
+    LOGIN(new AuthorizationCommand()),
+    ENGLISH_LANGUAGE(new EnglishLanguageCommand()),
+    RUSSIAN_LANGUAGE(new RussianLanguageCommand()),
+    LOGOUT(new LogoutCommand()),
+    SIGNUP(new SignUpCommand());
 
     CommandEnum(ActionCommand command) {
         this.command = command;

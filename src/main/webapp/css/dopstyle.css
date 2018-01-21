@@ -1,0 +1,24 @@
+.header {
+    background-size:  cover;
+    background: #FFB500 url("../image/3.jpg") repeat-x;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+    padding: 25px;
+}
+.main{
+    background-color: #FFB500;
+    border-radius: 20px;
+    margin-top:5px;
+    margin-bottom: 5px;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    padding: 20px;
+}
+.footer {
+    background-size:  cover;
+    background: #FFB500 url("../image/3.jpg") repeat-x;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+    padding: 15px;
+    min-height: 20px;
+}
