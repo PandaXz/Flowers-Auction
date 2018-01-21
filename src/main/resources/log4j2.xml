@@ -2,10 +2,10 @@
 <Configuration strict="true" name="XMLConfigTest"
 >
     <Properties>
-        <Property name="filename">test.log</Property>
+        <Property name="filename">auction.log</Property>
         <Property name="logdir">${sys:catalina.base}/logs</Property>
-        <Property name="filename">${logdir}/hotel.log</Property>
-        <Property name="filePattern">${logdir}/hotel.%d{yyyy-MM-dd}.log.gz</Property>
+        <Property name="filename">${logdir}/auction.log</Property>
+        <Property name="filePattern">${logdir}/auction.%d{yyyy-MM-dd}.log.gz</Property>
     </Properties>
     <Appenders>
         <Appender type="Console" name="Console">
