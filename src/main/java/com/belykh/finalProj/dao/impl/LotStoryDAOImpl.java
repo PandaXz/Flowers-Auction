@@ -31,14 +31,18 @@ public class LotStoryDAOImpl implements LotStoryDAO {
 
     @Override
     public LotStoryDBO findLotStoryById(Long id) throws DAOException {
+        LotStoryDBO result = null;
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOTSTORY_BY_ID)) {
             statement.setLong(1,id);
             ResultSet resultSet = statement.executeQuery();
-            return createLotStory(resultSet);
+            if(resultSet.next()){
+                result=createLotStory(resultSet);
+            }
         } catch (SQLException |ConnectionPoolException e) {
             throw new DAOException(e);
         }
+        return result;
     }
 
     @Override

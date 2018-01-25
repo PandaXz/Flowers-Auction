@@ -27,14 +27,17 @@ public class FlowerDAOImpl implements FlowerDAO {
 
     @Override
     public FlowerDBO findFlowerById(Long id) throws DAOException {
+        FlowerDBO result = null;
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_FIND_FLOWER_BY_ID)) {
             statement.setLong(1,id);
             ResultSet resultSet = statement.executeQuery();
-            return createFlower(resultSet);
+            if(resultSet.next()){
+                result =createFlower(resultSet);}
         } catch (SQLException |ConnectionPoolException e) {
             throw new DAOException(e);
         }
+        return result;
     }
 
     @Override

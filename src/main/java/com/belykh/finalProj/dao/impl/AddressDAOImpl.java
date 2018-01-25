@@ -29,14 +29,18 @@ public class AddressDAOImpl implements AddressDAO {
 
     @Override
     public AddressDBO findAddressById(Long id) throws DAOException {
+        AddressDBO result = null;
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_FIND_ADDRESS_BY_ID)) {
             statement.setLong(1,id);
             ResultSet resultSet = statement.executeQuery();
-            return createAddress(resultSet);
+            if(resultSet.next()){
+                result= createAddress(resultSet);
+            }
         } catch (SQLException |ConnectionPoolException e) {
             throw new DAOException(e);
         }
+        return result;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.belykh.finalProj.command.impl.auction;
+package com.belykh.finalProj.command.impl.lot;
 
 import com.belykh.finalProj.command.ActionCommand;
 import com.belykh.finalProj.controller.AuctionServlet;
@@ -13,14 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class AuctionFullCommand implements ActionCommand {
+public class AcceptedLotListCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String result = null;
-        Long id = Long.decode(request.getParameter("id")) ;
         LotService service = ServiceFactory.getInstance().getLotService();
         try {
-            List<LotHeader> lotList = service.findAcceptedLotHeaders(id);
+            List<LotHeader> lotList = service.findAcceptedLotHeaders();
             if(lotList.isEmpty()){
                 request.setAttribute("errorLotListIsEmpty", AuctionServlet.messageManager.getProperty("message.errorLotListIsEmpty"));
                 request.setAttribute("lotList",null);
@@ -28,7 +27,7 @@ public class AuctionFullCommand implements ActionCommand {
                 request.setAttribute("errorLotListIsEmpty", null);
                 request.setAttribute("lotList",lotList);
             }
-            result= ConfigurationManager.getProperty("path.page.auction");
+            result= ConfigurationManager.getProperty("path.page.main");
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

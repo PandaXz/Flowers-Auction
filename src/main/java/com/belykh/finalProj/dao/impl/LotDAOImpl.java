@@ -6,6 +6,9 @@ import com.belykh.finalProj.entity.dbo.LotState;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
 import com.belykh.finalProj.pool.exception.ConnectionPoolException;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,17 +19,16 @@ import java.util.List;
  */
 public class LotDAOImpl implements LotDAO{
 
-    private static final String SQL_FIND_LOT_BY_ID="SELECT `id`,`auction_id_fk`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`description` FROM `lot` WHERE `lot`.`id`=?";
-    private static final String SQL_FIND_LOT_BY_ID_AND_STATE="SELECT `id`,`auction_id_fk`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`description` FROM `lot` WHERE `lot`.`id`=? AND `lot`.`state`=?";
-    private static final String SQL_FIND_ALL_LOTS="SELECT `id`,`auction_id_fk`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`description` FROM `lot`";
-    private static final String SQL_ADD_LOT = "INSERT INTO `lot` (auction_id_fk, buyer_id_fk, owner_id_fk, flowerType_id_fk, address_id_fk, start_price, current_price,state, `count`, description) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    private static final String SQL_FIND_LOT_BY_ID="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`id`=?";
+    private static final String SQL_FIND_LOTS_BY_STATE="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`state`=?";
+    private static final String SQL_FIND_ALL_LOTS="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot`";
+    private static final String SQL_ADD_LOT = "INSERT INTO `lot` (auction_id_fk, buyer_id_fk, owner_id_fk, flowerType_id_fk, address_id_fk, start_price, current_price,state, `count`,`end_datetime`, description) VALUES (?,?,?,?,?,?,?,?,?,?)";
     private static final String SQL_DELETE_LOT = "DELETE FROM `lot` WHERE `lot`.`id`=?";
     private static final String SQL_UPDATE_STATE = "UPDATE `lot` SET `lot`.`state` = ? WHERE `lot`.`id`=?";
     private static final String SQL_UPDATE_BUYER_AND_PRICE = "UPDATE `lot` SET `lot`.`buyer_id_fk` = ?, `lot`.`current_price`=? WHERE `lot`.`id`=?";
 
 
     private static final String LOT_ID="id";
-    private static final String LOT_AUCTION_ID="auction_id_fk";
     private static final String LOT_BUYER_ID="buyer_id_fk";
     private static final String LOT_OWNER_ID="owner_id_fk";
     private static final String LOT_FLOWER_ID="flowerType_id_fk";
@@ -35,19 +37,24 @@ public class LotDAOImpl implements LotDAO{
     private static final String LOT_CURRENT_PRICE="current_price";
     private static final String LOT_STATE="state";
     private static final String LOT_COUNT="count";
+    private static final String LOT_END="end_datetime";
     private static final String LOT_DESCRIPTION="description";
 
 
     @Override
     public LotDBO findLotById(Long id) throws DAOException {
+        LotDBO result = null;
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOT_BY_ID)) {
             statement.setLong(1,id);
             ResultSet resultSet = statement.executeQuery();
-            return createLot(resultSet);
+            if(resultSet.next()){
+                result =createLot(resultSet);
+            }
         } catch (SQLException |ConnectionPoolException e) {
             throw new DAOException(e);
         }
+        return result;
     }
 
     @Override
@@ -63,11 +70,11 @@ public class LotDAOImpl implements LotDAO{
     }
 
     @Override
-    public List<LotDBO> findAllLotsByStateAndId(Long id, LotState state) throws DAOException {
+    public List<LotDBO> findAllLotsByState(LotState state) throws DAOException {
+
         try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOT_BY_ID_AND_STATE)) {
-            statement.setLong(1,id);
-            statement.setString(2,state.toString());
+            PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOTS_BY_STATE)) {
+            statement.setString(1,state.toString());
             ResultSet resultSet = statement.executeQuery();
             return createLotsList(resultSet);
         } catch (SQLException |ConnectionPoolException e) {
@@ -128,8 +135,11 @@ public class LotDAOImpl implements LotDAO{
     }
 
     private List<LotDBO> createLotsList(ResultSet resultSet) throws SQLException {
+
+        Logger logger = LogManager.getLogger(LotDAOImpl.class);
         List<LotDBO> resultList = new ArrayList<>();
         while(resultSet.next()){
+            logger.debug("s");
             resultList.add(createLot(resultSet));
         }
         return resultList;
@@ -137,7 +147,6 @@ public class LotDAOImpl implements LotDAO{
 
     private LotDBO createLot(ResultSet resultSet) throws SQLException {
         Long id = resultSet.getLong(LOT_ID);
-        Long auctionId = resultSet.getLong(LOT_AUCTION_ID);
         Long buyerId = resultSet.getLong(LOT_BUYER_ID);
         Long ownerId = resultSet.getLong(LOT_OWNER_ID);
         Long flowerId = resultSet.getLong(LOT_FLOWER_ID);
@@ -146,20 +155,20 @@ public class LotDAOImpl implements LotDAO{
         Double startPrice = resultSet.getDouble(LOT_START_PRICE);
         LotState state = LotState.valueOf(resultSet.getString(LOT_STATE).toUpperCase());
         int count = resultSet.getInt(LOT_COUNT);
+        Date end = resultSet.getDate(LOT_END);
         String description = resultSet.getString(LOT_DESCRIPTION);
-
-        return new LotDBO(id,buyerId,auctionId,ownerId,flowerId,addressId,startPrice,currentPrice,state,count,description);
+        return new LotDBO(id,buyerId,ownerId,flowerId,addressId,startPrice,currentPrice,state,count,end,description);
     }
-    private void setStatement(PreparedStatement ps, LotDBO lotDBO) throws SQLException, DAOException {
-        ps.setLong(1, lotDBO.getAuctionId());
-        ps.setLong(2, lotDBO.getBuyerId());
-        ps.setLong(3, lotDBO.getOwnerId());
-        ps.setLong(4, lotDBO.getFlowerId());
-        ps.setLong(5, lotDBO.getAddressId());
-        ps.setDouble(6, lotDBO.getStartPrice());
-        ps.setDouble(7, lotDBO.getCurrentPrice());
-        ps.setString(8, lotDBO.getState().toString());
-        ps.setInt(9,lotDBO.getCount());
+    private void setStatement(PreparedStatement ps, LotDBO lotDBO) throws SQLException {
+        ps.setLong(1, lotDBO.getBuyerId());
+        ps.setLong(2, lotDBO.getOwnerId());
+        ps.setLong(3, lotDBO.getFlowerId());
+        ps.setLong(4, lotDBO.getAddressId());
+        ps.setDouble(5, lotDBO.getStartPrice());
+        ps.setDouble(6, lotDBO.getCurrentPrice());
+        ps.setString(7, lotDBO.getState().toString());
+        ps.setInt(8,lotDBO.getCount());
+        ps.setDate(9,new Date(lotDBO.getEnd().getTime()));
         ps.setString(10,lotDBO.getDescription());
     }
 }

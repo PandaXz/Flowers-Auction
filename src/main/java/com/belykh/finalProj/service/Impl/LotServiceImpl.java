@@ -16,16 +16,16 @@ import java.util.List;
 
 public class LotServiceImpl implements LotService {
     @Override
-    public List<LotHeader> findAcceptedLotHeaders(Long id) throws ServiceException {
+    public List<LotHeader> findAcceptedLotHeaders() throws ServiceException {
         List<LotHeader> result=null;
         LotDAO lotDAO = DAOFactory.getInstance().getLotDAO();
         try {
-            List<LotDBO> listLots = lotDAO.findAllLotsByStateAndId(id, LotState.ACCEPTED);
+            List<LotDBO> listLots = lotDAO.findAllLotsByState(LotState.ACCEPTED);
             result=new ArrayList<>();
             FlowerDAO flowerDAO = DAOFactory.getInstance().getFlowerDAO();
             for (LotDBO lot:listLots) {
                 FlowerDBO flower = flowerDAO.findFlowerById(lot.getFlowerId());
-                result.add(new LotHeader(lot.getId(),flower.getId(),flower.getName(),lot.getCurrentPrice(),lot.getState(),lot.getCount()));
+                result.add(new LotHeader(lot.getId(),flower.getId(),flower.getName(),lot.getCurrentPrice(),lot.getState(),lot.getCount(),lot.getEnd()));
             }
         } catch (DAOException e) {
             throw new ServiceException(e);

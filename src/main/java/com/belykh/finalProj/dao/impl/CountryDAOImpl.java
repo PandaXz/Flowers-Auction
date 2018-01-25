@@ -25,14 +25,18 @@ public class CountryDAOImpl implements CountryDAO {
 
     @Override
     public CountryDBO findCountryById(Long id) throws DAOException {
+        CountryDBO result=null;
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_FIND_COUNTRY_BY_ID)) {
             statement.setLong(1,id);
             ResultSet resultSet = statement.executeQuery();
-            return createCountry(resultSet);
+            if(resultSet.next()){
+                result= createCountry(resultSet);
+            }
         } catch (SQLException |ConnectionPoolException e) {
             throw new DAOException(e);
         }
+        return result;
     }
 
     @Override

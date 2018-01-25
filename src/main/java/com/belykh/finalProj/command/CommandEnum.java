@@ -2,7 +2,7 @@ package com.belykh.finalProj.command;
 
 import com.belykh.finalProj.command.impl.*;
 import com.belykh.finalProj.command.impl.auction.ActualAuctionsCommand;
-import com.belykh.finalProj.command.impl.auction.AuctionFullCommand;
+import com.belykh.finalProj.command.impl.lot.AcceptedLotListCommand;
 import com.belykh.finalProj.command.impl.auction.AuctionsCommand;
 
 /**
@@ -17,9 +17,7 @@ public enum CommandEnum {
     RUSSIAN_LANGUAGE(new RussianLanguageCommand()),
     LOGOUT(new LogoutCommand()),
     SIGNUP(new SignUpCommand()),
-    ACTUAL_AUCTION_LIST(new ActualAuctionsCommand()),
-    AUCTION_LIST(new AuctionsCommand()),
-    AUCTION_FULL(new AuctionFullCommand());
+    ACCEPTED_LOT_LIST(new AcceptedLotListCommand());
 
     CommandEnum(ActionCommand command) {
         this.command = command;

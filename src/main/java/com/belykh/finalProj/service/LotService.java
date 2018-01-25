@@ -6,5 +6,5 @@ import com.belykh.finalProj.exception.ServiceException;
 import java.util.List;
 
 public interface LotService {
-    List<LotHeader> findAcceptedLotHeaders(Long id) throws ServiceException;
+    List<LotHeader> findAcceptedLotHeaders() throws ServiceException;
 }

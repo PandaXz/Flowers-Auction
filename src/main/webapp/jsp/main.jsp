@@ -32,9 +32,9 @@
     <![endif]-->
 </head>
 <body>
-<c:if test="${ (empty auctionList) && (empty errorAuctionListIsEmpty) }">
+<c:if test="${ (empty lotList) && (empty errorLotListIsEmpty) }">
     <script language="JavaScript" type="text/javascript">
-        location="auction?command=actual_auction_list"
+        location="auction?command=accepted_lot_list"
     </script>
 </c:if>
 <c:import url="header.jsp"/>
@@ -44,28 +44,30 @@
         <div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12 main">
             <h2><fmt:message key="main.header" bundle="${rb}"/> </h2>
             <br>
-            <c:if test="${ not empty errorAuctionListIsEmpty}">
-                <div class="alert-danger alert">${errorAuctionListIsEmpty}</div>
+            <c:if test="${ not empty errorLotListIsEmpty}">
+                <div class="alert-danger alert">${errorLotListIsEmpty}</div>
             </c:if>
-            <c:if test="${not empty auctionList}">
+            <c:if test="${not empty lotList}">
                 <table class="table table-hover table-style">
                     <thead>
-                        <tr>
-                            <th><fmt:message key="main.start" bundle="${rb}"/></th>
-                            <th><fmt:message key="main.end" bundle="${rb}"/></th>
-                            <th><fmt:message key="main.description" bundle="${rb}"/></th>
-                        </tr>
+                    <tr>
+                        <th><fmt:message key="main.flowerName" bundle="${rb}"/></th>
+                        <th><fmt:message key="main.end" bundle="${rb}"/></th>
+                        <th><fmt:message key="main.count" bundle="${rb}"/></th>
+                        <th><fmt:message key="main.price" bundle="${rb}"/></th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${auctionList}" var="auction" varStatus="status">
+                    <c:forEach items="${lotList}" var="lot" varStatus="status">
 
-                            <tr onclick="relocate('auction?command=auction_full&id=${auction.id}')">
-                                <td><c:out value="${ auction.start }" /></td>
-                                <td><c:out value="${ auction.end }" /></td>
-                                <td><c:out value="${ auction.description }" /></td>
+                        <tr onclick="relocate('auction?command=lot_full&id=${lot.id}')">
+                            <td><c:out value="${ lot.flowerName }" /></td>
+                            <td><c:out value="${lot.end}"/></td>
+                            <td><c:out value="${ lot.count }" /></td>
+                            <td><c:out value="${ lot.currentPrice }" /></td>
 
-                            </tr>
-                        </c:forEach>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </c:if>

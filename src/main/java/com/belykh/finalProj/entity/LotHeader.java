@@ -2,6 +2,7 @@ package com.belykh.finalProj.entity;
 
 import com.belykh.finalProj.entity.dbo.LotState;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class LotHeader {
@@ -11,17 +12,27 @@ public class LotHeader {
     private Double currentPrice;
     private LotState state;
     private int count;
+    private Date end;
 
-    public LotHeader(Long id, Long flowerId, String flowerName, Double currentPrice, LotState state, int count) {
+    public LotHeader(Long id, Long flowerId, String flowerName, Double currentPrice, LotState state, int count, Date end) {
         this.id = id;
         this.flowerId = flowerId;
         this.flowerName = flowerName;
         this.currentPrice = currentPrice;
         this.state = state;
         this.count = count;
+        this.end = end;
     }
 
     public LotHeader() {
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
     }
 
     public Long getId() {
@@ -82,13 +93,14 @@ public class LotHeader {
                 Objects.equals(flowerId, lotHeader.flowerId) &&
                 Objects.equals(flowerName, lotHeader.flowerName) &&
                 Objects.equals(currentPrice, lotHeader.currentPrice) &&
-                state == lotHeader.state;
+                state == lotHeader.state &&
+                Objects.equals(end, lotHeader.end);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, flowerId, flowerName, currentPrice, state, count);
+        return Objects.hash(id, flowerId, flowerName, currentPrice, state, count, end);
     }
 
     @Override
@@ -100,6 +112,7 @@ public class LotHeader {
                 ", currentPrice=" + currentPrice +
                 ", state=" + state +
                 ", count=" + count +
+                ", end=" + end +
                 '}';
     }
 }

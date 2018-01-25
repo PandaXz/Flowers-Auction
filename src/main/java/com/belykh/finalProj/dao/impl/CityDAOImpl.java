@@ -28,14 +28,18 @@ public class CityDAOImpl implements CityDAO {
 
     @Override
     public CityDBO findCityById(Long id) throws DAOException {
+        CityDBO result = null;
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_FIND_CITY_BY_ID)) {
             statement.setLong(1,id);
             ResultSet resultSet = statement.executeQuery();
-            return createCity(resultSet);
+            if(resultSet.next()){
+                result= createCity(resultSet);
+            }
         } catch (SQLException |ConnectionPoolException e) {
             throw new DAOException(e);
         }
+        return result;
     }
 
     @Override

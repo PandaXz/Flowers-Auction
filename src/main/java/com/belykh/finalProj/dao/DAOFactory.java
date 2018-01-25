@@ -12,7 +12,6 @@ public class DAOFactory {
     private final CountryDAO countryDAO = new CountryDAOImpl();
     private final CityDAO cityDAO = new CityDAOImpl();
     private final AddressDAO addressDAO = new AddressDAOImpl();
-    private final AuctionDAO auctionDAO = new AuctionDAOImpl();
     private final FlowerDAO flowerDAO = new FlowerDAOImpl();
     private final LotStoryDAO lotStoryDAO = new LotStoryDAOImpl();
     private final LotDAO lotDAO = new LotDAOImpl();
@@ -52,7 +51,4 @@ public class DAOFactory {
         return addressDAO;
     }
 
-    public AuctionDAO getAuctionDAO() {
-        return auctionDAO;
-    }
 }

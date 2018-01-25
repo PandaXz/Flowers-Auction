@@ -17,7 +17,7 @@
             <a href="auction?command=Russian_language" class="btn btn-xs btn-default" role="button">Рус</a>
 
         </div>
-        <h1 class>Flowers Auctions</h1>
+        <h1 class>Flowers Auction</h1>
 
     </div>
 </div>
