@@ -10,7 +10,7 @@
     border-radius: 20px;
     margin-top:5px;
     margin-bottom: 5px;
-    color: white;
+    color: #fff;
     text-shadow: 2px 2px 4px #000000;
     padding: 20px;
 }
@@ -21,4 +21,13 @@
     text-shadow: 2px 2px 4px #000000;
     padding: 15px;
     min-height: 20px;
+}
+.label-notification{
+    text-shadow: none;
+}
+.table-style{
+    background-color: #fff;
+    color: #000;
+    text-shadow: none;
+    border-radius: 10px;
 }

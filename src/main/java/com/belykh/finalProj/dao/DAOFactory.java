@@ -15,12 +15,17 @@ public class DAOFactory {
     private final AuctionDAO auctionDAO = new AuctionDAOImpl();
     private final FlowerDAO flowerDAO = new FlowerDAOImpl();
     private final LotStoryDAO lotStoryDAO = new LotStoryDAOImpl();
+    private final LotDAO lotDAO = new LotDAOImpl();
 
     public static DAOFactory getInstance() {
         return instance;
     }
 
     private DAOFactory() {
+    }
+
+    public LotDAO getLotDAO() {
+        return lotDAO;
     }
 
     public UserDAO getUserDAO() {

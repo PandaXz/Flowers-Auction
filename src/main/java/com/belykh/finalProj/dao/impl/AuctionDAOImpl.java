@@ -1,7 +1,7 @@
 package com.belykh.finalProj.dao.impl;
 
 import com.belykh.finalProj.dao.AuctionDAO;
-import com.belykh.finalProj.entity.AuctionDBO;
+import com.belykh.finalProj.entity.dbo.AuctionDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
 import com.belykh.finalProj.pool.exception.ConnectionPoolException;
@@ -20,7 +20,7 @@ public class AuctionDAOImpl implements AuctionDAO {
     private static final String SQL_FIND_ALL_AUCTIONS="SELECT `auction`.`id`,`auction`.`start_datetime`,`auction`.`end_datetime`,`auction`.`description` FROM `auction`";
     private static final String SQL_ADD_AUCTION = "INSERT INTO `auction` (start_datetime, end_datetime, description) VALUES (?,?,?)";
     private static final String SQL_DELETE_AUCTION = "DELETE FROM `auction` WHERE `auction`.`id`=?";
-    private static final String SQL_FIND_ACTUAL_AUCTIONS="SELECT `auction`.`id`, `auction`.`start_datetime` AS `start`, `auction`.`end_datetime`   AS `end`, `auction`.`description` FROM `auction` WHERE  NOW() BETWEEN `auction`.`start_datetime` AND `auction`.`end_datetime`";
+    private static final String SQL_FIND_ACTUAL_AUCTIONS="SELECT `auction`.`id`, `auction`.`start_datetime` , `auction`.`end_datetime` , `auction`.`description` FROM `auction` WHERE  NOW() <= `auction`.`end_datetime`";
 
 
     private static final String AUCTION_ID="id";
@@ -51,6 +51,7 @@ public class AuctionDAOImpl implements AuctionDAO {
             throw new DAOException(e);
         }
     }
+
 
     @Override
     public List<AuctionDBO> findActualAuctions() throws DAOException {

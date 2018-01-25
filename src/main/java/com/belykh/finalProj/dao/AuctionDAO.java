@@ -1,6 +1,6 @@
 package com.belykh.finalProj.dao;
 
-import com.belykh.finalProj.entity.AuctionDBO;
+import com.belykh.finalProj.entity.dbo.AuctionDBO;
 import com.belykh.finalProj.exception.DAOException;
 
 import java.util.List;

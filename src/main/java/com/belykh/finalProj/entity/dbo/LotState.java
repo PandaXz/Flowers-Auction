@@ -1,4 +1,4 @@
-package com.belykh.finalProj.entity;
+package com.belykh.finalProj.entity.dbo;
 
 /**
  * Created by panda on 14.1.18.

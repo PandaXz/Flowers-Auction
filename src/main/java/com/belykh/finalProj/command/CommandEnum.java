@@ -1,6 +1,9 @@
 package com.belykh.finalProj.command;
 
 import com.belykh.finalProj.command.impl.*;
+import com.belykh.finalProj.command.impl.auction.ActualAuctionsCommand;
+import com.belykh.finalProj.command.impl.auction.AuctionFullCommand;
+import com.belykh.finalProj.command.impl.auction.AuctionsCommand;
 
 /**
  * Created by panda on 16.11.17.
@@ -13,7 +16,10 @@ public enum CommandEnum {
     ENGLISH_LANGUAGE(new EnglishLanguageCommand()),
     RUSSIAN_LANGUAGE(new RussianLanguageCommand()),
     LOGOUT(new LogoutCommand()),
-    SIGNUP(new SignUpCommand());
+    SIGNUP(new SignUpCommand()),
+    ACTUAL_AUCTION_LIST(new ActualAuctionsCommand()),
+    AUCTION_LIST(new AuctionsCommand()),
+    AUCTION_FULL(new AuctionFullCommand());
 
     CommandEnum(ActionCommand command) {
         this.command = command;

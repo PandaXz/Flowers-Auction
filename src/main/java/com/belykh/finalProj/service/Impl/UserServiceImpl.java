@@ -2,7 +2,7 @@ package com.belykh.finalProj.service.Impl;
 
 import com.belykh.finalProj.dao.DAOFactory;
 import com.belykh.finalProj.dao.UserDAO;
-import com.belykh.finalProj.entity.UserDBO;
+import com.belykh.finalProj.entity.dbo.UserDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.UserService;

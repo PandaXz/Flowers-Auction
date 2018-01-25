@@ -65,6 +65,7 @@
                     <label for="fname"><fmt:message key="registration.lastName" bundle="${rb}"/></label>
                     <input type="text" class="form-control" id="lname" name="lname" />
                 </div>
+                <a href="auction?command=forward&page=login" class="label-notification" role="button"><fmt:message key="registration.hasAccount" bundle="${rb}"/></a>
                 <c:choose>
                     <c:when test="${ not empty errorRegistrationMessage }">
                         <div class="alert-danger alert">${errorRegistrationMessage}</div>

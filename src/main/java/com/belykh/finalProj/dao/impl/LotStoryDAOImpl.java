@@ -1,7 +1,7 @@
 package com.belykh.finalProj.dao.impl;
 
 import com.belykh.finalProj.dao.LotStoryDAO;
-import com.belykh.finalProj.entity.LotStoryDBO;
+import com.belykh.finalProj.entity.dbo.LotStoryDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
 import com.belykh.finalProj.pool.exception.ConnectionPoolException;

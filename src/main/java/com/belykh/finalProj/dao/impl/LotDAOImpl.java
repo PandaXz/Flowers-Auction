@@ -1,8 +1,8 @@
 package com.belykh.finalProj.dao.impl;
 
 import com.belykh.finalProj.dao.LotDAO;
-import com.belykh.finalProj.entity.LotDBO;
-import com.belykh.finalProj.entity.LotState;
+import com.belykh.finalProj.entity.dbo.LotDBO;
+import com.belykh.finalProj.entity.dbo.LotState;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
 import com.belykh.finalProj.pool.exception.ConnectionPoolException;
@@ -17,6 +17,7 @@ import java.util.List;
 public class LotDAOImpl implements LotDAO{
 
     private static final String SQL_FIND_LOT_BY_ID="SELECT `id`,`auction_id_fk`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`description` FROM `lot` WHERE `lot`.`id`=?";
+    private static final String SQL_FIND_LOT_BY_ID_AND_STATE="SELECT `id`,`auction_id_fk`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`description` FROM `lot` WHERE `lot`.`id`=? AND `lot`.`state`=?";
     private static final String SQL_FIND_ALL_LOTS="SELECT `id`,`auction_id_fk`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`description` FROM `lot`";
     private static final String SQL_ADD_LOT = "INSERT INTO `lot` (auction_id_fk, buyer_id_fk, owner_id_fk, flowerType_id_fk, address_id_fk, start_price, current_price,state, `count`, description) VALUES (?,?,?,?,?,?,?,?,?,?)";
     private static final String SQL_DELETE_LOT = "DELETE FROM `lot` WHERE `lot`.`id`=?";
@@ -61,6 +62,18 @@ public class LotDAOImpl implements LotDAO{
         }
     }
 
+    @Override
+    public List<LotDBO> findAllLotsByStateAndId(Long id, LotState state) throws DAOException {
+        try(Connection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOT_BY_ID_AND_STATE)) {
+            statement.setLong(1,id);
+            statement.setString(2,state.toString());
+            ResultSet resultSet = statement.executeQuery();
+            return createLotsList(resultSet);
+        } catch (SQLException |ConnectionPoolException e) {
+            throw new DAOException(e);
+        }
+    }
 
 
     @Override

@@ -1,6 +1,6 @@
 package com.belykh.finalProj.dao;
 
-import com.belykh.finalProj.entity.LotStoryDBO;
+import com.belykh.finalProj.entity.dbo.LotStoryDBO;
 import com.belykh.finalProj.exception.DAOException;
 
 import java.util.List;

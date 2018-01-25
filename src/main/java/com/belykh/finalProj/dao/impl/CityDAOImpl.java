@@ -1,7 +1,7 @@
 package com.belykh.finalProj.dao.impl;
 
 import com.belykh.finalProj.dao.CityDAO;
-import com.belykh.finalProj.entity.CityDBO;
+import com.belykh.finalProj.entity.dbo.CityDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
 import com.belykh.finalProj.pool.exception.ConnectionPoolException;

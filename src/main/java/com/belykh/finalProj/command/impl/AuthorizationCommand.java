@@ -2,7 +2,7 @@ package com.belykh.finalProj.command.impl;
 
 import com.belykh.finalProj.command.ActionCommand;
 import com.belykh.finalProj.controller.AuctionServlet;
-import com.belykh.finalProj.entity.UserDBO;
+import com.belykh.finalProj.entity.dbo.UserDBO;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.manager.ConfigurationManager;

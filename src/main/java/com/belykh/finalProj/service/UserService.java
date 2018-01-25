@@ -1,6 +1,6 @@
 package com.belykh.finalProj.service;
 
-import com.belykh.finalProj.entity.UserDBO;
+import com.belykh.finalProj.entity.dbo.UserDBO;
 import com.belykh.finalProj.exception.ServiceException;
 
 public interface UserService {

@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title><fmt:message key="main.title" bundle="${rb}"/> </title>
+    <title><fmt:message key="auction.title" bundle="${rb}"/> </title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -32,7 +32,7 @@
     <![endif]-->
 </head>
 <body>
-<c:if test="${ (empty auctionList) && (empty errorAuctionListIsEmpty) }">
+<c:if test="${ (empty lotList) && (empty errorLotListIsEmpty) }">
     <script language="JavaScript" type="text/javascript">
         location="auction?command=actual_auction_list"
     </script>
@@ -42,30 +42,27 @@
     <div class="row">
 
         <div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12 main">
-            <h2><fmt:message key="main.header" bundle="${rb}"/> </h2>
+            <h2><fmt:message key="auction.header" bundle="${rb}"/> </h2>
             <br>
-            <c:if test="${ not empty errorAuctionListIsEmpty}">
-                <div class="alert-danger alert">${errorAuctionListIsEmpty}</div>
+            <c:if test="${ not empty errorLotListIsEmpty}">
+                <div class="alert-danger alert">${errorLotListIsEmpty}</div>
             </c:if>
-            <c:if test="${not empty auctionList}">
+            <c:if test="${not empty lotList}">
                 <table class="table table-hover table-style">
                     <thead>
-                        <tr>
-                            <th><fmt:message key="main.start" bundle="${rb}"/></th>
-                            <th><fmt:message key="main.end" bundle="${rb}"/></th>
-                            <th><fmt:message key="main.description" bundle="${rb}"/></th>
-                        </tr>
+                    <tr>
+                    </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${auctionList}" var="auction" varStatus="status">
+                    <c:forEach items="${lotList}" var="lot" varStatus="status">
 
-                            <tr onclick="relocate('auction?command=auction_full&id=${auction.id}')">
-                                <td><c:out value="${ auction.start }" /></td>
-                                <td><c:out value="${ auction.end }" /></td>
-                                <td><c:out value="${ auction.description }" /></td>
+                        <tr onclick="relocate('auction?command=lot_full&id=${lot.id}')">
+                            <td><c:out value="${ lot.flowerName }" /></td>
+                            <td><c:out value="${ lot.currentPrice }" /></td>
+                            <td><c:out value="${ lot.count }" /></td>
 
-                            </tr>
-                        </c:forEach>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </c:if>

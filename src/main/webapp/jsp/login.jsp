@@ -47,7 +47,7 @@
                         <label for="password"><fmt:message key="login.password" bundle="${rb}"/> </label>
                         <input type="password" class="form-control" id="password" name="password" pattern="^\w+$" required>
                     </div>
-                    <a href="auction?command=forward&page=registration" class="" role="button"><fmt:message key="login.noAccount" bundle="${rb}"/></a>
+                    <a href="auction?command=forward&page=registration" class="label-notification" role="button"><fmt:message key="login.noAccount" bundle="${rb}"/></a>
                     <c:choose>
                         <c:when test="${ not empty errorLoginPassMessage }">
                             <div class="alert-danger alert">${errorLoginPassMessage}</div>
