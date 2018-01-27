@@ -21,32 +21,3 @@
 
     </div>
 </div>
-
-<!--<header class="bg-dark">
-    <div class="card-body ">
-        <div class="btn-group-sm row">
-            <form action="controller">
-                <input type="hidden" name="command" value="English_language">
-                <button class="btn" type="submit">Eng</button>
-            </form>
-            <form action="controller">
-                <input type="hidden" name="command" value="Russian_language">
-                <button class="btn" type="submit">Рус</button>
-            </form>
-            <c:if test="${not empty iduser && empty isLogin}">
-                <form action="controller">
-                    <input type="hidden" name="command" value="LOGOUT">
-                    <button class="btn" type="submit"><fmt:message key="header.logout" bundle="${rb}"/></button>
-                </form>
-            </c:if>
-        </div>
-    </div>
-    <nav class="navbar navbar-dark">
-        <div class="container-fluid">
-            <div class="header-content">
-
-            </div>
-        </div>
-    </nav>
-</header>
--->

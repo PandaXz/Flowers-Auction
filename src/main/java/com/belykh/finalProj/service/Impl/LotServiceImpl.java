@@ -32,4 +32,41 @@ public class LotServiceImpl implements LotService {
         }
         return result;
     }
+
+    @Override
+    public List<LotHeader> findAcceptedLotHeaders(Long ownerId) throws ServiceException {
+        return findLotHeadersByStateAndOwnerId(ownerId,LotState.ACCEPTED);
+    }
+
+    @Override
+    public List<LotHeader> findSoldLotHeaders(Long ownerId) throws ServiceException {
+        return findLotHeadersByStateAndOwnerId(ownerId,LotState.SOLD);
+    }
+
+    @Override
+    public List<LotHeader> findDeniedLotHeaders(Long ownerId) throws ServiceException {
+        return findLotHeadersByStateAndOwnerId(ownerId,LotState.DENIED);
+    }
+
+    @Override
+    public List<LotHeader> findAddedLotHeaders(Long ownerId) throws ServiceException {
+        return findLotHeadersByStateAndOwnerId(ownerId,LotState.ADDED);
+    }
+
+    private List<LotHeader> findLotHeadersByStateAndOwnerId(Long ownerId,LotState state) throws ServiceException {
+        List<LotHeader> result=null;
+        LotDAO lotDAO = DAOFactory.getInstance().getLotDAO();
+        try {
+            List<LotDBO> listLots = lotDAO.findAllLotsByStateAndOwnerId(ownerId,state);
+            result=new ArrayList<>();
+            FlowerDAO flowerDAO = DAOFactory.getInstance().getFlowerDAO();
+            for (LotDBO lot:listLots) {
+                FlowerDBO flower = flowerDAO.findFlowerById(lot.getFlowerId());
+                result.add(new LotHeader(lot.getId(),flower.getId(),flower.getName(),lot.getCurrentPrice(),lot.getState(),lot.getCount(),lot.getEnd()));
+            }
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
 }

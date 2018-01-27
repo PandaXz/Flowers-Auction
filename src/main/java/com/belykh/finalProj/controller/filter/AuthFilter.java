@@ -30,11 +30,11 @@ public class AuthFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        HttpSession session = httpServletRequest.getSession();
+        HttpSession session = httpServletRequest.getSession(false);
 
         boolean pass = true;
         int role = 0;
-        if (session.getAttribute("role") != null) {
+        if (session!=null&& session.getAttribute("role") != null) {
             role = (Integer) session.getAttribute("role");
         }
 

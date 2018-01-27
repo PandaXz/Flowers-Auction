@@ -21,6 +21,7 @@ public class LotDAOImpl implements LotDAO{
 
     private static final String SQL_FIND_LOT_BY_ID="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`id`=?";
     private static final String SQL_FIND_LOTS_BY_STATE="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`state`=?";
+    private static final String SQL_FIND_LOTS_BY_STATE_AND_OWNER_ID="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`owner_id_fk`=? AND `lot`.`state`=?";
     private static final String SQL_FIND_ALL_LOTS="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot`";
     private static final String SQL_ADD_LOT = "INSERT INTO `lot` (auction_id_fk, buyer_id_fk, owner_id_fk, flowerType_id_fk, address_id_fk, start_price, current_price,state, `count`,`end_datetime`, description) VALUES (?,?,?,?,?,?,?,?,?,?)";
     private static final String SQL_DELETE_LOT = "DELETE FROM `lot` WHERE `lot`.`id`=?";
@@ -75,6 +76,19 @@ public class LotDAOImpl implements LotDAO{
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOTS_BY_STATE)) {
             statement.setString(1,state.toString());
+            ResultSet resultSet = statement.executeQuery();
+            return createLotsList(resultSet);
+        } catch (SQLException |ConnectionPoolException e) {
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public List<LotDBO> findAllLotsByStateAndOwnerId(Long ownerId, LotState state) throws DAOException {
+        try(Connection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOTS_BY_STATE_AND_OWNER_ID)) {
+            statement.setLong(1,ownerId);
+            statement.setString(2,state.toString());
             ResultSet resultSet = statement.executeQuery();
             return createLotsList(resultSet);
         } catch (SQLException |ConnectionPoolException e) {

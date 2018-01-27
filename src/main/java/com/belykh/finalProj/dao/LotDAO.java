@@ -13,7 +13,8 @@ public interface LotDAO {
 
     LotDBO findLotById(Long id) throws DAOException;
     List<LotDBO> findAllLots() throws DAOException;
-    public List<LotDBO> findAllLotsByState(LotState state) throws DAOException;
+    List<LotDBO> findAllLotsByState(LotState state) throws DAOException;
+    List<LotDBO> findAllLotsByStateAndOwnerId(Long ownerId,LotState state) throws DAOException;
     boolean changeBuyerAndPrice(Long id,Long userId,Double newPrice) throws DAOException;
     boolean changeState(Long id,LotState state) throws DAOException;
 

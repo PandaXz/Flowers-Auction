@@ -63,14 +63,16 @@ public class AuctionServlet extends HttpServlet {
         }
 
         String page = null;
-        CommandProvider provider = new CommandProvider();
-        ActionCommand command = provider.getCommand(request);
-        try {
-            page = command.execute(request, response);
-        } catch (CommandException e) {
-            logger.log(Level.ERROR, e);
+        if(request.getSession(false)!=null){
+            logger.log(Level.DEBUG, "session is available");
+            CommandProvider provider = new CommandProvider();
+            ActionCommand command = provider.getCommand(request);
+            try {
+                page = command.execute(request, response);
+            } catch (CommandException e) {
+                logger.log(Level.ERROR, e);
+            }
         }
-
 
         if (page != null) {
             if(request.getAttribute("redirect")!=null) {
