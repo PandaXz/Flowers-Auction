@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class FlowerDAOImpl implements FlowerDAO {
 
-    private static final String SQL_FIND_FLOWER_BY_ID="SELECT `flowerType`.`id`,`flowerType`.`name`,`flowerType`.description FROM `flowerType` WHERE `flowerType`.`id`=?";
-    private static final String SQL_FIND_ALL_FLOWERS="SELECT `flowerType`.`id`,`flowerType`.`name`,`flowerType`.description FROM `flowerType` ";
-    private static final String SQL_ADD_FLOWER = "INSERT INTO `flowerType` (`name`, `description`) VALUES (?,?)";
+    private static final String SQL_FIND_FLOWER_BY_ID="SELECT `flowerType`.`id`,`flowerType`.`name` FROM `flowerType` WHERE `flowerType`.`id`=?";
+    private static final String SQL_FIND_ALL_FLOWERS="SELECT `flowerType`.`id`,`flowerType`.`name` FROM `flowerType` ";
+    private static final String SQL_ADD_FLOWER = "INSERT INTO `flowerType` (`name`) VALUES (?)";
     private static final String SQL_DELETE_FLOWER = "DELETE FROM `flowerType` WHERE `flowerType`.`id`=?";
 
 
@@ -85,11 +85,9 @@ public class FlowerDAOImpl implements FlowerDAO {
     private FlowerDBO createFlower(ResultSet resultSet) throws SQLException {
         Long id = resultSet.getLong(FLOWER_ID);
         String name = resultSet.getString(FLOWER_NAME);
-        String desc = resultSet.getString(FLOWER_DESCRIPTION);
-        return new FlowerDBO(id,name,desc);
+        return new FlowerDBO(id,name);
     }
     private void setStatement(PreparedStatement ps, FlowerDBO flowerDBO) throws SQLException, DAOException {
         ps.setString(1, flowerDBO.getName());
-        ps.setString(2, flowerDBO.getDescription());
     }
 }

@@ -169,7 +169,7 @@ public class LotDAOImpl implements LotDAO{
         Double startPrice = resultSet.getDouble(LOT_START_PRICE);
         LotState state = LotState.valueOf(resultSet.getString(LOT_STATE).toUpperCase());
         int count = resultSet.getInt(LOT_COUNT);
-        Date end = resultSet.getDate(LOT_END);
+        java.util.Date end = resultSet.getTimestamp(LOT_END);
         String description = resultSet.getString(LOT_DESCRIPTION);
         return new LotDBO(id,buyerId,ownerId,flowerId,addressId,startPrice,currentPrice,state,count,end,description);
     }

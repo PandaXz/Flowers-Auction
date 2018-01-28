@@ -2,6 +2,7 @@ package com.belykh.finalProj.service.Impl;
 
 import com.belykh.finalProj.dao.DAOFactory;
 import com.belykh.finalProj.dao.UserDAO;
+import com.belykh.finalProj.entity.UserInfo;
 import com.belykh.finalProj.entity.dbo.UserDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.exception.ServiceException;
@@ -44,6 +45,56 @@ public class UserServiceImpl implements UserService {
                     throw new ServiceException(e);
                 }
             }
+        return result;
+    }
+
+    @Override
+    public UserInfo findUserInfo(String login) throws ServiceException {
+        UserInfo result = null;
+        UserDAO dao = DAOFactory.getInstance().getUserDAO();
+        try {
+            UserDBO user = dao.findUserByLogin(login);
+            if(user !=null){
+                result = new UserInfo(user.getId(),user.getLogin(),user.getEmail(),user.getFirstName(),user.getLastName(),user.getMoney());
+            }
+
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean changeUserInfo(String login,String email, String firstName,String lastName) throws ServiceException {
+        boolean result = false;
+        UserDAO dao = DAOFactory.getInstance().getUserDAO();
+        try {
+            UserDBO user= dao.findUserByLogin(login);
+            user.setEmail(email);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            result= dao.changeUserInfo(user);
+
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean changePassword(String login, String newPass, String newPassRepeat) throws ServiceException {
+        boolean result = false;
+        if(newPass.equals(newPassRepeat)){
+            UserDAO dao = DAOFactory.getInstance().getUserDAO();
+            try {
+                if(newPass.equals(newPassRepeat)) {
+                    result = dao.changePassword(login, MD5Util.getInstance().getMD5Hash(newPass));
+                }
+            } catch (DAOException e) {
+                throw new ServiceException(e);
+            }
+        }
         return result;
     }
 }

@@ -1,5 +1,6 @@
 package com.belykh.finalProj.dao;
 
+import com.belykh.finalProj.entity.UserInfo;
 import com.belykh.finalProj.entity.dbo.UserDBO;
 import com.belykh.finalProj.exception.DAOException;
 
@@ -19,11 +20,13 @@ public interface UserDAO {
 
     boolean isLoginFree(String login) throws DAOException;
 
-    boolean updatePassword(String login, String newPass) throws DAOException;
+    boolean changePassword(String login, String newPass) throws DAOException;
 
     boolean deleteUser(String login) throws DAOException;
 
     Double findUserMoney(String login) throws DAOException;
 
     boolean changeMoney(Double money,String login) throws  DAOException;
+
+    boolean changeUserInfo(UserDBO user) throws DAOException;
 }

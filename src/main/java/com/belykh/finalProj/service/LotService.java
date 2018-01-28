@@ -1,5 +1,6 @@
 package com.belykh.finalProj.service;
 
+import com.belykh.finalProj.entity.LotFull;
 import com.belykh.finalProj.entity.LotHeader;
 import com.belykh.finalProj.exception.ServiceException;
 
@@ -11,5 +12,5 @@ public interface LotService {
     List<LotHeader> findSoldLotHeaders(Long ownerId) throws ServiceException;
     List<LotHeader> findDeniedLotHeaders(Long ownerId) throws ServiceException;
     List<LotHeader> findAddedLotHeaders(Long ownerId) throws ServiceException;
-
+   // LotFull findFullLotInfo(Long id) throws ServiceException;
 }

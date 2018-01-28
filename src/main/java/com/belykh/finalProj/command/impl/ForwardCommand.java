@@ -17,6 +17,11 @@ public class ForwardCommand implements ActionCommand {
         String requestPage = null;
         if (page != null) {
             switch (page) {
+
+                case "change_password":{
+                    requestPage = ConfigurationManager.getProperty("path.page.change_password");
+                    break;
+                }
                 case "login":{
                     requestPage = ConfigurationManager.getProperty("path.page.login");
                     break;

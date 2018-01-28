@@ -29,6 +29,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String SQL_ADD_USER = "INSERT INTO `user` (`login`, `password_hash`, `email`, `first_name`, `last_name`, `role`, `money`) VALUES (?,?,?,?,?,?,?)";
     private static final String SQL_UPDATE_PASSWORD = "UPDATE `user` SET `user`.`password_hash` = ? WHERE `user`.`login`=?";
     private static final String SQL_UPDATE_MONEY = "UPDATE `user` SET `user`.`money` = ? WHERE `user`.`login`=?";
+    private static final String SQL_UPDATE_USER_INFO = "UPDATE `user` SET `user`.`email` = ?,`user`.`first_name` = ?,`user`.`last_name` = ? WHERE `user`.`login`=?";
 
     private static final String USER_ID = "id";
     private static final String USER_FIRST_NAME = "first_name";
@@ -106,14 +107,13 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-    @Override public boolean updatePassword(String login, String newPass) throws DAOException {
+    @Override public boolean changePassword(String login, String newPass) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PASSWORD)) {
             statement.setString(1,newPass);
             statement.setString(2,login);
-            ResultSet resultSet = statement.executeQuery();
-            return !resultSet.next();
 
+            return (statement.executeUpdate()!=0);
         } catch (SQLException|ConnectionPoolException e) {
             throw new DAOException(e);
         }
@@ -151,8 +151,22 @@ public class UserDAOImpl implements UserDAO {
             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_MONEY)) {
             statement.setDouble(1,money);
             statement.setString(2,login);
-            ResultSet resultSet = statement.executeQuery();
-            return !resultSet.next();
+            return (statement.executeUpdate()!=0);
+
+        } catch (SQLException|ConnectionPoolException e) {
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public boolean changeUserInfo(UserDBO user) throws DAOException {
+        try(Connection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER_INFO)) {
+            statement.setString(1,user.getEmail());
+            statement.setString(2,user.getFirstName());
+            statement.setString(3,user.getLastName());
+            statement.setString(4,user.getLogin());
+            return (statement.executeUpdate()!=0);
 
         } catch (SQLException|ConnectionPoolException e) {
             throw new DAOException(e);

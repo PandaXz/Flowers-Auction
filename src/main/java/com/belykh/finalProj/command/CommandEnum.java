@@ -1,10 +1,12 @@
 package com.belykh.finalProj.command;
 
 import com.belykh.finalProj.command.impl.*;
-import com.belykh.finalProj.command.impl.auction.ActualAuctionsCommand;
 import com.belykh.finalProj.command.impl.lot.AcceptedLotListCommand;
-import com.belykh.finalProj.command.impl.auction.AuctionsCommand;
 import com.belykh.finalProj.command.impl.lot.AcceptedUserLotListCommand;
+import com.belykh.finalProj.command.impl.user.ChangePasswordCommand;
+import com.belykh.finalProj.command.impl.user.ChangeUserInfoCommand;
+import com.belykh.finalProj.command.impl.user.UserInfoCommand;
+import com.belykh.finalProj.command.impl.user.UserInfoForChangeCommand;
 
 /**
  * Created by panda on 16.11.17.
@@ -19,7 +21,11 @@ public enum CommandEnum {
     LOGOUT(new LogoutCommand()),
     SIGNUP(new SignUpCommand()),
     ACCEPTED_LOT_LIST(new AcceptedLotListCommand()),
-    ACCEPTED_USER_LOT_LIST(new AcceptedUserLotListCommand());
+    ACCEPTED_USER_LOT_LIST(new AcceptedUserLotListCommand()),
+    USER_INFO(new UserInfoCommand()),
+    USER_INFO_FOR_CHANGE(new UserInfoForChangeCommand()),
+    CHANGE_USER_INFO(new ChangeUserInfoCommand()),
+    CHANGE_PASSWORD(new ChangePasswordCommand());
 
     CommandEnum(ActionCommand command) {
         this.command = command;

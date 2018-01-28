@@ -45,8 +45,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><c:out value="${user}"/> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Account</a></li>
-                        <li><a href="#">Change password</a></li>
+                        <li><a href="auction?command=user_info">Info</a></li>
+                        <li><a href="auction?command=forward&page=change_password">Change password</a></li>
                     </ul>
                 </li>
                 <li><a href="auction?command=logout">Logout</a></li>

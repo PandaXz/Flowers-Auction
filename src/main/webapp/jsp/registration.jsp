@@ -62,7 +62,7 @@
                     <input type="text" class="form-control" id="fname" name="fname" />
                 </div>
                 <div class="form-group">
-                    <label for="fname"><fmt:message key="registration.lastName" bundle="${rb}"/></label>
+                    <label for="lname"><fmt:message key="registration.lastName" bundle="${rb}"/></label>
                     <input type="text" class="form-control" id="lname" name="lname" />
                 </div>
                 <a href="auction?command=forward&page=login" class="label-notification" role="button"><fmt:message key="registration.hasAccount" bundle="${rb}"/></a>

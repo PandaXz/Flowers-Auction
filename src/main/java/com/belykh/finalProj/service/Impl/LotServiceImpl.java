@@ -3,6 +3,7 @@ package com.belykh.finalProj.service.Impl;
 import com.belykh.finalProj.dao.DAOFactory;
 import com.belykh.finalProj.dao.FlowerDAO;
 import com.belykh.finalProj.dao.LotDAO;
+import com.belykh.finalProj.entity.LotFull;
 import com.belykh.finalProj.entity.LotHeader;
 import com.belykh.finalProj.entity.dbo.FlowerDBO;
 import com.belykh.finalProj.entity.dbo.LotDBO;
@@ -52,6 +53,21 @@ public class LotServiceImpl implements LotService {
     public List<LotHeader> findAddedLotHeaders(Long ownerId) throws ServiceException {
         return findLotHeadersByStateAndOwnerId(ownerId,LotState.ADDED);
     }
+
+//    @Override
+//    public LotFull findFullLotInfo(Long id) throws ServiceException {
+//        LotFull result=null;
+//        LotDAO lotDAO = DAOFactory.getInstance().getLotDAO();
+//        FlowerDAO flowerDAO = DAOFactory.getInstance().getFlowerDAO();
+//        try {
+//            LotDBO lot =  lotDAO.findLotById(id);
+//            FlowerDBO flower = flowerDAO.findFlowerById(lot.getFlowerId());
+//
+//        } catch (DAOException e) {
+//            throw new ServiceException(e);
+//        }
+//        return result;
+//    }
 
     private List<LotHeader> findLotHeadersByStateAndOwnerId(Long ownerId,LotState state) throws ServiceException {
         List<LotHeader> result=null;
