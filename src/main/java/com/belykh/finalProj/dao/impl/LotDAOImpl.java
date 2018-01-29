@@ -26,8 +26,8 @@ public class LotDAOImpl implements LotDAO{
     private static final String SQL_ADD_LOT = "INSERT INTO `lot` (auction_id_fk, buyer_id_fk, owner_id_fk, flowerType_id_fk, address_id_fk, start_price, current_price,state, `count`,`end_datetime`, description) VALUES (?,?,?,?,?,?,?,?,?,?)";
     private static final String SQL_DELETE_LOT = "DELETE FROM `lot` WHERE `lot`.`id`=?";
     private static final String SQL_UPDATE_STATE = "UPDATE `lot` SET `lot`.`state` = ? WHERE `lot`.`id`=?";
-    private static final String SQL_UPDATE_BUYER_AND_PRICE = "UPDATE `lot` SET `lot`.`buyer_id_fk` = ?, `lot`.`current_price`=? WHERE `lot`.`id`=?";
-
+    private static final String SQL_UPDATE_BUYER_AND_PRICE = "UPDATE `lot` SET `current_price`=?,`buyer_id_fk`=? WHERE `lot`.`id`=? AND `lot`.`current_price` < ? AND `lot`.`state`='ACCEPTED' ";
+    private static final String SQL_CHECK_STATE="";
 
     private static final String LOT_ID="id";
     private static final String LOT_BUYER_ID="buyer_id_fk";
@@ -101,11 +101,11 @@ public class LotDAOImpl implements LotDAO{
     public boolean changeBuyerAndPrice(Long id,Long userId,Double newPrice) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_BUYER_AND_PRICE)) {
-            statement.setLong(1,id);
+            statement.setDouble(1,newPrice);
             statement.setLong(2,userId);
-            statement.setDouble(3,newPrice);
-            ResultSet resultSet = statement.executeQuery();
-            return !resultSet.next();
+            statement.setLong(3,id);
+            statement.setDouble(4,newPrice);
+            return (statement.executeUpdate()!=0);
 
         } catch (SQLException|ConnectionPoolException e) {
             throw new DAOException(e);
@@ -118,8 +118,7 @@ public class LotDAOImpl implements LotDAO{
             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_STATE)) {
             statement.setLong(1,id);
             statement.setString(2,state.toString());
-            ResultSet resultSet = statement.executeQuery();
-            return !resultSet.next();
+            return (statement.executeUpdate()!=0);
 
         } catch (SQLException|ConnectionPoolException e) {
             throw new DAOException(e);
@@ -150,10 +149,8 @@ public class LotDAOImpl implements LotDAO{
 
     private List<LotDBO> createLotsList(ResultSet resultSet) throws SQLException {
 
-        Logger logger = LogManager.getLogger(LotDAOImpl.class);
         List<LotDBO> resultList = new ArrayList<>();
         while(resultSet.next()){
-            logger.debug("s");
             resultList.add(createLot(resultSet));
         }
         return resultList;

@@ -55,7 +55,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email"><fmt:message key="registration.email" bundle="${rb}"/></label>
-                    <input type="email" class="form-control" id="email" name="email"  pattern="^\w+@\w+\.\w+$" required/>
+                    <input type="email" class="form-control" id="email" name="email"  pattern="^[\w\.]+@\w+\.\w+$" required/>
                 </div>
                 <div class="form-group">
                     <label for="fname"><fmt:message key="registration.firstName" bundle="${rb}"/></label>

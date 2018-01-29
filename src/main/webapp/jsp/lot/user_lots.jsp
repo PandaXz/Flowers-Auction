@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title><fmt:message key="accepted_user_lots.title" bundle="${rb}"/> </title>
+    <title><fmt:message key="user_lots.title" bundle="${rb}"/> </title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -34,16 +34,16 @@
 <body>
 <c:if test="${ (empty lotList) && (empty errorLotListIsEmpty) }">
     <script language="JavaScript" type="text/javascript">
-        location="auction?command=accepted_user_lot_list"
+        location="auction?command=user_lot_list"
     </script>
 </c:if>
-<c:import url="header.jsp"/>
+<c:import url="../header.jsp"/>
 <div class="container">
     <div class="row">
 
         <div class="col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8 col-xs-12 main">
-            <c:import url="navbar.jsp"/>
-            <h2><fmt:message key="accepted_user_lots.header" bundle="${rb}"/> </h2>
+            <c:import url="../navbar.jsp"/>
+            <h2><fmt:message key="user_lots.header" bundle="${rb}"/> </h2>
             <br>
             <c:if test="${ not empty errorLotListIsEmpty}">
                 <div class="alert-danger alert">${errorLotListIsEmpty}</div>
@@ -53,10 +53,10 @@
                     <table class="table table-hover table-style">
                         <thead>
                         <tr>
-                            <th><fmt:message key="accepted_user_lots.flowerName" bundle="${rb}"/></th>
-                            <th><fmt:message key="accepted_user_lots.end" bundle="${rb}"/></th>
-                            <th><fmt:message key="accepted_user_lots.count" bundle="${rb}"/></th>
-                            <th><fmt:message key="accepted_user_lots.price" bundle="${rb}"/></th>
+                            <th><fmt:message key="user_lots.flowerName" bundle="${rb}"/></th>
+                            <th><fmt:message key="user_lots.end" bundle="${rb}"/></th>
+                            <th><fmt:message key="user_lots.count" bundle="${rb}"/></th>
+                            <th><fmt:message key="user_lots.price" bundle="${rb}"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -77,7 +77,7 @@
         </div>
     </div>
 </div>
-<c:import url="footer.jsp"/>
+<c:import url="../footer.jsp"/>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

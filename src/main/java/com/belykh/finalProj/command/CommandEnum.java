@@ -1,8 +1,7 @@
 package com.belykh.finalProj.command;
 
 import com.belykh.finalProj.command.impl.*;
-import com.belykh.finalProj.command.impl.lot.AcceptedLotListCommand;
-import com.belykh.finalProj.command.impl.lot.AcceptedUserLotListCommand;
+import com.belykh.finalProj.command.impl.lot.*;
 import com.belykh.finalProj.command.impl.user.ChangePasswordCommand;
 import com.belykh.finalProj.command.impl.user.ChangeUserInfoCommand;
 import com.belykh.finalProj.command.impl.user.UserInfoCommand;
@@ -21,11 +20,14 @@ public enum CommandEnum {
     LOGOUT(new LogoutCommand()),
     SIGNUP(new SignUpCommand()),
     ACCEPTED_LOT_LIST(new AcceptedLotListCommand()),
-    ACCEPTED_USER_LOT_LIST(new AcceptedUserLotListCommand()),
+    USER_LOT_LIST(new UserLotListCommand()),
     USER_INFO(new UserInfoCommand()),
     USER_INFO_FOR_CHANGE(new UserInfoForChangeCommand()),
     CHANGE_USER_INFO(new ChangeUserInfoCommand()),
-    CHANGE_PASSWORD(new ChangePasswordCommand());
+    CHANGE_PASSWORD(new ChangePasswordCommand()),
+    LOT_FULL(new LotFullCommand()),
+    DELETE_LOT(new DeleteLotCommand()),
+    BUY_LOT(new BuyLotCommand());
 
     CommandEnum(ActionCommand command) {
         this.command = command;

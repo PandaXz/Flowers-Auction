@@ -65,6 +65,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserInfo findUserInfoById(Long id) throws ServiceException {
+        UserInfo result = null;
+        UserDAO dao = DAOFactory.getInstance().getUserDAO();
+        try {
+            UserDBO user = dao.findUserById(id);
+            if(user !=null){
+                result = new UserInfo(user.getId(),user.getLogin(),user.getEmail(),user.getFirstName(),user.getLastName(),user.getMoney());
+            }
+
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
     public boolean changeUserInfo(String login,String email, String firstName,String lastName) throws ServiceException {
         boolean result = false;
         UserDAO dao = DAOFactory.getInstance().getUserDAO();
@@ -97,4 +113,5 @@ public class UserServiceImpl implements UserService {
         }
         return result;
     }
+
 }

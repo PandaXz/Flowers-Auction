@@ -21,7 +21,7 @@ public class CountryDAOImpl implements CountryDAO {
     private static final String SQL_DELETE_COUNTRY = "DELETE FROM `country` WHERE `country`.`id`=?";
 
     private static final String COUNTRY_ID="id";
-    private static final String COUNTRY_NAME="name";
+    private static final String COUNTRY_NAME="country_name";
 
     @Override
     public CountryDBO findCountryById(Long id) throws DAOException {

@@ -26,7 +26,7 @@ import java.util.Locale;
 @WebServlet(name = "AuctionServlet")
 public class AuctionServlet extends HttpServlet {
 
-    private static final Logger logger = LogManager.getLogger(AuctionServlet.class);
+    private static final Logger LOGGER = LogManager.getLogger(AuctionServlet.class);
     public static MessageManager messageManager = MessageManager.INSTANCE;
     public static ResourceManager resourceManager = ResourceManager.INSTANCE;
 
@@ -35,7 +35,7 @@ public class AuctionServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        logger.log(Level.DEBUG, "initialize servlet");
+        LOGGER.log(Level.DEBUG, "initialize servlet");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -64,21 +64,18 @@ public class AuctionServlet extends HttpServlet {
 
         String page = null;
         if(request.getSession(false)!=null){
-            logger.log(Level.DEBUG, "session is available");
             CommandProvider provider = new CommandProvider();
             ActionCommand command = provider.getCommand(request);
             try {
                 page = command.execute(request, response);
             } catch (CommandException e) {
-                logger.log(Level.ERROR, e);
+                LOGGER.log(Level.ERROR, e);
             }
         }
 
         if (page != null) {
-            if(request.getAttribute("redirect")!=null) {
-                logger.log(Level.DEBUG, "redirect = " + request.getAttribute("redirect"));
-            }
             if (request.getAttribute("redirect") != null) {
+                LOGGER.log(Level.DEBUG, "redirect = " + request.getAttribute("redirect"));
                 response.sendRedirect(request.getAttribute("redirect").toString());
             } else {
                 RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);

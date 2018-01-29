@@ -23,7 +23,6 @@ public class FlowerDAOImpl implements FlowerDAO {
 
     private static final String FLOWER_ID="id";
     private static final String FLOWER_NAME="name";
-    private static final String FLOWER_DESCRIPTION="description";
 
     @Override
     public FlowerDBO findFlowerById(Long id) throws DAOException {

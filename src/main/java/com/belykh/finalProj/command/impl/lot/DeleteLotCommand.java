@@ -2,7 +2,7 @@ package com.belykh.finalProj.command.impl.lot;
 
 import com.belykh.finalProj.command.ActionCommand;
 import com.belykh.finalProj.controller.AuctionServlet;
-import com.belykh.finalProj.entity.LotHeader;
+import com.belykh.finalProj.entity.LotFull;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.manager.ConfigurationManager;
@@ -12,32 +12,45 @@ import com.belykh.finalProj.service.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-public class AcceptedUserLotListCommand implements ActionCommand {
+public class DeleteLotCommand implements ActionCommand {
+    private static final String PARAM_HEADER_REFERER = "referer";
+
+    private static final String PARAM_NAME_SERVLET = "auction?";
+
+
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String result = null;
         HttpSession session = request.getSession(false);
-        if(session!=null) {
-            Long userId = (Long)session.getAttribute("userId");;
+        Long ownerId = (Long) session.getAttribute("userId");
+        String lotIdString = request.getParameter("id");
+
+        if(lotIdString!=null) {
+            Long lotId = Long.decode(lotIdString);
             LotService service = ServiceFactory.getInstance().getLotService();
             try {
-                List<LotHeader> lotList = service.findAcceptedLotHeaders(userId);
-                if (lotList.isEmpty()) {
-                    request.setAttribute("lotList", null);
-                    request.setAttribute("errorLotListIsEmpty", AuctionServlet.messageManager.getProperty("message.errorLotListIsEmpty"));
-                } else {
-                    request.setAttribute("errorLotListIsEmpty", null);
-                    request.setAttribute("lotList", lotList);
-                }
-                result = ConfigurationManager.getProperty("path.page.accepted_user_lot_list");
+                service.deleteLot(lotId,ownerId);
             } catch (ServiceException e) {
                 throw new CommandException(e);
             }
-        }else{
-            result= ConfigurationManager.getProperty("path.page.login");
         }
+
+        try {
+            URL url = new URL(request.getHeader(PARAM_HEADER_REFERER));
+
+            request.setAttribute("redirect", PARAM_NAME_SERVLET + url.getQuery());
+
+        } catch (MalformedURLException e) {
+            throw new CommandException(e);
+        }
+
+        result = ConfigurationManager.getProperty("path.page.main");
+
         return result;
     }
+
 }

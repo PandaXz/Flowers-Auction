@@ -31,10 +31,10 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Lots <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="auction?command=accepted_user_lot_list">Accepted lots</a></li>
-                        <li><a href="#">Sold lots</a></li>
-                        <li><a href="#">Denied lots</a></li>
-                        <li><a href="#">Added lots</a></li>
+                        <li><a href="auction?command=user_lot_list">Accepted lots</a></li>
+                        <li><a href="auction?command=user_lot_list&state=sold">Sold lots</a></li>
+                        <li><a href="auction?command=user_lot_list&state=denied">Denied lots</a></li>
+                        <li><a href="auction?command=user_lot_list&state=added">Added lots</a></li>
                         <!--<li role="separator" class="divider"></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">One more separated link</a></li>-->
