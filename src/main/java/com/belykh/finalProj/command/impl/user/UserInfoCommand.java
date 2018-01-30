@@ -8,6 +8,7 @@ import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
+import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,8 @@ public class UserInfoCommand implements ActionCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String result = null;
         String userLogin = request.getParameter("user");
-        if (userLogin == null) {
+
+        if (!ParameterValidator.getInstance().validateLogin(userLogin)) {
             HttpSession session = request.getSession(false);
             userLogin = (String) session.getAttribute("user");
 

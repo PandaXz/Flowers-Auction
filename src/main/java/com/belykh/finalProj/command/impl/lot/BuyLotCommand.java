@@ -1,14 +1,12 @@
 package com.belykh.finalProj.command.impl.lot;
 
 import com.belykh.finalProj.command.ActionCommand;
-import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.LotService;
 import com.belykh.finalProj.service.ServiceFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,15 +25,15 @@ public class BuyLotCommand implements ActionCommand {
         String result = null;
         HttpSession session = request.getSession(false);
         Long ownerId = (Long) session.getAttribute("userId");
-        String lotIdString = request.getParameter("id");
-        String priceString = request.getParameter("price");
+        String lotId = request.getParameter("id");
+        String price = request.getParameter("price");
 
-        if(lotIdString!=null&&priceString!=null) {
-            Long lotId = Long.decode(lotIdString);
-            Double price = Double.parseDouble(priceString);
+        ParameterValidator validator = ParameterValidator.getInstance();
+
+        if(validator.validateId(lotId)&&validator.validatePrice(price)) {
             LotService service = ServiceFactory.getInstance().getLotService();
             try {
-                service.buyLot(lotId, ownerId, price);
+                service.buyLot(Long.decode(lotId), ownerId, Double.parseDouble(price));
             } catch (ServiceException e) {
                 throw new CommandException(e);
             }

@@ -63,7 +63,7 @@ public class AuctionServlet extends HttpServlet {
         }
 
         String page = null;
-        if(request.getSession(false)!=null){
+        if((request.getSession(false))!=null){
             CommandProvider provider = new CommandProvider();
             ActionCommand command = provider.getCommand(request);
             try {

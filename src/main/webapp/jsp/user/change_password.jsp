@@ -47,8 +47,7 @@
                 <div class="form-group">
                     <label for="password"><fmt:message key="change_password.password" bundle="${rb}"/> </label>
                     <input type="password" class="form-control" id="password" name="password" pattern="^\w+$" required>
-                </div>
-                <div class="form-group">
+                    <br>
                     <label for="passwordRepeat"><fmt:message key="change_password.passwordRepeat" bundle="${rb}"/></label>
                     <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat"  required/>
                 </div>

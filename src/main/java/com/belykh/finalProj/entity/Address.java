@@ -5,20 +5,16 @@ import java.util.Objects;
 public class Address {
     private Long addressId;
     private Long cityId;
-    private Long countryId;
     private String street;
     private int houseNumber;
     private String cityName;
-    private String countryName;
 
-    public Address(Long addressId, Long cityId, Long countryId, String street, int houseNumber, String cityName, String countryName) {
+    public Address(Long addressId, Long cityId, String street, int houseNumber, String cityName) {
         this.addressId = addressId;
         this.cityId = cityId;
-        this.countryId = countryId;
         this.street = street;
         this.houseNumber = houseNumber;
         this.cityName = cityName;
-        this.countryName = countryName;
     }
 
     public Address() {
@@ -38,14 +34,6 @@ public class Address {
 
     public void setCityId(Long cityId) {
         this.cityId = cityId;
-    }
-
-    public Long getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(Long countryId) {
-        this.countryId = countryId;
     }
 
     public String getStreet() {
@@ -72,13 +60,6 @@ public class Address {
         this.cityName = cityName;
     }
 
-    public String getCountryName() {
-        return countryName;
-    }
-
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -88,16 +69,14 @@ public class Address {
         return houseNumber == address.houseNumber &&
                 Objects.equals(addressId, address.addressId) &&
                 Objects.equals(cityId, address.cityId) &&
-                Objects.equals(countryId, address.countryId) &&
                 Objects.equals(street, address.street) &&
-                Objects.equals(cityName, address.cityName) &&
-                Objects.equals(countryName, address.countryName);
+                Objects.equals(cityName, address.cityName) ;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(addressId, cityId, countryId, street, houseNumber, cityName, countryName);
+        return Objects.hash(addressId, cityId, street, houseNumber, cityName);
     }
 
     @Override
@@ -105,11 +84,9 @@ public class Address {
         return "Address{" +
                 "addressId=" + addressId +
                 ", cityId=" + cityId +
-                ", countryId=" + countryId +
                 ", street='" + street + '\'' +
                 ", houseNumber=" + houseNumber +
                 ", cityName='" + cityName + '\'' +
-                ", countryName='" + countryName + '\'' +
                 '}';
     }
 }

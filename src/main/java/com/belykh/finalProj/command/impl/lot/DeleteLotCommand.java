@@ -1,13 +1,12 @@
 package com.belykh.finalProj.command.impl.lot;
 
 import com.belykh.finalProj.command.ActionCommand;
-import com.belykh.finalProj.controller.AuctionServlet;
-import com.belykh.finalProj.entity.LotFull;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.LotService;
 import com.belykh.finalProj.service.ServiceFactory;
+import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,13 +26,12 @@ public class DeleteLotCommand implements ActionCommand {
         String result = null;
         HttpSession session = request.getSession(false);
         Long ownerId = (Long) session.getAttribute("userId");
-        String lotIdString = request.getParameter("id");
+        String lotId = request.getParameter("id");
 
-        if(lotIdString!=null) {
-            Long lotId = Long.decode(lotIdString);
+        if(ParameterValidator.getInstance().validateId(lotId)) {
             LotService service = ServiceFactory.getInstance().getLotService();
             try {
-                service.deleteLot(lotId,ownerId);
+                service.deleteLot(Long.decode(lotId),ownerId);
             } catch (ServiceException e) {
                 throw new CommandException(e);
             }

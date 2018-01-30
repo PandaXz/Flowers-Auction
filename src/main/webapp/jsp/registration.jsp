@@ -43,25 +43,19 @@
                 <div class="form-group">
                     <label for="login"><fmt:message key="registration.login" bundle="${rb}"/> </label>
                     <input type="text" class="form-control" id="login" name="login" pattern="^[A-Za-z][A-Za-z_]*$" required>
-                </div>
-
-                <div class="form-group">
+                    <br>
                     <label for="password"><fmt:message key="registration.password" bundle="${rb}"/> </label>
                     <input type="password" class="form-control" id="password" name="password" pattern="^\w+$" required>
-                </div>
-                <div class="form-group">
+                    <br>
                     <label for="passwordRepeat"><fmt:message key="registration.passwordRepeat" bundle="${rb}"/></label>
                     <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat"  required/>
-                </div>
-                <div class="form-group">
+                    <br>
                     <label for="email"><fmt:message key="registration.email" bundle="${rb}"/></label>
                     <input type="email" class="form-control" id="email" name="email"  pattern="^[\w\.]+@\w+\.\w+$" required/>
-                </div>
-                <div class="form-group">
+                    <br>
                     <label for="fname"><fmt:message key="registration.firstName" bundle="${rb}"/></label>
                     <input type="text" class="form-control" id="fname" name="fname" />
-                </div>
-                <div class="form-group">
+                    <br>
                     <label for="lname"><fmt:message key="registration.lastName" bundle="${rb}"/></label>
                     <input type="text" class="form-control" id="lname" name="lname" />
                 </div>

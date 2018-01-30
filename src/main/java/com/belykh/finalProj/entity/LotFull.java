@@ -3,7 +3,7 @@ package com.belykh.finalProj.entity;
 import com.belykh.finalProj.entity.dbo.FlowerDBO;
 import com.belykh.finalProj.entity.dbo.LotState;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class LotFull {
@@ -16,10 +16,10 @@ public class LotFull {
     private Double currentPrice;
     private LotState state;
     private int count;
-    private Date end;
+    private LocalDateTime end;
     private String description;
 
-    public LotFull(Long id, UserInfo buyer, UserInfo owner, FlowerDBO flower, Address address, Double startPrice, Double currentPrice, LotState state, int count, Date end, String description) {
+    public LotFull(Long id, UserInfo buyer, UserInfo owner, FlowerDBO flower, Address address, Double startPrice, Double currentPrice, LotState state, int count, LocalDateTime end, String description) {
         this.id = id;
         this.buyer = buyer;
         this.owner = owner;
@@ -109,11 +109,11 @@ public class LotFull {
         this.count = count;
     }
 
-    public Date getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 

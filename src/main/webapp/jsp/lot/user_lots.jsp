@@ -53,21 +53,34 @@
                     <table class="table table-hover table-style">
                         <thead>
                         <tr>
+                            <th><fmt:message key="user_lots.owner" bundle="${rb}"/></th>
                             <th><fmt:message key="user_lots.flowerName" bundle="${rb}"/></th>
                             <th><fmt:message key="user_lots.end" bundle="${rb}"/></th>
                             <th><fmt:message key="user_lots.count" bundle="${rb}"/></th>
                             <th><fmt:message key="user_lots.price" bundle="${rb}"/></th>
+                            <th><fmt:message key="user_lots.state" bundle="${rb}"/></th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach items="${lotList}" var="lot" varStatus="status">
 
                             <tr onclick="relocate('auction?command=lot_full&id=${lot.id}')">
+                                <td><c:out value="${lot.owner}"/></td>
                                 <td><c:out value="${ lot.flowerName }" /></td>
                                 <td><c:out value="${lot.end}"/></td>
                                 <td><c:out value="${ lot.count }" /></td>
                                 <td><c:out value="${ lot.currentPrice }" /></td>
-
+                                <td>
+                                    <c:if test='${lot.state.name() == "ACCEPTED"||lot.state.name() == "SOLD"}'>
+                                        <label class="label label-success"><c:out value="${lot.state}"/></label>
+                                    </c:if>
+                                    <c:if test='${lot.state.name() == "DENIED"}'>
+                                        <label class="label label-danger"><c:out value="${lot.state}"/></label>
+                                    </c:if>
+                                    <c:if test='${lot.state.name() == "ADDED"||lot.state.name() == "UNPAID"}'>
+                                        <label class="label label-info"><c:out value="${lot.state}"/></label>
+                                    </c:if>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>

@@ -17,7 +17,8 @@ public interface LotDAO {
     List<LotDBO> findAllLotsByStateAndOwnerId(Long ownerId,LotState state) throws DAOException;
     boolean changeBuyerAndPrice(Long id,Long userId,Double newPrice) throws DAOException;
     boolean changeState(Long id,LotState state) throws DAOException;
-
+    void checkUnpaidLots() throws DAOException;
     boolean addLot(LotDBO lotDBO) throws DAOException;
     boolean delete(Long id) throws DAOException;
+    List<LotDBO> findAllLotsByStateAndBuyerId(Long buyerId, LotState state) throws DAOException;
 }

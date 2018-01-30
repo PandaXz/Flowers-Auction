@@ -17,13 +17,18 @@ import java.util.List;
  */
 public class AuthFilter implements Filter {
 
-    List<String> adminCommands;
     private static final Logger logger = LogManager.getLogger(AuthFilter.class);
+
+    List<String> adminCommands;
+    List<String> guestCommands;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         adminCommands = new ArrayList<>();
-
+        guestCommands = new ArrayList<>();
+        guestCommands.add("SIGNUP");
+        guestCommands.add("LOGIN");
+        guestCommands.add("ACCEPTED_LOT_LIST");
     }
 
     @Override
@@ -44,7 +49,7 @@ public class AuthFilter implements Filter {
         if (pass) {
             chain.doFilter(request, response);
         } else {
-            httpServletResponse.sendRedirect(ConfigurationManager.getProperty("path.page.index"));
+            httpServletResponse.sendRedirect("/auction/"+ConfigurationManager.getProperty("path.page.index"));
         }
 
     }
@@ -58,8 +63,10 @@ public class AuthFilter implements Filter {
         boolean result = true;
         String command = request.getParameter("command");
         //logger.log(Level.DEBUG,command);
-
-        if (command != null && adminCommands.contains(command.toUpperCase()) && role != 1) {
+        if (command != null && !guestCommands.contains(command.toUpperCase()) && role == 0) {
+            result = false;
+        }
+        if (command != null && adminCommands.contains(command.toUpperCase()) && role != 2) {
             result = false;
         }
 

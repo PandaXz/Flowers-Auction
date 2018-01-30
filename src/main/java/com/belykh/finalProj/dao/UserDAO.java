@@ -1,6 +1,5 @@
 package com.belykh.finalProj.dao;
 
-import com.belykh.finalProj.entity.UserInfo;
 import com.belykh.finalProj.entity.dbo.UserDBO;
 import com.belykh.finalProj.exception.DAOException;
 
@@ -24,9 +23,8 @@ public interface UserDAO {
 
     boolean deleteUser(String login) throws DAOException;
 
-    Double findUserMoney(String login) throws DAOException;
-
-    boolean changeMoney(Double money,String login) throws  DAOException;
+    Double findUserMoney(Long id) throws DAOException;
 
     boolean changeUserInfo(UserDBO user) throws DAOException;
+    boolean payment(Long ownerId, Long buyerId, Double price) throws DAOException;
 }

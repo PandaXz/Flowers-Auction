@@ -53,16 +53,13 @@
                 <div class="form-group">
                     <label for="login"><fmt:message key="user_info.login" bundle="${rb}"/> </label>
                     <input type="text" class="form-control" id="login" name="login"  value="${userInfo.login}" readonly/>
-                </div>
-                <div class="form-group ">
+                    <br>
                     <label for="email"><fmt:message key="user_info.email" bundle="${rb}"/></label>
                     <input type="email" class="form-control" id="email" name="email"  value="${userInfo.email}" readonly/>
-                </div>
-                <div class="form-group">
+                    <br>
                     <label for="fname"><fmt:message key="user_info.firstName" bundle="${rb}"/></label>
                     <input type="text" class="form-control" id="fname" name="fname" value="${userInfo.firstName}" readonly/>
-                </div>
-                <div class="form-group">
+                    <br>
                     <label for="lname"><fmt:message key="user_info.lastName" bundle="${rb}"/></label>
                     <input type="text" class="form-control" id="lname" name="lname" value="${userInfo.lastName}" readonly/>
                 </div>

@@ -2,22 +2,26 @@ package com.belykh.finalProj.entity;
 
 import com.belykh.finalProj.entity.dbo.LotState;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class LotHeader {
     private Long id;
     private Long flowerId;
     private String flowerName;
+    private Long ownerId;
+    private String owner;
     private Double currentPrice;
     private LotState state;
     private int count;
-    private Date end;
+    private LocalDateTime end;
 
-    public LotHeader(Long id, Long flowerId, String flowerName, Double currentPrice, LotState state, int count, Date end) {
+    public LotHeader(Long id, Long flowerId, String flowerName, Long ownerId, String owner, Double currentPrice, LotState state, int count, LocalDateTime end) {
         this.id = id;
         this.flowerId = flowerId;
         this.flowerName = flowerName;
+        this.ownerId = ownerId;
+        this.owner = owner;
         this.currentPrice = currentPrice;
         this.state = state;
         this.count = count;
@@ -27,11 +31,27 @@ public class LotHeader {
     public LotHeader() {
     }
 
-    public Date getEnd() {
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 
@@ -92,6 +112,8 @@ public class LotHeader {
                 Objects.equals(id, lotHeader.id) &&
                 Objects.equals(flowerId, lotHeader.flowerId) &&
                 Objects.equals(flowerName, lotHeader.flowerName) &&
+                Objects.equals(ownerId, lotHeader.ownerId) &&
+                Objects.equals(owner, lotHeader.owner) &&
                 Objects.equals(currentPrice, lotHeader.currentPrice) &&
                 state == lotHeader.state &&
                 Objects.equals(end, lotHeader.end);
@@ -100,7 +122,7 @@ public class LotHeader {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, flowerId, flowerName, currentPrice, state, count, end);
+        return Objects.hash(id, flowerId, flowerName, ownerId, owner, currentPrice, state, count, end);
     }
 
     @Override
@@ -109,6 +131,8 @@ public class LotHeader {
                 "id=" + id +
                 ", flowerId=" + flowerId +
                 ", flowerName='" + flowerName + '\'' +
+                ", ownerId=" + ownerId +
+                ", owner='" + owner + '\'' +
                 ", currentPrice=" + currentPrice +
                 ", state=" + state +
                 ", count=" + count +

@@ -1,6 +1,6 @@
 package com.belykh.finalProj.entity.dbo;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -16,10 +16,10 @@ public class LotDBO {
     private Double currentPrice;
     private LotState state;
     private int count;
-    private Date end;
+    private LocalDateTime end;
     private String description;
 
-    public LotDBO(Long id, Long buyerId, Long ownerId, Long flowerId, Long addressId, Double startPrice, Double currentPrice, LotState state, int count, Date end, String description) {
+    public LotDBO(Long id, Long buyerId, Long ownerId, Long flowerId, Long addressId, Double startPrice, Double currentPrice, LotState state, int count, LocalDateTime end, String description) {
         this.id = id;
         this.buyerId = buyerId;
         this.ownerId = ownerId;
@@ -36,11 +36,11 @@ public class LotDBO {
     public LotDBO() {
     }
 
-    public Date getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 

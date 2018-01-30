@@ -60,6 +60,15 @@
                             </div>
                         </div>
                     </c:if>
+                    <c:if test='${lot.state.name() == "UNPAID"&&lot.buyer.id==userId}'>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <a href="auction?command=pay_lot&id=${lot.id}" class="btn btn-primary"
+                                   role="button"><fmt:message key="lot_full.payButton" bundle="${rb}"/></a>
+                            </div>
+                        </div>
+
+                    </c:if>
                     <c:if test='${(lot.state.name() == "ACCEPTED")&&lot.owner.id!=userId}'>
                         <form action="auction" method="post">
                             <input type="hidden" name="command" value="buy_lot">
@@ -92,8 +101,8 @@
                                 <c:if test='${lot.state.name() == "DENIED"}'>
                                     <label class="label label-danger"><c:out value="${lot.state}"/></label>
                                 </c:if>
-                                <c:if test='${lot.state.name() == "ADDED"}'>
-                                    <label class="label label-default"><c:out value="${lot.state}"/></label>
+                                <c:if test='${lot.state.name() == "ADDED"||lot.state.name() == "UNPAID"}'>
+                                    <label class="label label-info"><c:out value="${lot.state}"/></label>
                                 </c:if>
                             </div>
                         </div>
@@ -135,7 +144,7 @@
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <label><c:out
-                                        value="${lot.address.countryName}, ${lot.address.cityName}, ${lot.address.street} - ${lot.address.houseNumber}"/></label>
+                                        value=" ${lot.address.cityName}, ${lot.address.street} - ${lot.address.houseNumber}"/></label>
                             </div>
                         </div>
                     </div>

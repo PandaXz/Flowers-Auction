@@ -28,7 +28,7 @@ public class LotStoryDAOImpl implements LotStoryDAO {
     private static final String LOTSTORY_ID="id";
     private static final String LOTSTORY_USER_ID="user_id_fk";
     private static final String LOTSTORY_LOT_ID="lot_id_fk";
-    private static final String LOTSTORY_PRICE="price";
+    private static final String LOTSTORY_PRICE= "offer_lot.price";
 
 
     @Override

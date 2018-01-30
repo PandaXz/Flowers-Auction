@@ -7,6 +7,7 @@ import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
+import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,11 +24,11 @@ public class ChangeUserInfoCommand implements ActionCommand{
         String firstName = request.getParameter("fname").trim();
         String lastName = request.getParameter("lname").trim();
 
-        if(email!=null&&!email.isEmpty()){
+        if(ParameterValidator.getInstance().validateEmail(email)){
             UserService service = ServiceFactory.getInstance().getUserService();
 
             try {
-                if(service.changeUserInfo(login,email,firstName,lastName)){
+                if(service.changeUserInfo(login,email.trim(),firstName.trim(),lastName.trim())){
                     result= ConfigurationManager.getProperty("path.page.user_info");
                 }else{
                     request.setAttribute("errorChangeMessage", AuctionServlet.messageManager.getProperty("message.errorChangeUserInfo"));

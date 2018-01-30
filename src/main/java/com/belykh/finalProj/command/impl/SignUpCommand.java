@@ -7,6 +7,7 @@ import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
+import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,19 +18,20 @@ public class SignUpCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String result = null;
-        String login = request.getParameter("login").trim();
-        String password = request.getParameter("password").trim();
-        String passwordRepeat = request.getParameter("passwordRepeat").trim();
-        String email = request.getParameter("email").trim();
-        String firstName = request.getParameter("fname").trim();
-        String lastName = request.getParameter("lname").trim();
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
+        String passwordRepeat = request.getParameter("passwordRepeat");
+        String email = request.getParameter("email");
+        String firstName = request.getParameter("fname");
+        String lastName = request.getParameter("lname");
 
-        if(login!=null&&!login.isEmpty()&&password!=null&&!password.isEmpty()&&
-                passwordRepeat!=null&&!passwordRepeat.isEmpty()&&email!=null&&!email.isEmpty()){
+        ParameterValidator validator = ParameterValidator.getInstance();
+        if(validator.validateLogin(login)&&validator.validatePassword(password)&&
+                validator.validatePassword(passwordRepeat)&&validator.validateEmail(email)){
             UserService service = ServiceFactory.getInstance().getUserService();
 
             try {
-                if(service.SignUp(login,password,passwordRepeat,email,firstName,lastName)){
+                if(service.SignUp(login.trim(),password.trim(),passwordRepeat.trim(),email.trim(),firstName.trim(),lastName.trim())){
                     result= ConfigurationManager.getProperty("path.page.login");
                 }else{
                     request.setAttribute("errorRegistrationMessage", AuctionServlet.messageManager.getProperty("message.errorRegistration"));

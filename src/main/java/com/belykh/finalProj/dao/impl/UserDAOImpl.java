@@ -18,18 +18,20 @@ import java.util.List;
  */
 public class UserDAOImpl implements UserDAO {
 
-    private static final String SQL_GET_USER_BY_LOGIN = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`money`,`user`.`role`\n" +
+    private static final String SQL_FIND_USER_BY_LOGIN = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`money`,`user`.`role`\n" +
             "FROM user WHERE `user`.`login`=?";
-    private static final String SQL_GET_USER_BY_ID = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`money`,`user`.`role`\n" +
+    private static final String SQL_FIND_USER_BY_ID = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`money`,`user`.`role`\n" +
             "FROM user WHERE `user`.`id`=?";
-    private static final String SQL_GET_MONEY_BY_LOGIN = "SELECT `user`.`money` FROM user WHERE `user`.`login`=?";
+    private static final String SQL_FIND_MONEY_BY_ID = "SELECT `user`.`money` FROM `user` WHERE `user`.`id`=?";
     private static final String SQL_DELETE_USER = "DELETE FROM `user` WHERE `user`.`login`=?";
 
-    private static final String SQL_GET_USER_ID_BY_LOGIN = "SELECT `user`.`id` FROM user WHERE `user`.`login`=?";
+    private static final String SQL_FIND_USER_ID_BY_LOGIN = "SELECT `user`.`id` FROM user WHERE `user`.`login`=?";
     private static final String SQL_ADD_USER = "INSERT INTO `user` (`login`, `password_hash`, `email`, `first_name`, `last_name`, `role`, `money`) VALUES (?,?,?,?,?,?,?)";
     private static final String SQL_UPDATE_PASSWORD = "UPDATE `user` SET `user`.`password_hash` = ? WHERE `user`.`login`=?";
-    private static final String SQL_UPDATE_MONEY = "UPDATE `user` SET `user`.`money` = ? WHERE `user`.`login`=?";
+    private static final String SQL_UPDATE_MONEY = "UPDATE `user` SET `user`.`money` = ? WHERE `user`.`id`=?";
     private static final String SQL_UPDATE_USER_INFO = "UPDATE `user` SET `user`.`email` = ?,`user`.`first_name` = ?,`user`.`last_name` = ? WHERE `user`.`login`=?";
+    private static final String SQL_DEPOSIT_MONEY = "UPDATE `user` SET `money` = (`money` + ?) WHERE `id` = ?";
+    private static final String SQL_WITHDRAW_USER_MONEY = "UPDATE `user` SET `money` = (`money` - ?) WHERE `id` = ? AND `money` >= ?";
 
     private static final String USER_ID = "id";
     private static final String USER_FIRST_NAME = "first_name";
@@ -40,156 +42,198 @@ public class UserDAOImpl implements UserDAO {
     private static final String USER_MONEY = "money";
     private static final String USER_ROLE = "role";
 
-    
-    @Override public List<UserDBO> findAllUsers() throws DAOException {
 
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_GET_USER_BY_LOGIN)) {
+    @Override
+    public List<UserDBO> findAllUsers() throws DAOException {
+
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER_BY_LOGIN)) {
 
             ResultSet resultSet = statement.executeQuery();
             return createUserList(resultSet);
-        } catch (SQLException|ConnectionPoolException e) {
+        } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
         }
     }
 
-    
-    @Override public UserDBO findUserByLogin(String login) throws DAOException {
-        UserDBO result =null;
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_GET_USER_BY_LOGIN)) {
-            statement.setString(1,login);
+
+    @Override
+    public UserDBO findUserByLogin(String login) throws DAOException {
+        UserDBO result = null;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER_BY_LOGIN)) {
+            statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
 
                 result = createUser(resultSet);
             }
-        } catch (SQLException|ConnectionPoolException e) {
-            throw new DAOException(e);  
-        }
-        return result;
-    }
-    @Override public UserDBO findUserById(Long id) throws DAOException {
-        UserDBO result =null;
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_GET_USER_BY_ID)) {
-            statement.setLong(1,id);
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
-
-                result = createUser(resultSet);
-            }
-        } catch (SQLException|ConnectionPoolException e) {
+        } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
         }
         return result;
     }
 
-    @Override public boolean addUser(UserDBO userDBO) throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_ADD_USER)) {
+    @Override
+    public UserDBO findUserById(Long id) throws DAOException {
+        UserDBO result = null;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER_BY_ID)) {
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+
+                result = createUser(resultSet);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean addUser(UserDBO userDBO) throws DAOException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_ADD_USER)) {
             setStatement(statement, userDBO);
-            return (statement.executeUpdate()!=0);
-        } catch (SQLException|ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
-    }
-
-    @Override public boolean isLoginFree(String login) throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_GET_USER_ID_BY_LOGIN)) {
-            statement.setString(1,login);
-            ResultSet resultSet = statement.executeQuery();
-            return !resultSet.next();
-
-        } catch (SQLException|ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
-    }
-
-    @Override public boolean changePassword(String login, String newPass) throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PASSWORD)) {
-            statement.setString(1,newPass);
-            statement.setString(2,login);
-
-            return (statement.executeUpdate()!=0);
-        } catch (SQLException|ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
-    }
-
-    @Override public boolean deleteUser(String login) throws DAOException{
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER)) {
-            statement.setString(1,login);
-            return (statement.executeUpdate()!=0);
-        } catch (SQLException|ConnectionPoolException e) {
+            return (statement.executeUpdate() != 0);
+        } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
         }
     }
 
     @Override
-    public Double findUserMoney(String login) throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_GET_MONEY_BY_LOGIN)) {
-            statement.setString(1,login);
+    public boolean isLoginFree(String login) throws DAOException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER_ID_BY_LOGIN)) {
+            statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
+            return !resultSet.next();
+
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public boolean changePassword(String login, String newPass) throws DAOException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PASSWORD)) {
+            statement.setString(1, newPass);
+            statement.setString(2, login);
+
+            return (statement.executeUpdate() != 0);
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public boolean deleteUser(String login) throws DAOException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER)) {
+            statement.setString(1, login);
+            return (statement.executeUpdate() != 0);
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOException(e);
+        }
+    }
+    @Override
+    public boolean payment(Long ownerId, Long buyerId, Double price) throws DAOException {
+        boolean result = false;
+
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            connection.setAutoCommit(false);
+            try(PreparedStatement stDeposit = connection.prepareStatement(SQL_DEPOSIT_MONEY);
+                PreparedStatement stWithdraw = connection.prepareStatement(SQL_WITHDRAW_USER_MONEY)) {
+                stWithdraw.setDouble(1,price);
+                stWithdraw.setLong(2,buyerId);
+                stWithdraw.setDouble(3,price);
+
+                result= (stWithdraw.executeUpdate() != 0);
+                if(result) {
+                    stDeposit.setDouble(1, price);
+                    stDeposit.setLong(2, ownerId);
+
+                    if(result=( stDeposit.executeUpdate() != 0)){
+                        connection.commit();
+                    } else {
+                        connection.rollback();
+                    }
+                }
+
+            }catch (SQLException e){
+                throw new DAOException(e);
+            }finally {
+                if (connection != null) {
+                    try {
+                        connection.setAutoCommit(true);
+                        connection.close();
+                    } catch (SQLException ignored) {
+
+                    }
+                }
+            }
+
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public Double findUserMoney(Long id) throws DAOException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_MONEY_BY_ID)) {
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
 
                 return resultSet.getDouble(USER_MONEY);
             }
-        } catch (SQLException|ConnectionPoolException e) {
+        } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
         }
         return 0d;
     }
 
-    @Override
-    public boolean changeMoney(Double money,String login) throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_MONEY)) {
-            statement.setDouble(1,money);
-            statement.setString(2,login);
-            return (statement.executeUpdate()!=0);
 
-        } catch (SQLException|ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
-    }
+
 
     @Override
     public boolean changeUserInfo(UserDBO user) throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER_INFO)) {
-            statement.setString(1,user.getEmail());
-            statement.setString(2,user.getFirstName());
-            statement.setString(3,user.getLastName());
-            statement.setString(4,user.getLogin());
-            return (statement.executeUpdate()!=0);
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER_INFO)) {
+            statement.setString(1, user.getEmail());
+            statement.setString(2, user.getFirstName());
+            statement.setString(3, user.getLastName());
+            statement.setString(4, user.getLogin());
+            return (statement.executeUpdate() != 0);
 
-        } catch (SQLException|ConnectionPoolException e) {
+        } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
         }
     }
 
-    private void setStatement(PreparedStatement ps,UserDBO userDBO) throws SQLException, DAOException {
+    private void setStatement(PreparedStatement ps, UserDBO userDBO) throws SQLException, DAOException {
         ps.setString(1, userDBO.getLogin());
         ps.setString(2, userDBO.getPass());
         ps.setString(3, userDBO.getEmail());
         ps.setString(4, userDBO.getFirstName());
         ps.setString(5, userDBO.getLastName());
-        ps.setString(6,ROLE.valueByNumber(userDBO.getRole()).name());
+        ps.setString(6, ROLE.valueByNumber(userDBO.getRole()).name());
         ps.setDouble(7, userDBO.getMoney());
     }
 
     private List<UserDBO> createUserList(ResultSet resultSet) throws SQLException {
         List<UserDBO> resultList = new ArrayList<>();
-        while(resultSet.next()){
+        while (resultSet.next()) {
             resultList.add(createUser(resultSet));
         }
         return resultList;
     }
+
     private UserDBO createUser(ResultSet resultSet) throws SQLException {
         Long id = resultSet.getLong(USER_ID);
         String firstName = resultSet.getString(USER_FIRST_NAME);
@@ -199,21 +243,21 @@ public class UserDAOImpl implements UserDAO {
         String lastName = resultSet.getString(USER_LAST_NAME);
         Double money = resultSet.getDouble(USER_MONEY);
         int role = ROLE.valueOf(resultSet.getString(USER_ROLE)).ordinal();
-        return new UserDBO(id,login,password,email,firstName,lastName,role,money);
+        return new UserDBO(id, login, password, email, firstName, lastName, role, money);
     }
 
-    private enum ROLE{
-        USER,ADMIN;
+    private enum ROLE {
+        GUEST,USER, ADMIN;
 
         public static ROLE valueByNumber(int number) throws DAOException {
-            switch (number){
-                case (0):{
+            switch (number) {
+                case (1): {
                     return USER;
                 }
-                case (1):{
+                case (2): {
                     return ADMIN;
                 }
-                default:{
+                default: {
                     throw new DAOException("Wrong role number");
                 }
             }

@@ -7,6 +7,7 @@ import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
+import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +22,12 @@ public class ChangePasswordCommand implements ActionCommand {
         String password = request.getParameter("password");
         String passwordRepeat = request.getParameter("passwordRepeat");
 
-        if(login!=null&&!login.isEmpty()&&password!=null&&!password.isEmpty()&&
-                passwordRepeat!=null&&!passwordRepeat.isEmpty()){
+        ParameterValidator validator = ParameterValidator.getInstance();
+        if(validator.validatePassword(password)&& validator.validatePassword(passwordRepeat)){
             UserService service = ServiceFactory.getInstance().getUserService();
 
             try {
-                if(service.changePassword(login,password,passwordRepeat)){
+                if(service.changePassword(login,password.trim(),passwordRepeat.trim())){
                     result= ConfigurationManager.getProperty("path.page.change_password");
                     request.setAttribute("successChangeMessage", AuctionServlet.messageManager.getProperty("message.successChangePassword"));
 

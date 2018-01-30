@@ -6,11 +6,9 @@ import com.belykh.finalProj.entity.dbo.LotState;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
 import com.belykh.finalProj.pool.exception.ConnectionPoolException;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +20,13 @@ public class LotDAOImpl implements LotDAO{
     private static final String SQL_FIND_LOT_BY_ID="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`id`=?";
     private static final String SQL_FIND_LOTS_BY_STATE="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`state`=?";
     private static final String SQL_FIND_LOTS_BY_STATE_AND_OWNER_ID="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`owner_id_fk`=? AND `lot`.`state`=?";
+    private static final String SQL_FIND_LOTS_BY_STATE_AND_BUYER_ID="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`buyer_id_fk`=? AND `lot`.`state`=?";
     private static final String SQL_FIND_ALL_LOTS="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot`";
     private static final String SQL_ADD_LOT = "INSERT INTO `lot` (auction_id_fk, buyer_id_fk, owner_id_fk, flowerType_id_fk, address_id_fk, start_price, current_price,state, `count`,`end_datetime`, description) VALUES (?,?,?,?,?,?,?,?,?,?)";
     private static final String SQL_DELETE_LOT = "DELETE FROM `lot` WHERE `lot`.`id`=?";
     private static final String SQL_UPDATE_STATE = "UPDATE `lot` SET `lot`.`state` = ? WHERE `lot`.`id`=?";
     private static final String SQL_UPDATE_BUYER_AND_PRICE = "UPDATE `lot` SET `current_price`=?,`buyer_id_fk`=? WHERE `lot`.`id`=? AND `lot`.`current_price` < ? AND `lot`.`state`='ACCEPTED' ";
-    private static final String SQL_CHECK_STATE="";
+    private static final String SQL_CHECK_UNPAID_LOTS="UPDATE `lot` SET `state`='UNPAID' WHERE `lot`.`end_datetime`<=NOW() AND `lot`.`state`='ACCEPTED' ";
 
     private static final String LOT_ID="id";
     private static final String LOT_BUYER_ID="buyer_id_fk";
@@ -56,6 +55,17 @@ public class LotDAOImpl implements LotDAO{
             throw new DAOException(e);
         }
         return result;
+    }
+
+    @Override
+    public void checkUnpaidLots() throws DAOException {
+        try(Connection connection = ConnectionPool.getInstance().getConnection();
+            Statement statement = connection.createStatement()) {
+
+            statement.executeUpdate(SQL_CHECK_UNPAID_LOTS);
+        } catch (SQLException |ConnectionPoolException e) {
+            throw new DAOException(e);
+        }
     }
 
     @Override
@@ -95,6 +105,18 @@ public class LotDAOImpl implements LotDAO{
             throw new DAOException(e);
         }
     }
+    @Override
+    public List<LotDBO> findAllLotsByStateAndBuyerId(Long buyerId, LotState state) throws DAOException {
+        try(Connection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOTS_BY_STATE_AND_BUYER_ID)) {
+            statement.setString(2,state.toString());
+            statement.setLong(1,buyerId);
+            ResultSet resultSet = statement.executeQuery();
+            return createLotsList(resultSet);
+        } catch (SQLException |ConnectionPoolException e) {
+            throw new DAOException(e);
+        }
+    }
 
 
     @Override
@@ -116,8 +138,8 @@ public class LotDAOImpl implements LotDAO{
     public boolean changeState(Long id,LotState state) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_STATE)) {
-            statement.setLong(1,id);
-            statement.setString(2,state.toString());
+            statement.setLong(2,id);
+            statement.setString(1,state.toString());
             return (statement.executeUpdate()!=0);
 
         } catch (SQLException|ConnectionPoolException e) {
@@ -166,7 +188,7 @@ public class LotDAOImpl implements LotDAO{
         Double startPrice = resultSet.getDouble(LOT_START_PRICE);
         LotState state = LotState.valueOf(resultSet.getString(LOT_STATE).toUpperCase());
         int count = resultSet.getInt(LOT_COUNT);
-        java.util.Date end = resultSet.getTimestamp(LOT_END);
+        LocalDateTime end = resultSet.getTimestamp(LOT_END).toLocalDateTime();
         String description = resultSet.getString(LOT_DESCRIPTION);
         return new LotDBO(id,buyerId,ownerId,flowerId,addressId,startPrice,currentPrice,state,count,end,description);
     }
@@ -179,7 +201,7 @@ public class LotDAOImpl implements LotDAO{
         ps.setDouble(6, lotDBO.getCurrentPrice());
         ps.setString(7, lotDBO.getState().toString());
         ps.setInt(8,lotDBO.getCount());
-        ps.setDate(9,new Date(lotDBO.getEnd().getTime()));
+        ps.setTimestamp(9,Timestamp.valueOf(lotDBO.getEnd()));
         ps.setString(10,lotDBO.getDescription());
     }
 }

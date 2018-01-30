@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title><fmt:message key="main.title" bundle="${rb}"/> </title>
+    <title><fmt:message key="main.title" bundle="${rb}"/></title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@
 <body>
 <c:if test="${ (empty lotList) && (empty errorLotListIsEmpty) }">
     <script language="JavaScript" type="text/javascript">
-        location="auction?command=accepted_lot_list"
+        location = "auction?command=accepted_lot_list"
     </script>
 </c:if>
 <c:import url="header.jsp"/>
@@ -42,8 +42,10 @@
     <div class="row">
 
         <div class="col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8 col-xs-12 main">
-            <c:import url="navbar.jsp"/>
-            <h2><fmt:message key="main.header" bundle="${rb}"/> </h2>
+            <c:if test='${ not empty userId}'>
+                <c:import url="navbar.jsp"/>
+            </c:if>
+            <h2><fmt:message key="main.header" bundle="${rb}"/></h2>
             <br>
             <c:if test="${ not empty errorLotListIsEmpty}">
                 <div class="alert-danger alert">${errorLotListIsEmpty}</div>
@@ -53,21 +55,34 @@
                     <table class="table table-hover table-style">
                         <thead>
                         <tr>
+                            <th><fmt:message key="main.owner" bundle="${rb}"/></th>
                             <th><fmt:message key="main.flowerName" bundle="${rb}"/></th>
                             <th><fmt:message key="main.end" bundle="${rb}"/></th>
                             <th><fmt:message key="main.count" bundle="${rb}"/></th>
                             <th><fmt:message key="main.price" bundle="${rb}"/></th>
+                            <th><fmt:message key="main.state" bundle="${rb}"/></th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach items="${lotList}" var="lot" varStatus="status">
 
                             <tr onclick="relocate('auction?command=lot_full&id=${lot.id}')">
-                                <td><c:out value="${ lot.flowerName }" /></td>
-                                <td><c:out value="${lot.end}"/></td>
-                                <td><c:out value="${ lot.count }" /></td>
-                                <td><c:out value="${ lot.currentPrice }" /></td>
-
+                                <td><c:out value="${lot.owner}"/></td>
+                                <td><c:out value="${ lot.flowerName }"/></td>
+                                <td><c:out value="${lot.end.toLocalDate()} ${lot.end.toLocalTime()}"/></td>
+                                <td><c:out value="${ lot.count }"/></td>
+                                <td><c:out value="${ lot.currentPrice }"/></td>
+                                <td>
+                                    <c:if test='${lot.state.name() == "ACCEPTED"||lot.state.name() == "SOLD"}'>
+                                        <label class="label label-success"><c:out value="${lot.state}"/></label>
+                                    </c:if>
+                                    <c:if test='${lot.state.name() == "DENIED"}'>
+                                        <label class="label label-danger"><c:out value="${lot.state}"/></label>
+                                    </c:if>
+                                    <c:if test='${lot.state.name() == "ADDED"||lot.state.name() == "UNPAID"}'>
+                                        <label class="label label-info"><c:out value="${lot.state}"/></label>
+                                    </c:if>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>

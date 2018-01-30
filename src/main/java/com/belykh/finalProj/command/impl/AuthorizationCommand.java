@@ -8,6 +8,7 @@ import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
+import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,10 +23,11 @@ public class AuthorizationCommand implements ActionCommand {
         String result = null;
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        if(login!=null&&!login.isEmpty()&&password!=null&&!password.isEmpty()){
+        ParameterValidator validator = ParameterValidator.getInstance();
+        if(validator.validateLogin(login)&&validator.validatePassword(password)){
             UserService service = ServiceFactory.getInstance().getUserService();
             try {
-                UserDBO user = service.Authorization(login,password);
+                UserDBO user = service.Authorization(login.trim(),password.trim());
                 if(user!=null){
                     HttpSession session = request.getSession(true);
                     if (session.getAttribute("user") == null) {

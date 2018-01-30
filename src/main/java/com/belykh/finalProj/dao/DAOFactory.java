@@ -9,7 +9,6 @@ public class DAOFactory {
     private static DAOFactory instance = new DAOFactory();
 
     private final UserDAO userDAO = new UserDAOImpl();
-    private final CountryDAO countryDAO = new CountryDAOImpl();
     private final CityDAO cityDAO = new CityDAOImpl();
     private final AddressDAO addressDAO = new AddressDAOImpl();
     private final FlowerDAO flowerDAO = new FlowerDAOImpl();
@@ -37,10 +36,6 @@ public class DAOFactory {
 
     public FlowerDAO getFlowerDAO() {
         return flowerDAO;
-    }
-
-    public CountryDAO getCountryDAO() {
-        return countryDAO;
     }
 
     public CityDAO getCityDAO() {

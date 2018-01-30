@@ -9,9 +9,7 @@ import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.LotService;
 import com.belykh.finalProj.service.ServiceFactory;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,27 +17,31 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class UserLotListCommand implements ActionCommand {
-    private static final Logger LOGGER = LogManager.getLogger(UserLotListCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String result = null;
+        boolean isBuyerId = Boolean.parseBoolean(request.getParameter("isBuyer"));
+
         String stateString = request.getParameter("state");
-        if(stateString==null){
-            stateString = LotState.ACCEPTED.name();
+        LotState state = LotState.ACCEPTED;
+
+        if(ParameterValidator.getInstance().validateState(stateString)){
+           state = LotState.valueOf(stateString.toUpperCase());
         }
-        LotState state=null;
-        try {
-            state = LotState.valueOf(stateString.toUpperCase());
-        }catch (IllegalArgumentException e){
-            LOGGER.log(Level.ERROR, e);
-        }
+
+
         HttpSession session = request.getSession(false);
-        if(session!=null&&state!=null) {
+        if(session!=null) {
             Long userId = (Long)session.getAttribute("userId");
             LotService service = ServiceFactory.getInstance().getLotService();
             try {
-                List<LotHeader> lotList = service.findLotHeadersByStateAndOwnerId(userId,state);
+                List<LotHeader> lotList;
+                if(isBuyerId){
+                    lotList=service.findLotHeadersByStateAndBuyerId(userId, state);
+                }else {
+                    lotList=service.findLotHeadersByStateAndOwnerId(userId, state);
+                }
                 if (lotList.isEmpty()) {
                     request.setAttribute("lotList", null);
                     request.setAttribute("errorLotListIsEmpty", AuctionServlet.messageManager.getProperty("message.errorLotListIsEmpty"));

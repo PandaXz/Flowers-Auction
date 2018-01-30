@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
  * Created by panda on 16.11.17.
  */
 public class MD5Util {
-    private static MD5Util ourInstance = new MD5Util();
+    private static MD5Util instance = new MD5Util();
 
 
     private MD5Util() {
@@ -17,7 +17,7 @@ public class MD5Util {
 
     
     public static MD5Util getInstance() {
-        return ourInstance;
+        return instance;
     }
 
     public String getMD5Hash(String data) {
