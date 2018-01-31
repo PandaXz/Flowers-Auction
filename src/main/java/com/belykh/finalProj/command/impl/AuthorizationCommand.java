@@ -39,6 +39,9 @@ public class AuthorizationCommand implements ActionCommand {
                     if(session.getAttribute("userId")==null){
                         session.setAttribute("userId",user.getId());
                     }
+                    if(user.getRole()==2&& session.getAttribute("isAdmin")==null){
+                        session.setAttribute("isAdmin",true);
+                    }
 
                     result= ConfigurationManager.getProperty("path.page.main");
 

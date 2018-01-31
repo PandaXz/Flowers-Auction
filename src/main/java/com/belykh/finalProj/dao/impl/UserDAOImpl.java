@@ -4,7 +4,6 @@ import com.belykh.finalProj.dao.UserDAO;
 import com.belykh.finalProj.entity.dbo.UserDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
-import com.belykh.finalProj.pool.exception.ConnectionPoolException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,7 +50,7 @@ public class UserDAOImpl implements UserDAO {
 
             ResultSet resultSet = statement.executeQuery();
             return createUserList(resultSet);
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
@@ -68,7 +67,7 @@ public class UserDAOImpl implements UserDAO {
 
                 result = createUser(resultSet);
             }
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return result;
@@ -85,7 +84,7 @@ public class UserDAOImpl implements UserDAO {
 
                 result = createUser(resultSet);
             }
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return result;
@@ -97,7 +96,7 @@ public class UserDAOImpl implements UserDAO {
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_USER)) {
             setStatement(statement, userDBO);
             return (statement.executeUpdate() != 0);
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
@@ -110,7 +109,7 @@ public class UserDAOImpl implements UserDAO {
             ResultSet resultSet = statement.executeQuery();
             return !resultSet.next();
 
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
@@ -123,7 +122,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(2, login);
 
             return (statement.executeUpdate() != 0);
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
@@ -134,10 +133,23 @@ public class UserDAOImpl implements UserDAO {
              PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER)) {
             statement.setString(1, login);
             return (statement.executeUpdate() != 0);
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
+
+    @Override
+    public boolean deleteUser(Long id,Double money) throws DAOException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_DEPOSIT_MONEY)) {
+            statement.setDouble(1, money);
+            statement.setLong(2, id);
+            return (statement.executeUpdate() != 0);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+
     @Override
     public boolean payment(Long ownerId, Long buyerId, Double price) throws DAOException {
         boolean result = false;
@@ -176,30 +188,11 @@ public class UserDAOImpl implements UserDAO {
                 }
             }
 
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return result;
     }
-
-    @Override
-    public Double findUserMoney(Long id) throws DAOException {
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_FIND_MONEY_BY_ID)) {
-            statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-
-                return resultSet.getDouble(USER_MONEY);
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
-        return 0d;
-    }
-
-
-
 
     @Override
     public boolean changeUserInfo(UserDBO user) throws DAOException {
@@ -211,7 +204,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(4, user.getLogin());
             return (statement.executeUpdate() != 0);
 
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }

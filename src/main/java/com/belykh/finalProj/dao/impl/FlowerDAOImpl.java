@@ -4,7 +4,6 @@ import com.belykh.finalProj.dao.FlowerDAO;
 import com.belykh.finalProj.entity.dbo.FlowerDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
-import com.belykh.finalProj.pool.exception.ConnectionPoolException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,8 +17,6 @@ public class FlowerDAOImpl implements FlowerDAO {
     private static final String SQL_FIND_FLOWER_BY_ID="SELECT `flowerType`.`id`,`flowerType`.`name` FROM `flowerType` WHERE `flowerType`.`id`=?";
     private static final String SQL_FIND_ALL_FLOWERS="SELECT `flowerType`.`id`,`flowerType`.`name` FROM `flowerType` ";
     private static final String SQL_ADD_FLOWER = "INSERT INTO `flowerType` (`name`) VALUES (?)";
-    private static final String SQL_DELETE_FLOWER = "DELETE FROM `flowerType` WHERE `flowerType`.`id`=?";
-
 
     private static final String FLOWER_ID="id";
     private static final String FLOWER_NAME="name";
@@ -33,7 +30,7 @@ public class FlowerDAOImpl implements FlowerDAO {
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()){
                 result =createFlower(resultSet);}
-        } catch (SQLException |ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return result;
@@ -46,7 +43,7 @@ public class FlowerDAOImpl implements FlowerDAO {
 
             ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL_FLOWERS);
             return createFlowersList(resultSet);
-        } catch (SQLException |ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
@@ -57,18 +54,7 @@ public class FlowerDAOImpl implements FlowerDAO {
             PreparedStatement statement = connection.prepareStatement(SQL_ADD_FLOWER)) {
             setStatement(statement, flowerDBO);
             return (statement.executeUpdate()!=0);
-        } catch (SQLException|ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
-    }
-
-    @Override
-    public boolean delete(Long id) throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_DELETE_FLOWER)) {
-            statement.setLong(1,id);
-            return (statement.executeUpdate()!=0);
-        } catch (SQLException|ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }

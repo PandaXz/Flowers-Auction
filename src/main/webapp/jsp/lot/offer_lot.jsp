@@ -24,6 +24,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <link href="css/dopstyle.css" rel="stylesheet">
+    <script src="../../js/main.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -71,7 +72,7 @@
                         </div>
                         <div class="col-md-2 col-xs-4">
                             <label for="number"><fmt:message key="offer_lot.number" bundle="${rb}"/> </label>
-                            <input type="number" min="0" class="form-control" id="number" name="houseNumber" required>
+                            <input onload="now(this)" type="number" min="0" class="form-control" id="number" name="houseNumber" required>
                         </div>
                     </div>
                     <br>
@@ -85,8 +86,7 @@
                     <input type="datetime-local" class="form-control" id="end" name="end" required/>
                     <br>
                     <label for="description"><fmt:message key="offer_lot.description" bundle="${rb}"/></label>
-                    <textarea class="form-control" rows="3" name="description" id="description" required>
-                    </textarea>
+                    <textarea class="form-control" rows="3" name="description" id="description" required></textarea>
                 </div>
                 <c:choose>
                     <c:when test="${ not empty errorOfferLotMessage }">

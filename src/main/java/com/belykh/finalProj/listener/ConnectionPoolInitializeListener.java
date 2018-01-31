@@ -1,8 +1,6 @@
 package com.belykh.finalProj.listener;
 
 import com.belykh.finalProj.pool.ConnectionPool;
-import com.belykh.finalProj.pool.exception.ConnectionPoolException;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,19 +19,15 @@ public class ConnectionPoolInitializeListener implements ServletContextListener 
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        try {
-            ConnectionPool.init(POOL_SIZE);
-        } catch (ConnectionPoolException e) {
-            logger.log(Level.FATAL,e);
-        }
+
+        ConnectionPool.init(POOL_SIZE);
+
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        try {
-            ConnectionPool.getInstance().destroy();
-        } catch (ConnectionPoolException e) {
-            logger.log(Level.FATAL,e);
-        }
+
+        ConnectionPool.getInstance().destroy();
+
     }
 }

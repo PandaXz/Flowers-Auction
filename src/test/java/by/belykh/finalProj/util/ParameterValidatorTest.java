@@ -24,7 +24,12 @@ public class ParameterValidatorTest extends Assert {
     String stateTest;
     String stateTest1;
     String stateTest2;
-
+    String datetimeTest;
+    String datetimeTest1;
+    String numberTest;
+    String numberTest1;
+    String streetTest;
+    String streetTest1;
     @BeforeClass
     public void beforeClass(){
         loginTest = "Panda_Test";
@@ -43,6 +48,11 @@ public class ParameterValidatorTest extends Assert {
         stateTest="ACCEPTED";
         stateTest1="UNPAID";
         stateTest2="SELLD";
+        datetimeTest="2018-01-04T22:22";
+        datetimeTest1="01-2018-04 22:22";
+        numberTest="123";
+        numberTest1="1 2 q";
+        streetTest="Chehova";
     }
 
     @Test
@@ -116,5 +126,27 @@ public class ParameterValidatorTest extends Assert {
     public void validateState_NegativeTest(){
         Assert.assertFalse(parameterValidator.validateState(stateTest2));
     }
+
+    @Test
+    public void validateDateTime_PositiveTest(){
+        Assert.assertTrue(parameterValidator.validateDateTime(datetimeTest));
+    }
+    @Test
+    public void validateDateTime_NegativeTest(){
+        Assert.assertFalse(parameterValidator.validateDateTime(datetimeTest1));
+    }
+    @Test
+    public void validateNumber_PositiveTest(){
+        Assert.assertTrue(parameterValidator.validateNumber(numberTest));
+    }
+    @Test
+    public void validateNumber_NegativeTest(){
+        Assert.assertFalse(parameterValidator.validateNumber(numberTest1));
+    }
+    @Test
+    public void validateStreet_PositiveTest(){
+        Assert.assertTrue(parameterValidator.validateStreet(streetTest));
+    }
+
 
 }

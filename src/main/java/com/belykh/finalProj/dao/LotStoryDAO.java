@@ -10,9 +10,6 @@ import java.util.List;
  */
 public interface LotStoryDAO {
 
-    LotStoryDBO findLotStoryById(Long id) throws DAOException;
-    List<LotStoryDBO> findLotStoryByUserId(Long userId) throws DAOException;
     List<LotStoryDBO> findLotStoryByLotId(Long lotId) throws DAOException;
     boolean addLotStory(LotStoryDBO lotStoryDBO) throws DAOException;
-    boolean delete(Long id) throws DAOException;
 }

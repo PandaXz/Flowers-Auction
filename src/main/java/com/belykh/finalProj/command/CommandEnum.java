@@ -1,6 +1,9 @@
 package com.belykh.finalProj.command;
 
 import com.belykh.finalProj.command.impl.*;
+import com.belykh.finalProj.command.impl.admin.AddedLotsCommand;
+import com.belykh.finalProj.command.impl.admin.ApproveLotCommand;
+import com.belykh.finalProj.command.impl.admin.DenyLotCommand;
 import com.belykh.finalProj.command.impl.lot.*;
 import com.belykh.finalProj.command.impl.user.ChangeInfoCommand;
 import com.belykh.finalProj.command.impl.user.ChangePasswordCommand;
@@ -29,7 +32,11 @@ public enum CommandEnum {
     DELETE_LOT(new DeleteLotCommand()),
     BUY_LOT(new BuyLotCommand()),
     PAY_LOT(new PayLotCommand()),
-    OFFER_INFO(new OfferInfoCommand());
+    OFFER_INFO(new OfferInfoCommand()),
+    OFFER_LOT(new OfferLotCommand()),
+    APPROVE_LOT(new ApproveLotCommand()),
+    DENY_LOT(new DenyLotCommand()),
+    ADDED_LOTS(new AddedLotsCommand());
 
     CommandEnum(ActionCommand command) {
         this.command = command;

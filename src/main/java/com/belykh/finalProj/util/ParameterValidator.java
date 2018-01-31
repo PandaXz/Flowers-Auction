@@ -15,6 +15,9 @@ public class ParameterValidator {
     private static final Pattern REGEX_NAME=Pattern.compile("^[A-Za-z]*$");
     private static final Pattern REGEX_ID=Pattern.compile("^\\d+$");
     private static final Pattern REGEX_PRICE=Pattern.compile("^\\d+(\\.\\d{1,4})?");
+    private static final Pattern REGEX_DATETIME=Pattern.compile("^(\\d{4,})-(\\d{2})-(\\d{2})[T ](\\d{2}):(\\d{2})(?::(\\d{2}(?:\\.\\d+)?))?$");
+    private static final Pattern REGEX_NUMBER=Pattern.compile("^\\d+$");
+    private static final Pattern REGEX_STREET=Pattern.compile("^[\\w-]+$");
 
     private ParameterValidator() {
     }
@@ -45,6 +48,12 @@ public class ParameterValidator {
     public boolean validatePrice(String price){
         return checkString(price, REGEX_PRICE);
     }
+
+    public boolean validateDateTime(String datetime){return  checkString(datetime,REGEX_DATETIME);}
+
+    public boolean validateNumber(String number){return  checkString(number,REGEX_NUMBER);}
+
+    public boolean validateStreet(String street){return  checkString(street,REGEX_STREET);}
 
     public boolean validateState(String state){
         if (state == null || state.isEmpty()) {

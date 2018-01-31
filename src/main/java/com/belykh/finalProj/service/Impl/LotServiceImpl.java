@@ -14,33 +14,27 @@ import com.belykh.finalProj.entity.dbo.LotState;
 import com.belykh.finalProj.entity.dbo.LotStoryDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.exception.ServiceException;
+import com.belykh.finalProj.service.AddressService;
 import com.belykh.finalProj.service.LotService;
 import com.belykh.finalProj.service.ServiceFactory;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LotServiceImpl implements LotService {
 
+
+
     @Override
     public List<LotHeader> findAcceptedLotHeaders() throws ServiceException {
-        checkUnpaidLots();
-        List<LotHeader> result=null;
-        LotDAO lotDAO = DAOFactory.getInstance().getLotDAO();
-        try {
-            List<LotDBO> listLots = lotDAO.findAllLotsByState(LotState.ACCEPTED);
-            result=new ArrayList<>();
-            for (LotDBO lot:listLots) {
-                FlowerDBO flower = ServiceFactory.getInstance().getFlowerService().findFlowerById(lot.getFlowerId());
-                UserInfo user = ServiceFactory.getInstance().getUserService().findUserInfoById(lot.getOwnerId());
-                result.add(new LotHeader(lot.getId(),flower.getId(),flower.getName(),user.getId(),user.getLogin(),lot.getCurrentPrice(),lot.getState(),lot.getCount(),lot.getEnd()));
-            }
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        }
-        return result;
+        return findLotHeadersByState(LotState.ACCEPTED);
     }
 
+    @Override
+    public List<LotHeader> findAddedLotHeaders() throws ServiceException {
+        return findLotHeadersByState(LotState.ADDED);
+    }
 
     @Override
     public LotFull findFullLotInfo(Long id) throws ServiceException {
@@ -119,6 +113,47 @@ public class LotServiceImpl implements LotService {
         return result;
     }
 
+
+    @Override
+    public boolean offerLot(Long ownerId, Long flowerId, Long cityId, String street, Integer houseNumber, double price, Integer count, LocalDateTime end, String description) throws ServiceException {
+        boolean result = false;
+        LotDAO dao = DAOFactory.getInstance().getLotDAO();
+        AddressService service = ServiceFactory.getInstance().getAddressService();
+        try {
+            result= dao.addLot(new LotDBO(0l,null,ownerId,flowerId,service.addAddress(cityId,street,houseNumber),price,price,LotState.ADDED,count,end,description));
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean approveLot(Long lotId) throws ServiceException {
+        boolean result = false;
+        LotDAO dao = DAOFactory.getInstance().getLotDAO();
+        try {
+            result= dao.changeState(lotId,LotState.ACCEPTED);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean denyLot(Long lotId) throws ServiceException {
+        boolean result = false;
+        LotDAO dao = DAOFactory.getInstance().getLotDAO();
+        try {
+            result= dao.changeState(lotId,LotState.DENIED);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+
+        return result;
+    }
+
     public List<LotHeader> findLotHeadersByStateAndOwnerId(Long ownerId,LotState state) throws ServiceException {
         checkUnpaidLots();
         List<LotHeader> result=null;
@@ -163,5 +198,22 @@ public class LotServiceImpl implements LotService {
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
+    }
+    private List<LotHeader> findLotHeadersByState(LotState state) throws ServiceException {
+        checkUnpaidLots();
+        List<LotHeader> result=null;
+        LotDAO lotDAO = DAOFactory.getInstance().getLotDAO();
+        try {
+            List<LotDBO> listLots = lotDAO.findAllLotsByState(state);
+            result=new ArrayList<>();
+            for (LotDBO lot:listLots) {
+                FlowerDBO flower = ServiceFactory.getInstance().getFlowerService().findFlowerById(lot.getFlowerId());
+                UserInfo user = ServiceFactory.getInstance().getUserService().findUserInfoById(lot.getOwnerId());
+                result.add(new LotHeader(lot.getId(),flower.getId(),flower.getName(),user.getId(),user.getLogin(),lot.getCurrentPrice(),lot.getState(),lot.getCount(),lot.getEnd()));
+            }
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return result;
     }
 }

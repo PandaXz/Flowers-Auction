@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: panda
-  Date: 21.1.18
-  Time: 21.40
+  Date: 31.1.18
+  Time: 23.28
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title><fmt:message key="user_lots.title" bundle="${rb}"/> </title>
+    <title><fmt:message key="added_lots.title" bundle="${rb}"/></title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@
 <body>
 <c:if test="${ (empty lotList) && (empty errorLotListIsEmpty) }">
     <script language="JavaScript" type="text/javascript">
-        location="auction?command=user_lot_list"
+        location = "auction?command=added_lots"
     </script>
 </c:if>
 <c:import url="../header.jsp"/>
@@ -43,7 +43,7 @@
 
         <div class="col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8 col-xs-12 main">
             <c:import url="../navbar.jsp"/>
-            <h2><fmt:message key="user_lots.header" bundle="${rb}"/> </h2>
+            <h2><fmt:message key="added_lots.header" bundle="${rb}"/></h2>
             <br>
             <c:if test="${ not empty errorLotListIsEmpty}">
                 <div class="alert-danger alert">${errorLotListIsEmpty}</div>
@@ -53,12 +53,12 @@
                     <table class="table table-hover table-style">
                         <thead>
                         <tr>
-                            <th><fmt:message key="user_lots.owner" bundle="${rb}"/></th>
-                            <th><fmt:message key="user_lots.flowerName" bundle="${rb}"/></th>
-                            <th><fmt:message key="user_lots.end" bundle="${rb}"/></th>
-                            <th><fmt:message key="user_lots.count" bundle="${rb}"/></th>
-                            <th><fmt:message key="user_lots.price" bundle="${rb}"/></th>
-                            <th><fmt:message key="user_lots.state" bundle="${rb}"/></th>
+                            <th><fmt:message key="added_lots.owner" bundle="${rb}"/></th>
+                            <th><fmt:message key="added_lots.flowerName" bundle="${rb}"/></th>
+                            <th><fmt:message key="added_lots.end" bundle="${rb}"/></th>
+                            <th><fmt:message key="added_lots.count" bundle="${rb}"/></th>
+                            <th><fmt:message key="added_lots.price" bundle="${rb}"/></th>
+                            <th><fmt:message key="added_lots.state" bundle="${rb}"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -66,20 +66,12 @@
 
                             <tr onclick="relocate('auction?command=lot_full&id=${lot.id}')">
                                 <td><c:out value="${lot.owner}"/></td>
-                                <td><c:out value="${ lot.flowerName }" /></td>
+                                <td><c:out value="${ lot.flowerName }"/></td>
                                 <td><c:out value="${lot.end.toLocalDate()} ${lot.end.toLocalTime()}"/></td>
-                                <td><c:out value="${ lot.count }" /></td>
-                                <td><c:out value="${ lot.currentPrice }" /></td>
+                                <td><c:out value="${ lot.count }"/></td>
+                                <td><c:out value="${ lot.currentPrice }"/></td>
                                 <td>
-                                    <c:if test='${lot.state.name() == "ACCEPTED"||lot.state.name() == "SOLD"}'>
-                                        <label class="label label-success"><c:out value="${lot.state}"/></label>
-                                    </c:if>
-                                    <c:if test='${lot.state.name() == "DENIED"}'>
-                                        <label class="label label-danger"><c:out value="${lot.state}"/></label>
-                                    </c:if>
-                                    <c:if test='${lot.state.name() == "ADDED"||lot.state.name() == "UNPAID"}'>
-                                        <label class="label label-info"><c:out value="${lot.state}"/></label>
-                                    </c:if>
+                                    <label class="label label-info"><c:out value="${lot.state}"/></label>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -98,5 +90,6 @@
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+
 
 

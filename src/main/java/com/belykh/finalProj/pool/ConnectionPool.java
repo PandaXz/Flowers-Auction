@@ -1,6 +1,8 @@
 package com.belykh.finalProj.pool;
 
-import com.belykh.finalProj.pool.exception.ConnectionPoolException;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.*;
@@ -18,18 +20,20 @@ public class ConnectionPool {
     private static final String KEY_DRIVER_NAME = "driver_name";
     private static final String KEY_CONNECTION_STRING = "connection_string";
 
+    private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
 
     private ArrayBlockingQueue<ProxyConnection> connections;
 
-    private ConnectionPool(final int poolSize) throws ConnectionPoolException {
+    private ConnectionPool(final int poolSize) {
         try {
             makeConnection(poolSize);
         } catch (IOException | ClassNotFoundException | SQLException e) {
-            throw new ConnectionPoolException(e);
+            LOGGER.log(Level.FATAL,e);
+            throw new RuntimeException(e);
         }
     }
 
-    public static void init(int poolSize) throws ConnectionPoolException {
+    public static void init(int poolSize) {
         ConnectionPoolHolder.POOL_INSTANCE = new ConnectionPool(poolSize);
     }
 
@@ -45,22 +49,24 @@ public class ConnectionPool {
         return connections.size();
     }
 
-    public Connection getConnection() throws ConnectionPoolException {
+    public Connection getConnection() {
         try {
             return connections.take();
         } catch (InterruptedException e) {
-            throw new ConnectionPoolException(e);
+            LOGGER.log(Level.FATAL,e);
+            throw new RuntimeException(e);
         }
     }
 
-    public void destroy() throws ConnectionPoolException {
+    public void destroy() {
         int count = 0;
         for (ProxyConnection c : connections) {
             try {
                 c.closeConnection();
                 count++;
             } catch (SQLException e) {
-                throw new ConnectionPoolException(e);
+                LOGGER.log(Level.FATAL,e);
+                throw new RuntimeException(e);
             }
         }
     }

@@ -13,5 +13,4 @@ public interface FlowerDAO {
     List<FlowerDBO> findAllFlowers() throws DAOException;
 
     boolean addFlower(FlowerDBO flowerDBO) throws DAOException;
-    boolean delete(Long id) throws DAOException;
 }

@@ -4,7 +4,6 @@ import com.belykh.finalProj.dao.CityDAO;
 import com.belykh.finalProj.entity.dbo.CityDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
-import com.belykh.finalProj.pool.exception.ConnectionPoolException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,8 +17,6 @@ public class CityDAOImpl implements CityDAO {
     private static final String SQL_FIND_CITY_BY_ID="SELECT `city`.`id`,`city`.`city_name` FROM `city` WHERE `city`.`id`=?";
     private static final String SQL_FIND_ALL_CITIES="SELECT `city`.`id`,`city`.`city_name` FROM `city` ";
     private static final String SQL_ADD_CITY = "INSERT INTO `city` SET `city_name`=?";
-    private static final String SQL_DELETE_CITY = "DELETE FROM `city` WHERE `city`.`id`=?";
-
 
     private static final String CITY_ID = "id";
     private static final String CITY_NAME=  "city_name";
@@ -34,7 +31,7 @@ public class CityDAOImpl implements CityDAO {
             if(resultSet.next()){
                 result= createCity(resultSet);
             }
-        } catch (SQLException |ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return result;
@@ -47,7 +44,7 @@ public class CityDAOImpl implements CityDAO {
 
             ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL_CITIES);
             return createCityList(resultSet);
-        } catch (SQLException |ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
@@ -59,22 +56,10 @@ public class CityDAOImpl implements CityDAO {
             PreparedStatement statement = connection.prepareStatement(SQL_ADD_CITY)) {
             setStatement(statement, city);
             return (statement.executeUpdate()!=0);
-        } catch (SQLException|ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
-
-    @Override
-    public boolean delete(Long id) throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_DELETE_CITY)) {
-            statement.setLong(1,id);
-            return (statement.executeUpdate()!=0);
-        } catch (SQLException|ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
-    }
-
 
     private List<CityDBO> createCityList(ResultSet resultSet) throws SQLException {
         List<CityDBO> resultList = new ArrayList<>();

@@ -69,6 +69,17 @@
                         </div>
 
                     </c:if>
+                    <c:if test='${not empty isAdmin&&lot.state.name()=="ADDED"}'>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <a href="auction?command=approve_lot&id=${lot.id}" class="btn btn-primary"
+                                   role="button"><fmt:message key="lot_full.approveButton" bundle="${rb}"/></a>
+                                <a href="auction?command=deny_lot&id=${lot.id}" class="btn btn-primary"
+                                   role="button"><fmt:message key="lot_full.denyButton" bundle="${rb}"/></a>
+                            </div>
+                        </div>
+
+                    </c:if>
                     <c:if test='${(lot.state.name() == "ACCEPTED")&&lot.owner.id!=userId}'>
                         <form action="auction" method="post">
                             <input type="hidden" name="command" value="buy_lot">
@@ -174,7 +185,7 @@
                                 <label><fmt:message key="lot_full.end" bundle="${rb}"/></label>
                             </div>
                             <div class="col-md-6 col-xs-12">
-                                <label><c:out value="${lot.end}"/></label>
+                                <label><c:out value="${lot.end.toLocalDate()} ${lot.end.toLocalTime()}"/></label>
                             </div>
                         </div>
                     </div>

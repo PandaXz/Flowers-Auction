@@ -22,9 +22,9 @@ public interface UserDAO {
     boolean changePassword(String login, String newPass) throws DAOException;
 
     boolean deleteUser(String login) throws DAOException;
-
-    Double findUserMoney(Long id) throws DAOException;
-
     boolean changeUserInfo(UserDBO user) throws DAOException;
+
+    boolean deleteUser(Long id, Double money) throws DAOException;
+
     boolean payment(Long ownerId, Long buyerId, Double price) throws DAOException;
 }

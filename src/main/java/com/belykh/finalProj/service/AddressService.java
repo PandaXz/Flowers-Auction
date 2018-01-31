@@ -10,4 +10,5 @@ public interface AddressService {
 
     Address findAddressById(Long addressId) throws ServiceException;
     List<CityDBO> findAllCities() throws ServiceException;
+    Long addAddress(Long cityId, String street, int houseNumber) throws ServiceException;
 }

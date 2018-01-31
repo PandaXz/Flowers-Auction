@@ -20,9 +20,9 @@ public class AddressServiceImpl implements AddressService {
         CityDAO cityDAO = DAOFactory.getInstance().getCityDAO();
         try {
             AddressDBO addressDBO = addressDAO.findAddressById(addressId);
-            if(addressDBO!=null) {
+            if (addressDBO != null) {
                 CityDBO cityDBO = cityDAO.findCityById(addressDBO.getCityId());
-                result=new Address(addressDBO.getId(),cityDBO.getId(),addressDBO.getStreet(),addressDBO.getHouseNumber(),cityDBO.getName());
+                result = new Address(addressDBO.getId(), cityDBO.getId(), addressDBO.getStreet(), addressDBO.getHouseNumber(), cityDBO.getName());
             }
 
         } catch (DAOException e) {
@@ -36,7 +36,25 @@ public class AddressServiceImpl implements AddressService {
         List<CityDBO> result = null;
         CityDAO cityDAO = DAOFactory.getInstance().getCityDAO();
         try {
-            result=cityDAO.findAllCities();
+            result = cityDAO.findAllCities();
+
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    public Long addAddress(Long cityId, String street, int houseNumber) throws ServiceException {
+        Long result = null;
+        AddressDAO addressDAO = DAOFactory.getInstance().getAddressDAO();
+        try {
+            AddressDBO addressDBO = addressDAO.findAddressByCityIdAndAddress(cityId, street, houseNumber);
+            if (addressDBO == null && addressDAO.addAddress(new AddressDBO(0l, street, houseNumber, cityId))) {
+                addressDBO = addressDAO.findAddressByCityIdAndAddress(cityId, street, houseNumber);
+
+
+            }
+            result = addressDBO.getId();
 
         } catch (DAOException e) {
             throw new ServiceException(e);

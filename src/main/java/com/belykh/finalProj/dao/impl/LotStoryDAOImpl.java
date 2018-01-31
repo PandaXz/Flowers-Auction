@@ -4,7 +4,6 @@ import com.belykh.finalProj.dao.LotStoryDAO;
 import com.belykh.finalProj.entity.dbo.LotStoryDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
-import com.belykh.finalProj.pool.exception.ConnectionPoolException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,12 +17,8 @@ import java.util.List;
  */
 public class LotStoryDAOImpl implements LotStoryDAO {
 
-    private static final String SQL_FIND_LOTSTORY_BY_ID="SELECT `lot_story`.`id`,`lot_story`.`user_id_fk`,`lot_story`.lot_id_fk, `lot_story`.price FROM `lot_story` WHERE `lot_story`.`id`=?";
-    private static final String SQL_FIND_LOTSTORY_BY_USER_ID = "SELECT `lot_story`.`id`,`lot_story`.`user_id_fk`,`lot_story`.lot_id_fk, `lot_story`.price FROM `lot_story` WHERE `lot_story`.`user_id_fk`=?";
     private static final String SQL_FIND_LOTSTORY_BY_LOT_ID = "SELECT `lot_story`.`id`,`lot_story`.`user_id_fk`,`lot_story`.lot_id_fk, `lot_story`.price FROM `lot_story` WHERE `lot_story`.`lot_id_fk`=?";
     private static final String SQL_ADD_LOTSTORY = "INSERT INTO `lot_story` (`user_id_fk`, `lot_id_fk`,`price`) VALUES (?,?.?)";
-    private static final String SQL_DELETE_LOTSTORY = "DELETE FROM `lot_story` WHERE `lot_story`.`id`=?";
-
 
     private static final String LOTSTORY_ID="id";
     private static final String LOTSTORY_USER_ID="user_id_fk";
@@ -32,41 +27,13 @@ public class LotStoryDAOImpl implements LotStoryDAO {
 
 
     @Override
-    public LotStoryDBO findLotStoryById(Long id) throws DAOException {
-        LotStoryDBO result = null;
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOTSTORY_BY_ID)) {
-            statement.setLong(1,id);
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
-                result=createLotStory(resultSet);
-            }
-        } catch (SQLException |ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
-        return result;
-    }
-
-    @Override
-    public List<LotStoryDBO> findLotStoryByUserId(Long userId) throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOTSTORY_BY_USER_ID)) {
-            statement.setLong(1,userId);
-            ResultSet resultSet = statement.executeQuery();
-            return createLotStoriesList(resultSet);
-        } catch (SQLException |ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
-    }
-
-    @Override
     public List<LotStoryDBO> findLotStoryByLotId(Long lotId) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOTSTORY_BY_LOT_ID)) {
             statement.setLong(1,lotId);
             ResultSet resultSet = statement.executeQuery();
             return createLotStoriesList(resultSet);
-        } catch (ConnectionPoolException|SQLException  e) {
+        } catch (SQLException  e) {
             throw new DAOException(e);
         }
     }
@@ -77,21 +44,11 @@ public class LotStoryDAOImpl implements LotStoryDAO {
             PreparedStatement statement = connection.prepareStatement(SQL_ADD_LOTSTORY)) {
             setStatement(statement, lotStoryDBO);
             return (statement.executeUpdate()!=0);
-        } catch (SQLException|ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
 
-    @Override
-    public boolean delete(Long id) throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_DELETE_LOTSTORY)) {
-            statement.setLong(1,id);
-            return (statement.executeUpdate()!=0);
-        } catch (SQLException|ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
-    }
 
     private List<LotStoryDBO> createLotStoriesList(ResultSet resultSet) throws SQLException {
         List<LotStoryDBO> resultList = new ArrayList<>();

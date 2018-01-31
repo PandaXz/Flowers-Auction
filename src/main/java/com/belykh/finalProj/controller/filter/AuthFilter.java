@@ -25,10 +25,18 @@ public class AuthFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         adminCommands = new ArrayList<>();
+        adminCommands.add("APPROVE_LOT");
+        adminCommands.add("DENY_LOT");
+        adminCommands.add("ADDED_LOTS");
+
         guestCommands = new ArrayList<>();
         guestCommands.add("SIGNUP");
         guestCommands.add("LOGIN");
         guestCommands.add("ACCEPTED_LOT_LIST");
+        guestCommands.add("ACCEPTED_LOT_LIST");
+        guestCommands.add("ENGLISH_LANGUAGE");
+        guestCommands.add("RUSSIAN_LANGUAGE");
+
     }
 
     @Override
@@ -49,7 +57,7 @@ public class AuthFilter implements Filter {
         if (pass) {
             chain.doFilter(request, response);
         } else {
-            httpServletResponse.sendRedirect("/auction/"+ConfigurationManager.getProperty("path.page.index"));
+            httpServletResponse.sendRedirect("/auction"+ConfigurationManager.getProperty("path.page.index"));
         }
 
     }
