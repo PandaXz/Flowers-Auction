@@ -1,6 +1,6 @@
 package com.belykh.finalProj.controller.filter;
 
-import com.belykh.finalProj.manager.ConfigurationManager;
+import com.belykh.finalProj.constant.PathPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,12 +28,12 @@ public class AuthFilter implements Filter {
         adminCommands.add("APPROVE_LOT");
         adminCommands.add("DENY_LOT");
         adminCommands.add("ADDED_LOTS");
+        adminCommands.add("CHANGE_BALANCE");
 
         guestCommands = new ArrayList<>();
         guestCommands.add("SIGNUP");
         guestCommands.add("LOGIN");
-        guestCommands.add("ACCEPTED_LOT_LIST");
-        guestCommands.add("ACCEPTED_LOT_LIST");
+        guestCommands.add("FORWARD");
         guestCommands.add("ENGLISH_LANGUAGE");
         guestCommands.add("RUSSIAN_LANGUAGE");
 
@@ -57,7 +57,7 @@ public class AuthFilter implements Filter {
         if (pass) {
             chain.doFilter(request, response);
         } else {
-            httpServletResponse.sendRedirect("/auction"+ConfigurationManager.getProperty("path.page.index"));
+            httpServletResponse.sendRedirect("/auction"+ PathPage.INDEX.getPath());
         }
 
     }

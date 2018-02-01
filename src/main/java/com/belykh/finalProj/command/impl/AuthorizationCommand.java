@@ -1,11 +1,11 @@
 package com.belykh.finalProj.command.impl;
 
 import com.belykh.finalProj.command.ActionCommand;
+import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.entity.dbo.UserDBO;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
 import com.belykh.finalProj.util.ParameterValidator;
@@ -43,11 +43,11 @@ public class AuthorizationCommand implements ActionCommand {
                         session.setAttribute("isAdmin",true);
                     }
 
-                    result= ConfigurationManager.getProperty("path.page.main");
+                    result= PathPage.MAIN.getPath();
 
                 }else{
                     request.setAttribute("errorLoginPassMessage", AuctionServlet.messageManager.getProperty("message.errorLogin"));
-                    result= ConfigurationManager.getProperty("path.page.login");
+                    result= PathPage.LOGIN.getPath();
                 }
             } catch (ServiceException e) {
                 throw new CommandException(e);

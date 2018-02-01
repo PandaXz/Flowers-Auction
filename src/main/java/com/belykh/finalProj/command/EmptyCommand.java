@@ -1,6 +1,6 @@
 package com.belykh.finalProj.command;
 
-import com.belykh.finalProj.manager.ConfigurationManager;
+import com.belykh.finalProj.constant.PathPage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +12,6 @@ public class EmptyCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        return ConfigurationManager.getProperty("path.page.index");
+        return PathPage.MAIN.getPath();
     }
 }

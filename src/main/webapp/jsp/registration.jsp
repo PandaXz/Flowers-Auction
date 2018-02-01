@@ -48,16 +48,16 @@
                     <input type="password" class="form-control" id="password" name="password" pattern="^\w+$" required>
                     <br>
                     <label for="passwordRepeat"><fmt:message key="registration.passwordRepeat" bundle="${rb}"/></label>
-                    <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat"  required/>
+                    <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat" pattern="^\w+$"  required/>
                     <br>
                     <label for="email"><fmt:message key="registration.email" bundle="${rb}"/></label>
                     <input type="email" class="form-control" id="email" name="email"  pattern="^[\w\.]+@\w+\.\w+$" required/>
                     <br>
                     <label for="fname"><fmt:message key="registration.firstName" bundle="${rb}"/></label>
-                    <input type="text" class="form-control" id="fname" name="fname" />
+                    <input type="text" class="form-control" id="fname" name="fname" pattern="^[A-Za-z]*$" required/>
                     <br>
                     <label for="lname"><fmt:message key="registration.lastName" bundle="${rb}"/></label>
-                    <input type="text" class="form-control" id="lname" name="lname" />
+                    <input type="text" class="form-control" id="lname" name="lname" pattern="^[A-Za-z]*$" required />
                 </div>
                 <a href="auction?command=forward&page=login" class="label-notification" role="button"><fmt:message key="registration.hasAccount" bundle="${rb}"/></a>
                 <c:choose>

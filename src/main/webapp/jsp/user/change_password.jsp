@@ -49,7 +49,7 @@
                     <input type="password" class="form-control" id="password" name="password" pattern="^\w+$" required>
                     <br>
                     <label for="passwordRepeat"><fmt:message key="change_password.passwordRepeat" bundle="${rb}"/></label>
-                    <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat"  required/>
+                    <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat" pattern="^\w+$"  required/>
                 </div>
                 <c:choose>
                     <c:when test="${ not empty errorChangeMessage }">

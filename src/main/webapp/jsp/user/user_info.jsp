@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title><fmt:message key="user_info.title" bundle="${rb}"/> </title>
+    <title><fmt:message key="user_info.title" bundle="${rb}"/></title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@
 <body>
 <c:if test="${ (empty userInfo) && (empty errorUserInfoIsEmpty) }">
     <script language="JavaScript" type="text/javascript">
-        location="auction?command=user_info"
+        location = "auction?command=user_info"
     </script>
 </c:if>
 <c:import url="../header.jsp"/>
@@ -43,7 +43,7 @@
 
         <div class="col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8 col-xs-12 main">
             <c:import url="../navbar.jsp"/>
-            <h2><fmt:message key="user_info.header" bundle="${rb}"/> </h2>
+            <h2><fmt:message key="user_info.header" bundle="${rb}"/></h2>
             <br>
             <c:if test="${ not empty errorUserInfoIsEmpty}">
                 <div class="alert-danger alert">${errorUserInfoIsEmpty}</div>
@@ -52,26 +52,52 @@
 
                 <div class="form-group">
                     <label for="login"><fmt:message key="user_info.login" bundle="${rb}"/> </label>
-                    <input type="text" class="form-control" id="login" name="login"  value="${userInfo.login}" readonly/>
+                    <input type="text" class="form-control" id="login" name="login" value="${userInfo.login}" readonly/>
                     <br>
                     <label for="email"><fmt:message key="user_info.email" bundle="${rb}"/></label>
-                    <input type="email" class="form-control" id="email" name="email"  value="${userInfo.email}" readonly/>
+                    <input type="email" class="form-control" id="email" name="email" value="${userInfo.email}"
+                           readonly/>
                     <br>
                     <label for="fname"><fmt:message key="user_info.firstName" bundle="${rb}"/></label>
-                    <input type="text" class="form-control" id="fname" name="fname" value="${userInfo.firstName}" readonly/>
+                    <input type="text" class="form-control" id="fname" name="fname" value="${userInfo.firstName}"
+                           readonly/>
                     <br>
                     <label for="lname"><fmt:message key="user_info.lastName" bundle="${rb}"/></label>
-                    <input type="text" class="form-control" id="lname" name="lname" value="${userInfo.lastName}" readonly/>
+                    <input type="text" class="form-control" id="lname" name="lname" value="${userInfo.lastName}"
+                           readonly/>
                 </div>
-                <c:if test="${userInfo.id == userId}">
+                <c:if test="${userInfo.id == userId||not empty isAdmin}">
                     <div class="form-group">
                         <label for="money"><fmt:message key="user_info.money" bundle="${rb}"/> </label>
-                        <input type="text" class="form-control" id="money" name="money" value="${userInfo.money}" readonly/>
+                        <input type="text" class="form-control" id="money" name="money" value="${userInfo.balance}"
+                               readonly/>
+                    </div>
+                </c:if>
+                <c:if test="${not empty isAdmin}">
+                    <div class="row">
+                        <form action="auction" method="post">
+                            <input type="hidden" name="command" value="change_balance">
+                            <input type="hidden" name="id" value="${userInfo.id}">
+                            <div class="col-md-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="newBalance"><fmt:message key="user_info.newBalance"
+                                                                         bundle="${rb}"/> </label>
+                                    <input type="number" step="0.01" min="0" class="form-inline" id="newBalance"
+                                           name="newBalance" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <button class="btn btn-primary btn-block" type="submit"><fmt:message
+                                        key="user_info.changeBalanceButton"
+                                        bundle="${rb}"/></button>
+                            </div>
+                        </form>
                     </div>
                 </c:if>
                 <c:if test="${userInfo.id == userId}">
                     <div class="form-group">
-                        <a href="auction?command=user_info_for_change" class="btn btn-primary pull-right" role="button"><fmt:message key="user_info.changeButton" bundle="${rb}"/></a>
+                        <a href="auction?command=user_info_for_change" class="btn btn-primary btn-block"
+                           role="button"><fmt:message key="user_info.changeButton" bundle="${rb}"/></a>
                     </div>
                 </c:if>
             </c:if>

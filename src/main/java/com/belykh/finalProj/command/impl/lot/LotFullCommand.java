@@ -1,11 +1,11 @@
 package com.belykh.finalProj.command.impl.lot;
 
 import com.belykh.finalProj.command.ActionCommand;
+import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.entity.LotFull;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.LotService;
 import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.util.ParameterValidator;
@@ -37,6 +37,6 @@ public class LotFullCommand implements ActionCommand {
             request.setAttribute("errorLotIsEmpty", AuctionServlet.messageManager.getProperty("message.errorLotIsEmpty"));
         }
 
-        return ConfigurationManager.getProperty("path.page.lot_full");
+        return PathPage.LOT_INFORMATION.getPath();
     }
 }

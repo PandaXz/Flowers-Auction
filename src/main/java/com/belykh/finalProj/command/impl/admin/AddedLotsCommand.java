@@ -1,11 +1,11 @@
 package com.belykh.finalProj.command.impl.admin;
 
 import com.belykh.finalProj.command.ActionCommand;
+import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.entity.LotHeader;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.LotService;
 import com.belykh.finalProj.service.ServiceFactory;
 
@@ -27,7 +27,7 @@ public class AddedLotsCommand implements ActionCommand{
                 request.setAttribute("lotList",lotList);
                 request.setAttribute("errorLotListIsEmpty", null);
             }
-            result= ConfigurationManager.getProperty("path.page.added_lots");
+            result= PathPage.ADDED_LOTS.getPath();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

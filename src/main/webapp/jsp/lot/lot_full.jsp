@@ -124,7 +124,7 @@
                                 <label><fmt:message key="lot_full.owner" bundle="${rb}"/></label>
                             </div>
                             <div class="col-md-6 col-xs-12">
-                                <label><c:out value="${lot.owner.login}"/></label>
+                                <label><a href="auction?command=user_info&id=${lot.owner.id}"><c:out value="${lot.owner.login}"/></a></label>
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                                 <label><fmt:message key="lot_full.buyer" bundle="${rb}"/></label>
                             </div>
                             <div class="col-md-6 col-xs-12">
-                                <label><c:out value="${lot.buyer.login}"/></label>
+                                <label><a href="auction?command=user_info&id=${lot.buyer.id}"><c:out value="${lot.buyer.login}"/></a></label>
                             </div>
                         </div>
                     </div>

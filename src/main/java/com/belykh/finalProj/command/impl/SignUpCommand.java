@@ -1,10 +1,10 @@
 package com.belykh.finalProj.command.impl;
 
 import com.belykh.finalProj.command.ActionCommand;
+import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
 import com.belykh.finalProj.util.ParameterValidator;
@@ -27,15 +27,16 @@ public class SignUpCommand implements ActionCommand {
 
         ParameterValidator validator = ParameterValidator.getInstance();
         if(validator.validateLogin(login)&&validator.validatePassword(password)&&
-                validator.validatePassword(passwordRepeat)&&validator.validateEmail(email)){
+                validator.validatePassword(passwordRepeat)&&validator.validateEmail(email)&&
+                validator.validateName(firstName)&&validator.validateName(lastName)){
             UserService service = ServiceFactory.getInstance().getUserService();
 
             try {
                 if(service.SignUp(login.trim(),password.trim(),passwordRepeat.trim(),email.trim(),firstName.trim(),lastName.trim())){
-                    result= ConfigurationManager.getProperty("path.page.login");
+                    result= PathPage.LOGIN.getPath();
                 }else{
                     request.setAttribute("errorRegistrationMessage", AuctionServlet.messageManager.getProperty("message.errorRegistration"));
-                    result= ConfigurationManager.getProperty("path.page.registration");
+                    result= PathPage.REGISTRATION.getPath();
                 }
             } catch (ServiceException e) {
                 throw new CommandException(e);

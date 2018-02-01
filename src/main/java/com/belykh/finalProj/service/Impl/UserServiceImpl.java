@@ -117,11 +117,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changeMoney(Long id, BigDecimal money) throws ServiceException {
+    public boolean changeBalance(Long id, BigDecimal balance) throws ServiceException {
         boolean result;
         UserDAO dao = DAOFactory.getInstance().getUserDAO();
         try {
-            result = dao.changeMoney(id,money);
+            result = dao.changeMoney(id, balance);
 
         } catch (DAOException e) {
             throw new ServiceException(e);

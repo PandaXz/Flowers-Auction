@@ -3,9 +3,10 @@ package com.belykh.finalProj.command;
 import com.belykh.finalProj.command.impl.*;
 import com.belykh.finalProj.command.impl.admin.AddedLotsCommand;
 import com.belykh.finalProj.command.impl.admin.ApproveLotCommand;
+import com.belykh.finalProj.command.impl.admin.ChangeBalanceCommand;
 import com.belykh.finalProj.command.impl.admin.DenyLotCommand;
 import com.belykh.finalProj.command.impl.lot.*;
-import com.belykh.finalProj.command.impl.user.ChangeInfoCommand;
+import com.belykh.finalProj.command.impl.user.ChangableInfoCommand;
 import com.belykh.finalProj.command.impl.user.ChangePasswordCommand;
 import com.belykh.finalProj.command.impl.user.ChangeUserInfoCommand;
 import com.belykh.finalProj.command.impl.user.UserInfoCommand;
@@ -25,7 +26,7 @@ public enum CommandEnum {
     ACCEPTED_LOT_LIST(new AcceptedLotListCommand()),
     USER_LOT_LIST(new UserLotListCommand()),
     USER_INFO(new UserInfoCommand()),
-    USER_INFO_FOR_CHANGE(new ChangeInfoCommand()),
+    USER_INFO_FOR_CHANGE(new ChangableInfoCommand()),
     CHANGE_USER_INFO(new ChangeUserInfoCommand()),
     CHANGE_PASSWORD(new ChangePasswordCommand()),
     LOT_FULL(new LotFullCommand()),
@@ -36,7 +37,8 @@ public enum CommandEnum {
     OFFER_LOT(new OfferLotCommand()),
     APPROVE_LOT(new ApproveLotCommand()),
     DENY_LOT(new DenyLotCommand()),
-    ADDED_LOTS(new AddedLotsCommand());
+    ADDED_LOTS(new AddedLotsCommand()),
+    CHANGE_BALANCE(new ChangeBalanceCommand());
 
     CommandEnum(ActionCommand command) {
         this.command = command;

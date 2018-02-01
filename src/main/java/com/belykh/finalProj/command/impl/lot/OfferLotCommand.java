@@ -12,6 +12,7 @@ import com.belykh.finalProj.util.ParameterValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class OfferLotCommand implements ActionCommand {
@@ -38,7 +39,7 @@ public class OfferLotCommand implements ActionCommand {
             LotService service = ServiceFactory.getInstance().getLotService();
 
             try {
-                if (service.offerLot(userId,Long.decode(flowerId),Long.decode(cityId),street,Integer.decode(houseNumber),Double.parseDouble(price),Integer.decode(count),LocalDateTime.parse(end),description)) {
+                if (service.offerLot(userId,Long.decode(flowerId),Long.decode(cityId),street,Integer.decode(houseNumber),new BigDecimal(price),Integer.decode(count),LocalDateTime.parse(end),description)) {
                     result = PathPage.MAIN.getPath();
                 } else {
                     request.setAttribute("errorOfferMessage", AuctionServlet.messageManager.getProperty("message.errorOffer"));

@@ -1,11 +1,11 @@
 package com.belykh.finalProj.command.impl.lot;
 
 import com.belykh.finalProj.command.ActionCommand;
+import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.entity.dbo.CityDBO;
 import com.belykh.finalProj.entity.dbo.FlowerDBO;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.AddressService;
 import com.belykh.finalProj.service.FlowerService;
 import com.belykh.finalProj.service.ServiceFactory;
@@ -27,7 +27,7 @@ public class OfferInfoCommand implements ActionCommand {
             request.setAttribute("flowerList", flowerList);
             request.setAttribute("cityList", cityList);
 
-            result = ConfigurationManager.getProperty("path.page.offer_lot");
+            result = PathPage.OFFER_LOT.getPath();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

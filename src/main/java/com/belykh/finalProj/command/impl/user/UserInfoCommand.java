@@ -1,11 +1,11 @@
 package com.belykh.finalProj.command.impl.user;
 
 import com.belykh.finalProj.command.ActionCommand;
+import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.entity.UserInfo;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
 import com.belykh.finalProj.util.ParameterValidator;
@@ -18,16 +18,18 @@ public class UserInfoCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String result = null;
-        String userLogin = request.getParameter("user");
-
-        if (!ParameterValidator.getInstance().validateLogin(userLogin)) {
+        String userIdString = request.getParameter("id");
+        Long userId;
+        if (!ParameterValidator.getInstance().validateLogin(userIdString)) {
             HttpSession session = request.getSession(false);
-            userLogin = (String) session.getAttribute("user");
+            userId = (Long) session.getAttribute("userId");
 
+        }else{
+            userId=Long.decode(userIdString);
         }
         UserService service = ServiceFactory.getInstance().getUserService();
         try {
-            UserInfo user = service.findUserInfo(userLogin);
+            UserInfo user = service.findUserInfoById(userId);
             if (user==null) {
                 request.setAttribute("userInfo", null);
                 request.setAttribute("errorLotListIsEmpty", AuctionServlet.messageManager.getProperty("message.errorUserInfoIsEmpty"));
@@ -35,7 +37,7 @@ public class UserInfoCommand implements ActionCommand {
                 request.setAttribute("errorLotListIsEmpty", null);
                 request.setAttribute("userInfo", user);
             }
-            result = ConfigurationManager.getProperty("path.page.user_info");
+            result = PathPage.USER_INFORMATION.getPath();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

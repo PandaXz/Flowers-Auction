@@ -2,9 +2,9 @@ package com.belykh.finalProj.command.impl;
 
 
 import com.belykh.finalProj.command.ActionCommand;
+import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.exception.CommandException;
-import com.belykh.finalProj.manager.ConfigurationManager;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -53,9 +53,9 @@ public class RussianLanguageCommand implements ActionCommand {
             throw new CommandException(e);
         }
         if (session.getAttribute("user") != null) {
-            page = ConfigurationManager.getProperty("path.page.login");
+            page = PathPage.MAIN.getPath();
         } else {
-            page = ConfigurationManager.getProperty("path.page.main");
+            page = PathPage.LOGIN.getPath();
         }
         return page;
     }

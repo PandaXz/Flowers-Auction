@@ -2,11 +2,9 @@ package com.belykh.finalProj.command.impl;
 
 
 import com.belykh.finalProj.command.ActionCommand;
+import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.exception.CommandException;
-import com.belykh.finalProj.manager.ConfigurationManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +18,6 @@ import java.util.Locale;
  * Created by panda on 6.12.17.
  */
 public class EnglishLanguageCommand implements ActionCommand {
-    private final static Logger LOG = LogManager.getLogger(EnglishLanguageCommand.class);
 
     private final static String COOKIE_NAME = "locale";
 
@@ -54,9 +51,9 @@ public class EnglishLanguageCommand implements ActionCommand {
             throw new CommandException(e);
         }
         if (session.getAttribute("user") != null) {
-            page = ConfigurationManager.getProperty("path.page.login");
+            page = PathPage.MAIN.getPath();
         } else {
-            page = ConfigurationManager.getProperty("path.page.main");
+            page = PathPage.LOGIN.getPath();
         }
         return page;
     }

@@ -1,9 +1,9 @@
 package com.belykh.finalProj.command.impl.lot;
 
 import com.belykh.finalProj.command.ActionCommand;
+import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.LotService;
 import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.util.ParameterValidator;
@@ -44,7 +44,7 @@ public class PayLotCommand implements ActionCommand{
             throw new CommandException(e);
         }
 
-        result = ConfigurationManager.getProperty("path.page.main");
+        result = PathPage.MAIN.getPath();
         return result;
     }
 }

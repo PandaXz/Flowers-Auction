@@ -13,6 +13,6 @@ public interface UserService {
     UserInfo findUserInfoById(Long id) throws ServiceException;
     boolean changeUserInfo(String login,String email, String firstName,String lastName) throws ServiceException;
     boolean changePassword(String login,String newPass, String newPassRepeat) throws ServiceException;
-    boolean changeMoney(Long id, BigDecimal money) throws ServiceException;
+    boolean changeBalance(Long id, BigDecimal balance) throws ServiceException;
 
 }

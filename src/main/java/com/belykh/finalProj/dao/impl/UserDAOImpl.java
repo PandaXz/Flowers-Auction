@@ -139,6 +139,7 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    @Override
     public boolean changeMoney(Long id, BigDecimal money) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_MONEY)) {
