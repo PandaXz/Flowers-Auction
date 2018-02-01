@@ -44,7 +44,7 @@
 
                 <div class="form-group">
                     <label for="cityName"><fmt:message key="add-city.cityName" bundle="${rb}"/></label>
-                    <input type="text" class="form-control" id="cityName" name="cityName"  pattern="^[A-Za-z]*$" required/>
+                    <input type="text" class="form-control" id="cityName" name="cityName"   pattern="^[A-Za-z]*$" required/>
                     <br>
                 </div>
                 <c:choose>

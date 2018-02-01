@@ -22,8 +22,6 @@ public interface UserDAO {
 
     boolean changePassword(String login, String newPass) throws DAOException;
 
-    boolean deleteUser(String login) throws DAOException;
-
     boolean changeUserInfo(UserDBO user) throws DAOException;
 
     boolean changeMoney(Long id, BigDecimal money) throws DAOException;

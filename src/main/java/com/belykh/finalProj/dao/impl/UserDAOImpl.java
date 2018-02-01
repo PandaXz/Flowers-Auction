@@ -22,7 +22,6 @@ public class UserDAOImpl implements UserDAO {
             "FROM user WHERE `user`.`login`=?";
     private static final String SQL_FIND_USER_BY_ID = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`money`,`user`.`role`\n" +
             "FROM user WHERE `user`.`id`=?";
-    private static final String SQL_DELETE_USER = "DELETE FROM `user` WHERE `user`.`login`=?";
     private static final String SQL_FIND_ALL_USERS = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`money`,`user`.`role` FROM user ";
 
     private static final String SQL_FIND_USER_ID_BY_LOGIN = "SELECT `user`.`id` FROM user WHERE `user`.`login`=?";
@@ -128,16 +127,6 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-    @Override
-    public boolean deleteUser(String login) throws DAOException {
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER)) {
-            statement.setString(1, login);
-            return (statement.executeUpdate() != 0);
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        }
-    }
 
     @Override
     public boolean changeMoney(Long id, BigDecimal money) throws DAOException {

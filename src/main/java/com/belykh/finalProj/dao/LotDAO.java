@@ -13,7 +13,6 @@ import java.util.List;
 public interface LotDAO {
 
     LotDBO findLotById(Long id) throws DAOException;
-    List<LotDBO> findAllLots() throws DAOException;
     List<LotDBO> findAllLotsByState(LotState state) throws DAOException;
     List<LotDBO> findAllLotsByStateAndOwnerId(Long ownerId,LotState state) throws DAOException;
     boolean changeBuyerAndPrice(Long id, Long userId, BigDecimal newPrice) throws DAOException;

@@ -11,5 +11,4 @@ public interface AddressDAO {
     AddressDBO findAddressById(Long id) throws DAOException;
     AddressDBO findAddressByCityIdAndAddress(Long cityId, String street, int houseNumber) throws DAOException ;
     boolean addAddress(AddressDBO addressDBO) throws DAOException;
-    boolean delete(Long id) throws DAOException;
 }

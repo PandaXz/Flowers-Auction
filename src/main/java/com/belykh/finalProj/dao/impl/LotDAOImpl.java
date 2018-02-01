@@ -21,7 +21,6 @@ public class LotDAOImpl implements LotDAO{
     private static final String SQL_FIND_LOTS_BY_STATE="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`state`=?";
     private static final String SQL_FIND_LOTS_BY_STATE_AND_OWNER_ID="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`owner_id_fk`=? AND `lot`.`state`=?";
     private static final String SQL_FIND_LOTS_BY_STATE_AND_BUYER_ID="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`buyer_id_fk`=? AND `lot`.`state`=?";
-    private static final String SQL_FIND_ALL_LOTS="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot`";
     private static final String SQL_ADD_LOT = "INSERT INTO `lot` ( owner_id_fk, flowerType_id_fk, address_id_fk, start_price, current_price,state, `count`,`end_datetime`, description) VALUES (?,?,?,?,?,?,?,?,?)";
     private static final String SQL_DELETE_LOT = "DELETE FROM `lot` WHERE `lot`.`id`=?";
     private static final String SQL_UPDATE_STATE = "UPDATE `lot` SET `lot`.`state` = ? WHERE `lot`.`id`=?";
@@ -68,17 +67,6 @@ public class LotDAOImpl implements LotDAO{
         }
     }
 
-    @Override
-    public List<LotDBO> findAllLots() throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            Statement statement = connection.createStatement()) {
-
-            ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL_LOTS);
-            return createLotsList(resultSet);
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        }
-    }
 
     @Override
     public List<LotDBO> findAllLotsByState(LotState state) throws DAOException {

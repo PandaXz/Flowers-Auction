@@ -20,8 +20,6 @@ public class AddressDAOImpl implements AddressDAO {
     private static final String SQL_FIND_ADDRESS_BY_ID="SELECT `address`.`id`,`address`.`street`,`address`.`house_number`,`address`.`city_id_fk` FROM `address` WHERE `address`.`id`=?";
     private static final String SQL_FIND_ADDRESS_BY_CITY_ID_AND_ADDRESS="SELECT `address`.`id`,`address`.`street`,`address`.`house_number`,`address`.`city_id_fk` FROM `address` WHERE `city_id_fk`=? AND `street`=? AND `house_number`=?";
     private static final String SQL_ADD_ADDRESS = "INSERT INTO `address` ( `street`, `house_number`,`city_id_fk`) VALUES (?,?,?)";
-    private static final String SQL_DELETE_ADDRESS = "DELETE FROM `address` WHERE `address`.`id`=?";
-
 
     private static final String ADDRESS_ID="id";
     private static final String ADDRESS_CITY_ID="city_id_fk";
@@ -44,6 +42,7 @@ public class AddressDAOImpl implements AddressDAO {
         return result;
     }
 
+    @Override
     public AddressDBO findAddressByCityIdAndAddress(Long cityId, String street, int houseNumber) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_FIND_ADDRESS_BY_CITY_ID_AND_ADDRESS)) {
@@ -71,16 +70,6 @@ public class AddressDAOImpl implements AddressDAO {
         }
     }
 
-    @Override
-    public boolean delete(Long id) throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_DELETE_ADDRESS)) {
-            statement.setLong(1,id);
-            return (statement.executeUpdate()!=0);
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        }
-    }
 
     private List<AddressDBO> createAddressList(ResultSet resultSet) throws SQLException {
         List<AddressDBO> resultList = new ArrayList<>();

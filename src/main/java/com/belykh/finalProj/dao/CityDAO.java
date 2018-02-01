@@ -12,6 +12,5 @@ public interface CityDAO {
 
     CityDBO findCityById(Long id) throws DAOException;
     List<CityDBO> findAllCities() throws DAOException;
-
     boolean addCity(CityDBO cityDBO) throws DAOException;
 }
