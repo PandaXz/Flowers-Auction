@@ -19,7 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title><fmt:message key="error.title" bundle="${rb}"/> </title>
+    <title><fmt:message key="error.title" bundle="${rb}"/></title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -34,17 +34,25 @@
 </head>
 <body>
 <c:import url="jsp/header.jsp"/>
-<main class="red-text">
-    <c:if test="${not empty error_message}">
-        <div class="row"></div>
-        <div class="row">
-            <div class="col s8 m6 offset-m3 offset-s2 center red-text">${error_message}</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12 main">
+
+            <div class="alert-danger alert">
+                Request from ${pageContext.errorData.requestURI} is failed
+                <br/>
+                Servlet name or type: ${pageContext.errorData.servletName}
+                <br/>
+                Status code: ${pageContext.errorData.statusCode}
+                <br/>
+                Exception: ${pageContext.errorData.throwable}
+            </div>
+
+
         </div>
-        <c:remove var="error_message" scope="session"/>
-    </c:if>
-
-
-</main>
+    </div>
+</div>
 <c:import url="jsp/footer.jsp"/>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -6,6 +6,7 @@ import com.belykh.finalProj.entity.dbo.LotState;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -119,13 +120,13 @@ public class LotDAOImpl implements LotDAO{
 
 
     @Override
-    public boolean changeBuyerAndPrice(Long id,Long userId,Double newPrice) throws DAOException {
+    public boolean changeBuyerAndPrice(Long id, Long userId, BigDecimal newPrice) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_BUYER_AND_PRICE)) {
-            statement.setDouble(1,newPrice);
+            statement.setBigDecimal(1,newPrice);
             statement.setLong(2,userId);
             statement.setLong(3,id);
-            statement.setDouble(4,newPrice);
+            statement.setBigDecimal(4,newPrice);
             return (statement.executeUpdate()!=0);
 
         } catch (SQLException e) {
@@ -183,8 +184,8 @@ public class LotDAOImpl implements LotDAO{
         Long ownerId = resultSet.getLong(LOT_OWNER_ID);
         Long flowerId = resultSet.getLong(LOT_FLOWER_ID);
         Long addressId = resultSet.getLong(LOT_ADDRESS_ID);
-        Double currentPrice = resultSet.getDouble(LOT_CURRENT_PRICE);
-        Double startPrice = resultSet.getDouble(LOT_START_PRICE);
+        BigDecimal currentPrice = resultSet.getBigDecimal(LOT_CURRENT_PRICE);
+        BigDecimal startPrice = resultSet.getBigDecimal(LOT_START_PRICE);
         LotState state = LotState.valueOf(resultSet.getString(LOT_STATE).toUpperCase());
         int count = resultSet.getInt(LOT_COUNT);
         LocalDateTime end = resultSet.getTimestamp(LOT_END).toLocalDateTime();
@@ -195,8 +196,8 @@ public class LotDAOImpl implements LotDAO{
         ps.setLong(1, lotDBO.getOwnerId());
         ps.setLong(2, lotDBO.getFlowerId());
         ps.setLong(3, lotDBO.getAddressId());
-        ps.setDouble(4, lotDBO.getStartPrice());
-        ps.setDouble(5, lotDBO.getCurrentPrice());
+        ps.setBigDecimal(4, lotDBO.getStartPrice());
+        ps.setBigDecimal(5, lotDBO.getCurrentPrice());
         ps.setString(6, lotDBO.getState().toString());
         ps.setInt(7,lotDBO.getCount());
         ps.setTimestamp(8,Timestamp.valueOf(lotDBO.getEnd()));

@@ -5,6 +5,7 @@ import com.belykh.finalProj.entity.dbo.UserDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,7 +39,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String USER_PASSWORD = "password_hash";
     private static final String USER_LOGIN = "login";
     private static final String USER_LAST_NAME = "last_name";
-    private static final String USER_MONEY = "money";
+    private static final String USER_BALANCE = "money";
     private static final String USER_ROLE = "role";
 
 
@@ -138,11 +139,10 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-    @Override
-    public boolean deleteUser(Long id,Double money) throws DAOException {
+    public boolean changeMoney(Long id, BigDecimal money) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_DEPOSIT_MONEY)) {
-            statement.setDouble(1, money);
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_MONEY)) {
+            statement.setBigDecimal(1, money);
             statement.setLong(2, id);
             return (statement.executeUpdate() != 0);
         } catch (SQLException e) {
@@ -151,7 +151,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean payment(Long ownerId, Long buyerId, Double price) throws DAOException {
+    public boolean payment(Long ownerId, Long buyerId, BigDecimal price) throws DAOException {
         boolean result = false;
 
         try {
@@ -159,13 +159,13 @@ public class UserDAOImpl implements UserDAO {
             connection.setAutoCommit(false);
             try(PreparedStatement stDeposit = connection.prepareStatement(SQL_DEPOSIT_MONEY);
                 PreparedStatement stWithdraw = connection.prepareStatement(SQL_WITHDRAW_USER_MONEY)) {
-                stWithdraw.setDouble(1,price);
+                stWithdraw.setBigDecimal(1,price);
                 stWithdraw.setLong(2,buyerId);
-                stWithdraw.setDouble(3,price);
+                stWithdraw.setBigDecimal(3,price);
 
                 result= (stWithdraw.executeUpdate() != 0);
                 if(result) {
-                    stDeposit.setDouble(1, price);
+                    stDeposit.setBigDecimal(1, price);
                     stDeposit.setLong(2, ownerId);
 
                     if(result=( stDeposit.executeUpdate() != 0)){
@@ -216,7 +216,7 @@ public class UserDAOImpl implements UserDAO {
         ps.setString(4, userDBO.getFirstName());
         ps.setString(5, userDBO.getLastName());
         ps.setString(6, ROLE.valueByNumber(userDBO.getRole()).name());
-        ps.setDouble(7, userDBO.getMoney());
+        ps.setBigDecimal(7, userDBO.getBalance());
     }
 
     private List<UserDBO> createUserList(ResultSet resultSet) throws SQLException {
@@ -234,9 +234,9 @@ public class UserDAOImpl implements UserDAO {
         String password = resultSet.getString(USER_PASSWORD);
         String login = resultSet.getString(USER_LOGIN);
         String lastName = resultSet.getString(USER_LAST_NAME);
-        Double money = resultSet.getDouble(USER_MONEY);
+        BigDecimal balance = resultSet.getBigDecimal(USER_BALANCE);
         int role = ROLE.valueOf(resultSet.getString(USER_ROLE)).ordinal();
-        return new UserDBO(id, login, password, email, firstName, lastName, role, money);
+        return new UserDBO(id, login, password, email, firstName, lastName, role, balance);
     }
 
     private enum ROLE {

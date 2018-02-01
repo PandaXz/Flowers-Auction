@@ -1,9 +1,9 @@
 package com.belykh.finalProj.command.impl.lot;
 
 import com.belykh.finalProj.command.ActionCommand;
+import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.LotService;
 import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.util.ParameterValidator;
@@ -11,6 +11,7 @@ import com.belykh.finalProj.util.ParameterValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -30,10 +31,10 @@ public class BuyLotCommand implements ActionCommand {
 
         ParameterValidator validator = ParameterValidator.getInstance();
 
-        if(validator.validateId(lotId)&&validator.validatePrice(price)) {
+        if(validator.validateId(lotId)&&validator.validateMoney(price)) {
             LotService service = ServiceFactory.getInstance().getLotService();
             try {
-                service.buyLot(Long.decode(lotId), ownerId, Double.parseDouble(price));
+                service.buyLot(Long.decode(lotId), ownerId, new BigDecimal(price));
             } catch (ServiceException e) {
                 throw new CommandException(e);
             }
@@ -48,7 +49,7 @@ public class BuyLotCommand implements ActionCommand {
             throw new CommandException(e);
         }
 
-        result = ConfigurationManager.getProperty("path.page.main");
+        result= PathPage.MAIN.getPath();
         return result;
     }
 }

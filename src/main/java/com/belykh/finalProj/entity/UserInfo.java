@@ -1,5 +1,6 @@
 package com.belykh.finalProj.entity;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class UserInfo {
@@ -8,15 +9,15 @@ public class UserInfo {
     private String email;
     private String firstName;
     private String lastName;
-    private Double money;
+    private BigDecimal balance;
 
-    public UserInfo(Long id, String login, String email, String firstName, String lastName, Double money) {
+    public UserInfo(Long id, String login, String email, String firstName, String lastName, BigDecimal balance) {
         this.id = id;
         this.login = login;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.money = money;
+        this.balance = balance;
     }
 
     public UserInfo() {
@@ -62,12 +63,12 @@ public class UserInfo {
         this.lastName = lastName;
     }
 
-    public Double getMoney() {
-        return money;
+    public BigDecimal getBalance() {
+        return balance;
     }
 
-    public void setMoney(Double money) {
-        this.money = money;
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     @Override
@@ -80,13 +81,13 @@ public class UserInfo {
                 Objects.equals(email, userInfo.email) &&
                 Objects.equals(firstName, userInfo.firstName) &&
                 Objects.equals(lastName, userInfo.lastName) &&
-                Objects.equals(money, userInfo.money);
+                Objects.equals(balance, userInfo.balance);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, login, email, firstName, lastName, money);
+        return Objects.hash(id, login, email, firstName, lastName, balance);
     }
 
     @Override
@@ -97,7 +98,7 @@ public class UserInfo {
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", money=" + money +
+                ", money=" + balance +
                 '}';
     }
 }

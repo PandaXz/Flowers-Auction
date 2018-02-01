@@ -5,6 +5,7 @@ import com.belykh.finalProj.entity.dbo.LotStoryDBO;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.pool.ConnectionPool;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,12 +19,12 @@ import java.util.List;
 public class LotStoryDAOImpl implements LotStoryDAO {
 
     private static final String SQL_FIND_LOTSTORY_BY_LOT_ID = "SELECT `lot_story`.`id`,`lot_story`.`user_id_fk`,`lot_story`.lot_id_fk, `lot_story`.price FROM `lot_story` WHERE `lot_story`.`lot_id_fk`=?";
-    private static final String SQL_ADD_LOTSTORY = "INSERT INTO `lot_story` (`user_id_fk`, `lot_id_fk`,`price`) VALUES (?,?.?)";
+    private static final String SQL_ADD_LOTSTORY = "INSERT INTO `lot_story` (`user_id_fk`, `lot_id_fk`,`price`) VALUES (?,?,?)";
 
     private static final String LOTSTORY_ID="id";
     private static final String LOTSTORY_USER_ID="user_id_fk";
     private static final String LOTSTORY_LOT_ID="lot_id_fk";
-    private static final String LOTSTORY_PRICE= "offer_lot.price";
+    private static final String LOTSTORY_PRICE= "price";
 
 
     @Override
@@ -62,12 +63,12 @@ public class LotStoryDAOImpl implements LotStoryDAO {
         Long id = resultSet.getLong(LOTSTORY_ID);
         Long userId = resultSet.getLong(LOTSTORY_USER_ID);
         Long lotId = resultSet.getLong(LOTSTORY_LOT_ID);
-        Double price = resultSet.getDouble(LOTSTORY_PRICE);
+        BigDecimal price = resultSet.getBigDecimal(LOTSTORY_PRICE);
         return new LotStoryDBO(id,userId,lotId,price);
     }
     private void setStatement(PreparedStatement ps, LotStoryDBO lotStoryDBO) throws SQLException, DAOException {
         ps.setLong(1, lotStoryDBO.getUserId());
         ps.setLong(2, lotStoryDBO.getLotId());
-        ps.setDouble(3,lotStoryDBO.getPrice());
+        ps.setBigDecimal(3,lotStoryDBO.getPrice());
     }
 }

@@ -3,6 +3,7 @@ package com.belykh.finalProj.dao;
 import com.belykh.finalProj.entity.dbo.UserDBO;
 import com.belykh.finalProj.exception.DAOException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -22,9 +23,10 @@ public interface UserDAO {
     boolean changePassword(String login, String newPass) throws DAOException;
 
     boolean deleteUser(String login) throws DAOException;
+
     boolean changeUserInfo(UserDBO user) throws DAOException;
 
-    boolean deleteUser(Long id, Double money) throws DAOException;
+    boolean changeMoney(Long id, BigDecimal money) throws DAOException;
 
-    boolean payment(Long ownerId, Long buyerId, Double price) throws DAOException;
+    boolean payment(Long ownerId, Long buyerId, BigDecimal price) throws DAOException;
 }

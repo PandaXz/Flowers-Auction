@@ -1,10 +1,10 @@
 package com.belykh.finalProj.command.impl.lot;
 
 import com.belykh.finalProj.command.ActionCommand;
+import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.manager.ConfigurationManager;
 import com.belykh.finalProj.service.LotService;
 import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.util.ParameterValidator;
@@ -34,15 +34,15 @@ public class OfferLotCommand implements ActionCommand {
         ParameterValidator validator = ParameterValidator.getInstance();
         if (validator.validateId(flowerId) && validator.validateId(cityId)
                 && validator.validateStreet(street) && validator.validateNumber(houseNumber)
-                && validator.validatePrice(price) && validator.validateNumber(count) && validator.validateDateTime(end)&&description!=null) {
+                && validator.validateMoney(price) && validator.validateNumber(count) && validator.validateDateTime(end)&&description!=null) {
             LotService service = ServiceFactory.getInstance().getLotService();
 
             try {
                 if (service.offerLot(userId,Long.decode(flowerId),Long.decode(cityId),street,Integer.decode(houseNumber),Double.parseDouble(price),Integer.decode(count),LocalDateTime.parse(end),description)) {
-                    result = ConfigurationManager.getProperty("path.page.main");
+                    result = PathPage.MAIN.getPath();
                 } else {
                     request.setAttribute("errorOfferMessage", AuctionServlet.messageManager.getProperty("message.errorOffer"));
-                    result = ConfigurationManager.getProperty("path.page.offer_lot");
+                    result = PathPage.OFFER_LOT.getPath();
                 }
             } catch (ServiceException e) {
                 throw new CommandException(e);

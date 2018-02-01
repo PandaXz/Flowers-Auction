@@ -1,5 +1,7 @@
 package com.belykh.finalProj.entity.dbo;
 
+import java.math.BigDecimal;
+
 /**
  * Created by panda on 6.1.18.
  */
@@ -11,9 +13,9 @@ public class UserDBO {
     private String firstName;
     private String lastName;
     private int role;
-    private Double money;
+    private BigDecimal balance;
 
-    public UserDBO(Long id, String login, String pass, String email, String firstName, String lastName, int role, Double money) {
+    public UserDBO(Long id, String login, String pass, String email, String firstName, String lastName, int role, BigDecimal balance) {
         this.id = id;
         this.login = login;
         this.pass = pass;
@@ -21,7 +23,7 @@ public class UserDBO {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
-        this.money = money;
+        this.balance = balance;
     }
 
 
@@ -81,12 +83,12 @@ public class UserDBO {
         this.role = role;
     }
 
-    public Double getMoney() {
-        return money;
+    public BigDecimal getBalance() {
+        return balance;
     }
 
-    public void setMoney(Double money) {
-        this.money = money;
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     @Override
@@ -103,7 +105,7 @@ public class UserDBO {
         if (!email.equals(userDBO.email)) return false;
         if (firstName != null ? !firstName.equals(userDBO.firstName) : userDBO.firstName != null) return false;
         if (lastName != null ? !lastName.equals(userDBO.lastName) : userDBO.lastName != null) return false;
-        return money.equals(userDBO.money);
+        return balance.equals(userDBO.balance);
     }
 
     @Override
@@ -115,7 +117,7 @@ public class UserDBO {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + role;
-        result = 31 * result + money.hashCode();
+        result = 31 * result + balance.hashCode();
         return result;
     }
 
@@ -129,7 +131,7 @@ public class UserDBO {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", role=" + role +
-                ", money=" + money +
+                ", money=" + balance +
                 '}';
     }
 }

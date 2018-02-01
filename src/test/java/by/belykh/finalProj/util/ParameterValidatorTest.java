@@ -104,15 +104,15 @@ public class ParameterValidatorTest extends Assert {
 
     @Test
     public void validatePrice_PositiveTest(){
-        Assert.assertTrue(parameterValidator.validatePrice(priceTest));
+        Assert.assertTrue(parameterValidator.validateMoney(priceTest));
     }
     @Test
     public void validatePrice_PositiveTest1(){
-        Assert.assertTrue(parameterValidator.validatePrice(priceTest1));
+        Assert.assertTrue(parameterValidator.validateMoney(priceTest1));
     }
     @Test
     public void validatePrice_NegativeTest(){
-        Assert.assertFalse(parameterValidator.validatePrice(priceTest2));
+        Assert.assertFalse(parameterValidator.validateMoney(priceTest2));
     }
     @Test
     public void validateState_PositiveTest(){

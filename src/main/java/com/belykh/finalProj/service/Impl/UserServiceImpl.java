@@ -9,6 +9,8 @@ import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.UserService;
 import com.belykh.finalProj.util.MD5Util;
 
+import java.math.BigDecimal;
+
 /**
  * Created by panda on 7.1.18.
  */
@@ -38,7 +40,7 @@ public class UserServiceImpl implements UserService {
                 UserDAO dao = DAOFactory.getInstance().getUserDAO();
                 try {
                     if(dao.isLoginFree(login)){
-                        UserDBO newUser = new UserDBO(0l,login,MD5Util.getInstance().getMD5Hash(password),email,firstName,lastName,0,0d);
+                        UserDBO newUser = new UserDBO(0l,login,MD5Util.getInstance().getMD5Hash(password),email,firstName,lastName,1,new BigDecimal(0));
                         result= dao.addUser(newUser);
                     }
                 } catch (DAOException e) {
@@ -55,7 +57,7 @@ public class UserServiceImpl implements UserService {
         try {
             UserDBO user = dao.findUserByLogin(login);
             if(user !=null){
-                result = new UserInfo(user.getId(),user.getLogin(),user.getEmail(),user.getFirstName(),user.getLastName(),user.getMoney());
+                result = new UserInfo(user.getId(),user.getLogin(),user.getEmail(),user.getFirstName(),user.getLastName(),user.getBalance());
             }
 
         } catch (DAOException e) {
@@ -71,7 +73,7 @@ public class UserServiceImpl implements UserService {
         try {
             UserDBO user = dao.findUserById(id);
             if(user !=null){
-                result = new UserInfo(user.getId(),user.getLogin(),user.getEmail(),user.getFirstName(),user.getLastName(),user.getMoney());
+                result = new UserInfo(user.getId(),user.getLogin(),user.getEmail(),user.getFirstName(),user.getLastName(),user.getBalance());
             }
 
         } catch (DAOException e) {
@@ -104,13 +106,27 @@ public class UserServiceImpl implements UserService {
         if(newPass.equals(newPassRepeat)){
             UserDAO dao = DAOFactory.getInstance().getUserDAO();
             try {
-                if(newPass.equals(newPassRepeat)) {
-                    result = dao.changePassword(login, MD5Util.getInstance().getMD5Hash(newPass));
-                }
+
+                result = dao.changePassword(login, MD5Util.getInstance().getMD5Hash(newPass));
+
             } catch (DAOException e) {
                 throw new ServiceException(e);
             }
         }
+        return result;
+    }
+
+    @Override
+    public boolean changeMoney(Long id, BigDecimal money) throws ServiceException {
+        boolean result;
+        UserDAO dao = DAOFactory.getInstance().getUserDAO();
+        try {
+            result = dao.changeMoney(id,money);
+
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+
         return result;
     }
 

@@ -45,7 +45,7 @@ public class ParameterValidator {
         return checkString(id, REGEX_ID);
     }
 
-    public boolean validatePrice(String price){
+    public boolean validateMoney(String price){
         return checkString(price, REGEX_PRICE);
     }
 

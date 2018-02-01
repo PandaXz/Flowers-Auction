@@ -18,6 +18,7 @@ import com.belykh.finalProj.service.AddressService;
 import com.belykh.finalProj.service.LotService;
 import com.belykh.finalProj.service.ServiceFactory;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,14 +76,14 @@ public class LotServiceImpl implements LotService {
     }
 
     @Override
-    public boolean buyLot(Long id, Long buyerId, Double price) throws ServiceException {
+    public boolean buyLot(Long id, Long buyerId, BigDecimal price) throws ServiceException {
         checkUnpaidLots();
         boolean result = false;
         LotDAO dao = DAOFactory.getInstance().getLotDAO();
         LotStoryDAO lotStoryDAO = DAOFactory.getInstance().getLotStoryDAO();
         try {
             UserInfo user = ServiceFactory.getInstance().getUserService().findUserInfoById(buyerId);
-            if(user.getMoney()>price) {
+            if(user.getBalance().compareTo(price)!=-1) {
                 result = dao.changeBuyerAndPrice(id, buyerId, price);
                 if (result) {
                     lotStoryDAO.addLotStory(new LotStoryDBO(0l, buyerId, id, price));
@@ -115,7 +116,7 @@ public class LotServiceImpl implements LotService {
 
 
     @Override
-    public boolean offerLot(Long ownerId, Long flowerId, Long cityId, String street, Integer houseNumber, double price, Integer count, LocalDateTime end, String description) throws ServiceException {
+    public boolean offerLot(Long ownerId, Long flowerId, Long cityId, String street, Integer houseNumber, BigDecimal price, Integer count, LocalDateTime end, String description) throws ServiceException {
         boolean result = false;
         LotDAO dao = DAOFactory.getInstance().getLotDAO();
         AddressService service = ServiceFactory.getInstance().getAddressService();

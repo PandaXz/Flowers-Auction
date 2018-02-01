@@ -1,5 +1,6 @@
 package com.belykh.finalProj.entity.dbo;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -12,14 +13,14 @@ public class LotDBO {
     private Long ownerId;
     private Long flowerId;
     private Long addressId;
-    private Double startPrice;
-    private Double currentPrice;
+    private BigDecimal startPrice;
+    private BigDecimal currentPrice;
     private LotState state;
     private int count;
     private LocalDateTime end;
     private String description;
 
-    public LotDBO(Long id, Long buyerId, Long ownerId, Long flowerId, Long addressId, Double startPrice, Double currentPrice, LotState state, int count, LocalDateTime end, String description) {
+    public LotDBO(Long id, Long buyerId, Long ownerId, Long flowerId, Long addressId, BigDecimal startPrice, BigDecimal currentPrice, LotState state, int count, LocalDateTime end, String description) {
         this.id = id;
         this.buyerId = buyerId;
         this.ownerId = ownerId;
@@ -84,19 +85,19 @@ public class LotDBO {
         this.addressId = addressId;
     }
 
-    public Double getStartPrice() {
+    public BigDecimal getStartPrice() {
         return startPrice;
     }
 
-    public void setStartPrice(Double startPrice) {
+    public void setStartPrice(BigDecimal startPrice) {
         this.startPrice = startPrice;
     }
 
-    public Double getCurrentPrice() {
+    public BigDecimal getCurrentPrice() {
         return currentPrice;
     }
 
-    public void setCurrentPrice(Double currentPrice) {
+    public void setCurrentPrice(BigDecimal currentPrice) {
         this.currentPrice = currentPrice;
     }
 

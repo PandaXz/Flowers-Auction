@@ -1,5 +1,6 @@
 package com.belykh.finalProj.entity.dbo;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -9,9 +10,9 @@ public class LotStoryDBO {
     private Long id;
     private Long userId;
     private Long lotId;
-    private Double price;
+    private BigDecimal price;
 
-    public LotStoryDBO(Long id, Long userId, Long lotId, Double price) {
+    public LotStoryDBO(Long id, Long userId, Long lotId, BigDecimal price) {
         this.id = id;
         this.userId = userId;
         this.lotId = lotId;
@@ -21,11 +22,11 @@ public class LotStoryDBO {
     public LotStoryDBO() {
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

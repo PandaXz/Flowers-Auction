@@ -3,6 +3,7 @@ package com.belykh.finalProj.entity;
 import com.belykh.finalProj.entity.dbo.FlowerDBO;
 import com.belykh.finalProj.entity.dbo.LotState;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -12,14 +13,14 @@ public class LotFull {
     private UserInfo owner;
     private FlowerDBO flower;
     private Address address;
-    private Double startPrice;
-    private Double currentPrice;
+    private BigDecimal startPrice;
+    private BigDecimal currentPrice;
     private LotState state;
     private int count;
     private LocalDateTime end;
     private String description;
 
-    public LotFull(Long id, UserInfo buyer, UserInfo owner, FlowerDBO flower, Address address, Double startPrice, Double currentPrice, LotState state, int count, LocalDateTime end, String description) {
+    public LotFull(Long id, UserInfo buyer, UserInfo owner, FlowerDBO flower, Address address, BigDecimal startPrice, BigDecimal currentPrice, LotState state, int count, LocalDateTime end, String description) {
         this.id = id;
         this.buyer = buyer;
         this.owner = owner;
@@ -77,19 +78,19 @@ public class LotFull {
         this.address = address;
     }
 
-    public Double getStartPrice() {
+    public BigDecimal getStartPrice() {
         return startPrice;
     }
 
-    public void setStartPrice(Double startPrice) {
+    public void setStartPrice(BigDecimal startPrice) {
         this.startPrice = startPrice;
     }
 
-    public Double getCurrentPrice() {
+    public BigDecimal getCurrentPrice() {
         return currentPrice;
     }
 
-    public void setCurrentPrice(Double currentPrice) {
+    public void setCurrentPrice(BigDecimal currentPrice) {
         this.currentPrice = currentPrice;
     }
 

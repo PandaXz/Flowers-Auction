@@ -2,6 +2,7 @@ package com.belykh.finalProj.entity;
 
 import com.belykh.finalProj.entity.dbo.LotState;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -11,12 +12,12 @@ public class LotHeader {
     private String flowerName;
     private Long ownerId;
     private String owner;
-    private Double currentPrice;
+    private BigDecimal currentPrice;
     private LotState state;
     private int count;
     private LocalDateTime end;
 
-    public LotHeader(Long id, Long flowerId, String flowerName, Long ownerId, String owner, Double currentPrice, LotState state, int count, LocalDateTime end) {
+    public LotHeader(Long id, Long flowerId, String flowerName, Long ownerId, String owner, BigDecimal currentPrice, LotState state, int count, LocalDateTime end) {
         this.id = id;
         this.flowerId = flowerId;
         this.flowerName = flowerName;
@@ -79,11 +80,11 @@ public class LotHeader {
         this.flowerName = flowerName;
     }
 
-    public Double getCurrentPrice() {
+    public BigDecimal getCurrentPrice() {
         return currentPrice;
     }
 
-    public void setCurrentPrice(Double currentPrice) {
+    public void setCurrentPrice(BigDecimal currentPrice) {
         this.currentPrice = currentPrice;
     }
 
