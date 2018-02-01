@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title><fmt:message key="lot_full.title" bundle="${rb}"/></title>
+    <title><fmt:message key="lot-full.title" bundle="${rb}"/></title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -41,9 +41,9 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8 col-xs-12 main">
+        <div class="col-md-offset-1 col-md-10 col-sm-12 col-xs-12 main">
             <c:import url="../navbar.jsp"/>
-            <h2><fmt:message key="lot_full.header" bundle="${rb}"/></h2>
+            <h2><fmt:message key="lot-full.header" bundle="${rb}"/></h2>
             <br>
             <c:if test="${ not empty errorLotIsEmpty}">
                 <div class="alert-danger alert">${errorLotIsEmpty}</div>
@@ -56,7 +56,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <a href="auction?command=delete_lot&id=${lot.id}" class="btn btn-primary"
-                                   role="button"><fmt:message key="lot_full.deleteButton" bundle="${rb}"/></a>
+                                   role="button"><fmt:message key="lot-full.deleteButton" bundle="${rb}"/></a>
                             </div>
                         </div>
                     </c:if>
@@ -64,7 +64,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <a href="auction?command=pay_lot&id=${lot.id}" class="btn btn-primary"
-                                   role="button"><fmt:message key="lot_full.payButton" bundle="${rb}"/></a>
+                                   role="button"><fmt:message key="lot-full.payButton" bundle="${rb}"/></a>
                             </div>
                         </div>
 
@@ -73,9 +73,9 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <a href="auction?command=approve_lot&id=${lot.id}" class="btn btn-primary"
-                                   role="button"><fmt:message key="lot_full.approveButton" bundle="${rb}"/></a>
+                                   role="button"><fmt:message key="lot-full.approveButton" bundle="${rb}"/></a>
                                 <a href="auction?command=deny_lot&id=${lot.id}" class="btn btn-primary"
-                                   role="button"><fmt:message key="lot_full.denyButton" bundle="${rb}"/></a>
+                                   role="button"><fmt:message key="lot-full.denyButton" bundle="${rb}"/></a>
                             </div>
                         </div>
 
@@ -86,13 +86,14 @@
                             <input type="hidden" name="id" value="${lot.id}">
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
-                                    <label for="price"><fmt:message key="lot_full.newPrice" bundle="${rb}"/> </label>
-                                    <input type="number" step="0.01" min="0" class="form-inline" id="price" name="price"  required>
+                                    <label for="price"><fmt:message key="lot-full.newPrice" bundle="${rb}"/> </label>
+                                    <input type="number" step="0.01" min="0" class="form-inline" id="price" name="price"
+                                           required>
                                 </div>
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <button class="btn btn-primary btn-block" type="submit"><fmt:message
-                                        key="lot_full.buyButton"
+                                        key="lot-full.buyButton"
                                         bundle="${rb}"/></button>
                             </div>
                         </form>
@@ -103,7 +104,7 @@
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
-                                <label><fmt:message key="lot_full.state" bundle="${rb}"/></label>
+                                <label><fmt:message key="lot-full.state" bundle="${rb}"/></label>
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <c:if test='${lot.state.name() == "ACCEPTED"||lot.state.name() == "SOLD"}'>
@@ -121,27 +122,29 @@
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
-                                <label><fmt:message key="lot_full.owner" bundle="${rb}"/></label>
+                                <label><fmt:message key="lot-full.owner" bundle="${rb}"/></label>
                             </div>
                             <div class="col-md-6 col-xs-12">
-                                <label><a href="auction?command=user_info&id=${lot.owner.id}"><c:out value="${lot.owner.login}"/></a></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12">
-                                <label><fmt:message key="lot_full.buyer" bundle="${rb}"/></label>
-                            </div>
-                            <div class="col-md-6 col-xs-12">
-                                <label><a href="auction?command=user_info&id=${lot.buyer.id}"><c:out value="${lot.buyer.login}"/></a></label>
+                                <label><a href="auction?command=user_info&id=${lot.owner.id}"><c:out
+                                        value="${lot.owner.login}"/></a></label>
                             </div>
                         </div>
                     </div>
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
-                                <label><fmt:message key="lot_full.flower" bundle="${rb}"/></label>
+                                <label><fmt:message key="lot-full.buyer" bundle="${rb}"/></label>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <label><a href="auction?command=user_info&id=${lot.buyer.id}"><c:out
+                                        value="${lot.buyer.login}"/></a></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <label><fmt:message key="lot-full.flower" bundle="${rb}"/></label>
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <label><c:out value="${lot.flower.name}"/></label>
@@ -151,7 +154,7 @@
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
-                                <label><fmt:message key="lot_full.address" bundle="${rb}"/></label>
+                                <label><fmt:message key="lot-full.address" bundle="${rb}"/></label>
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <label><c:out
@@ -162,7 +165,7 @@
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
-                                <label><fmt:message key="lot_full.currentPrice" bundle="${rb}"/></label>
+                                <label><fmt:message key="lot-full.currentPrice" bundle="${rb}"/></label>
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <label><c:out value="${lot.currentPrice}"/></label>
@@ -172,7 +175,7 @@
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
-                                <label><fmt:message key="lot_full.count" bundle="${rb}"/></label>
+                                <label><fmt:message key="lot-full.count" bundle="${rb}"/></label>
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <label><c:out value="${lot.count}"/></label>
@@ -182,7 +185,7 @@
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
-                                <label><fmt:message key="lot_full.end" bundle="${rb}"/></label>
+                                <label><fmt:message key="lot-full.end" bundle="${rb}"/></label>
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <label><c:out value="${lot.end.toLocalDate()} ${lot.end.toLocalTime()}"/></label>
@@ -192,7 +195,7 @@
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
-                                <label><fmt:message key="lot_full.description" bundle="${rb}"/></label>
+                                <label><fmt:message key="lot-full.description" bundle="${rb}"/></label>
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <label><c:out value="${lot.description}"/></label>
@@ -201,12 +204,7 @@
                     </div>
                 </div>
 
-                <!--<c:if test="${userInfo.id == userId}">
-                <div class="form-group">
-                <a href="auction?command=user_info_for_change" class="btn btn-primary pull-right" role="button"><fmt:message
-                    key="user_info.changeButton" bundle="${rb}"/></a>
-                </div>
-            </c:if>-->
+
             </c:if>
         </div>
     </div>

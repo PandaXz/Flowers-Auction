@@ -41,7 +41,7 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8 col-xs-12 main">
+        <div class="col-md-offset-1 col-md-10 col-sm-12  col-xs-12 main">
             <c:if test='${ not empty userId}'>
                 <c:import url="navbar.jsp"/>
             </c:if>

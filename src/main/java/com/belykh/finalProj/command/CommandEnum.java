@@ -1,10 +1,7 @@
 package com.belykh.finalProj.command;
 
-import com.belykh.finalProj.command.impl.*;
-import com.belykh.finalProj.command.impl.admin.AddedLotsCommand;
-import com.belykh.finalProj.command.impl.admin.ApproveLotCommand;
-import com.belykh.finalProj.command.impl.admin.ChangeBalanceCommand;
-import com.belykh.finalProj.command.impl.admin.DenyLotCommand;
+import com.belykh.finalProj.command.impl.admin.*;
+import com.belykh.finalProj.command.impl.common.*;
 import com.belykh.finalProj.command.impl.lot.*;
 import com.belykh.finalProj.command.impl.user.ChangableInfoCommand;
 import com.belykh.finalProj.command.impl.user.ChangePasswordCommand;
@@ -17,7 +14,6 @@ import com.belykh.finalProj.command.impl.user.UserInfoCommand;
 public enum CommandEnum {
 
     FORWARD(new ForwardCommand()),
-    ADMIN_FORWARD(new AdminForwardCommand()),
     LOGIN(new AuthorizationCommand()),
     ENGLISH_LANGUAGE(new EnglishLanguageCommand()),
     RUSSIAN_LANGUAGE(new RussianLanguageCommand()),
@@ -38,7 +34,10 @@ public enum CommandEnum {
     APPROVE_LOT(new ApproveLotCommand()),
     DENY_LOT(new DenyLotCommand()),
     ADDED_LOTS(new AddedLotsCommand()),
-    CHANGE_BALANCE(new ChangeBalanceCommand());
+    CHANGE_BALANCE(new ChangeBalanceCommand()),
+    ADD_FLOWER(new AddFlowerCommand()),
+    ADD_CITY(new AddCityCommand()),
+    USER_LIST(new UserListCommand());
 
     CommandEnum(ActionCommand command) {
         this.command = command;

@@ -10,6 +10,8 @@ import com.belykh.finalProj.service.UserService;
 import com.belykh.finalProj.util.MD5Util;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by panda on 7.1.18.
@@ -47,6 +49,22 @@ public class UserServiceImpl implements UserService {
                     throw new ServiceException(e);
                 }
             }
+        return result;
+    }
+
+    @Override
+    public List<UserInfo> findUsersInfo() throws ServiceException {
+        List<UserInfo> result = new ArrayList<>();
+        UserDAO dao = DAOFactory.getInstance().getUserDAO();
+        try {
+            List<UserDBO> userList = dao.findAllUsers();
+            for(UserDBO user:userList){
+                result.add(new UserInfo(user.getId(),user.getLogin(),user.getEmail(),user.getFirstName(),user.getLastName(),user.getBalance()));
+            }
+
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
         return result;
     }
 

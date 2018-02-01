@@ -44,6 +44,7 @@ public class AddressServiceImpl implements AddressService {
         return result;
     }
 
+    @Override
     public Long addAddress(Long cityId, String street, int houseNumber) throws ServiceException {
         Long result = null;
         AddressDAO addressDAO = DAOFactory.getInstance().getAddressDAO();
@@ -51,14 +52,26 @@ public class AddressServiceImpl implements AddressService {
             AddressDBO addressDBO = addressDAO.findAddressByCityIdAndAddress(cityId, street, houseNumber);
             if (addressDBO == null && addressDAO.addAddress(new AddressDBO(0l, street, houseNumber, cityId))) {
                 addressDBO = addressDAO.findAddressByCityIdAndAddress(cityId, street, houseNumber);
-
-
             }
             result = addressDBO.getId();
 
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
+        return result;
+    }
+
+    @Override
+    public boolean addCity(String name) throws ServiceException {
+        boolean result = false;
+        CityDAO dao = DAOFactory.getInstance().getCityDAO();
+        try {
+            result = dao.addCity(new CityDBO(0l,name));
+
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+
         return result;
     }
 }

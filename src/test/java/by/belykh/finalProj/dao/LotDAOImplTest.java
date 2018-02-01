@@ -1,7 +1,6 @@
 package by.belykh.finalProj.dao;
 
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.pool.ConnectionPool;
 import com.belykh.finalProj.service.Impl.LotServiceImpl;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -12,11 +11,11 @@ public class LotDAOImplTest extends Assert {
 
     @BeforeClass
     public void beforeClass() {
-        ConnectionPool.init(1);
+        //ConnectionPool.init(1);
     }
     @AfterClass
     public void afterClass() {
-        ConnectionPool.getInstance().destroy();
+        //ConnectionPool.getInstance().destroy();
     }
 
     @Test

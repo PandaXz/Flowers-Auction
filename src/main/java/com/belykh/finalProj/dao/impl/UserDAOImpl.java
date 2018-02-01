@@ -22,8 +22,8 @@ public class UserDAOImpl implements UserDAO {
             "FROM user WHERE `user`.`login`=?";
     private static final String SQL_FIND_USER_BY_ID = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`money`,`user`.`role`\n" +
             "FROM user WHERE `user`.`id`=?";
-    private static final String SQL_FIND_MONEY_BY_ID = "SELECT `user`.`money` FROM `user` WHERE `user`.`id`=?";
     private static final String SQL_DELETE_USER = "DELETE FROM `user` WHERE `user`.`login`=?";
+    private static final String SQL_FIND_ALL_USERS = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`money`,`user`.`role` FROM user ";
 
     private static final String SQL_FIND_USER_ID_BY_LOGIN = "SELECT `user`.`id` FROM user WHERE `user`.`login`=?";
     private static final String SQL_ADD_USER = "INSERT INTO `user` (`login`, `password_hash`, `email`, `first_name`, `last_name`, `role`, `money`) VALUES (?,?,?,?,?,?,?)";
@@ -47,7 +47,7 @@ public class UserDAOImpl implements UserDAO {
     public List<UserDBO> findAllUsers() throws DAOException {
 
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER_BY_LOGIN)) {
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL_USERS)) {
 
             ResultSet resultSet = statement.executeQuery();
             return createUserList(resultSet);

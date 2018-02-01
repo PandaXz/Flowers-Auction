@@ -1,4 +1,4 @@
-package com.belykh.finalProj.command.impl;
+package com.belykh.finalProj.command.impl.common;
 
 import com.belykh.finalProj.command.ActionCommand;
 import com.belykh.finalProj.constant.PathPage;

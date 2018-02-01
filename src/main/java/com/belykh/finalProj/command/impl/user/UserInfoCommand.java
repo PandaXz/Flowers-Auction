@@ -20,7 +20,7 @@ public class UserInfoCommand implements ActionCommand {
         String result = null;
         String userIdString = request.getParameter("id");
         Long userId;
-        if (!ParameterValidator.getInstance().validateLogin(userIdString)) {
+        if (!ParameterValidator.getInstance().validateId(userIdString)) {
             HttpSession session = request.getSession(false);
             userId = (Long) session.getAttribute("userId");
 

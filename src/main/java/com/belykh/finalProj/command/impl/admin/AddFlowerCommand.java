@@ -5,36 +5,34 @@ import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.service.AddressService;
+import com.belykh.finalProj.service.FlowerService;
 import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AddCityCommand implements ActionCommand {
-
+public class AddFlowerCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
-        String cityName = request.getParameter("cityName");
+        String flowerName = request.getParameter("flowerName");
 
         ParameterValidator validator = ParameterValidator.getInstance();
-        if(cityName!=null) {
-            if (validator.validateName(cityName)) {
-                AddressService service = ServiceFactory.getInstance().getAddressService();
+        if(flowerName!=null) {
+            if (validator.validateName(flowerName)) {
+                FlowerService service = ServiceFactory.getInstance().getFlowerService();
                 try {
-                    if (!service.addCity(cityName)) {
-                        request.setAttribute("errorAddMessage", AuctionServlet.messageManager.getProperty("message.errorAddCityMessage"));
+                    if (!service.addFlower(flowerName)) {
+                        request.setAttribute("errorAddMessage", AuctionServlet.messageManager.getProperty("message.errorAddFlowerMessage"));
                     }
                 } catch (ServiceException e) {
                     throw new CommandException(e);
                 }
             } else {
-                request.setAttribute("errorAddMessage", AuctionServlet.messageManager.getProperty("message.errorAddCityMessage"));
+                request.setAttribute("errorAddMessage", AuctionServlet.messageManager.getProperty("message.errorAddFlowerMessage"));
             }
         }
-        return PathPage.ADD_CITY.getPath();
-
+        return PathPage.ADD_FLOWER.getPath();
     }
 }

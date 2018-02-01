@@ -12,7 +12,7 @@ public class ParameterValidator {
     private static final Pattern REGEX_LOGIN=Pattern.compile("^[A-Za-z][A-Za-z_]*$");
     private static final Pattern REGEX_PASSWORD=Pattern.compile("^\\w+$");
     private static final Pattern REGEX_EMAIL=Pattern.compile("^[\\w\\.]+@\\w+\\.\\w+$");
-    private static final Pattern REGEX_NAME=Pattern.compile("^[A-Za-z]*$");
+    private static final Pattern REGEX_NAME=Pattern.compile("^[A-Za-z-]*$");
     private static final Pattern REGEX_ID=Pattern.compile("^\\d+$");
     private static final Pattern REGEX_PRICE=Pattern.compile("^\\d+(\\.\\d{1,4})?");
     private static final Pattern REGEX_DATETIME=Pattern.compile("^(\\d{4,})-(\\d{2})-(\\d{2})[T ](\\d{2}):(\\d{2})(?::(\\d{2}(?:\\.\\d+)?))?$");

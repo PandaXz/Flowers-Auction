@@ -8,4 +8,6 @@ import java.util.List;
 public interface FlowerService {
     FlowerDBO findFlowerById(Long id) throws ServiceException;
     List<FlowerDBO> findAllFlowers() throws ServiceException;
+
+    boolean addFlower(String name) throws ServiceException;
 }

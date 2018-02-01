@@ -18,7 +18,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title><fmt:message key="offer_lot.title" bundle="${rb}"/></title>
+    <title><fmt:message key="offer-lot.title" bundle="${rb}"/></title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -41,16 +41,16 @@
 <c:import url="../header.jsp"/>
 <div class="container">
     <div class="row">
-        <div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12 main">
+        <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12 main">
             <c:import url="../navbar.jsp"/>
-            <h2><fmt:message key="offer_lot.header" bundle="${rb}"/></h2>
+            <h2><fmt:message key="offer-lot.header" bundle="${rb}"/></h2>
             <br>
             <form action="auction" method="post">
                 <input type="hidden" name="command" value="offer_lot">
 
 
                 <div class="form-group">
-                    <label for="flowerId"><fmt:message key="offer_lot.flower" bundle="${rb}"/></label>
+                    <label for="flowerId"><fmt:message key="offer-lot.flower" bundle="${rb}"/></label>
                     <select class="form-control" id="flowerId" name="flowerId" required>
                         <c:forEach items="${flowerList}" var="flower">
                             <option value="${flower.id}"><c:out value="${flower.name}"/></option>
@@ -59,7 +59,7 @@
                     <br>
                     <div class="row">
                         <div class="col-md-5 col-xs-12">
-                            <label for="cityId"><fmt:message key="offer_lot.city" bundle="${rb}"/></label>
+                            <label for="cityId"><fmt:message key="offer-lot.city" bundle="${rb}"/></label>
                             <select class="form-control" id="cityId" name="cityId" required>
                                 <c:forEach items="${cityList}" var="city">
                                     <option value="${city.id}"><c:out value="${city.name}"/></option>
@@ -67,25 +67,25 @@
                             </select>
                         </div>
                         <div class="col-md-5 col-xs-8">
-                            <label for="street"><fmt:message key="offer_lot.street" bundle="${rb}"/> </label>
+                            <label for="street"><fmt:message key="offer-lot.street" bundle="${rb}"/> </label>
                             <input type="text"  class="form-control" id="street" name="street" pattern="^[\w-]+$" required>
                         </div>
                         <div class="col-md-2 col-xs-4">
-                            <label for="number"><fmt:message key="offer_lot.number" bundle="${rb}"/> </label>
+                            <label for="number"><fmt:message key="offer-lot.number" bundle="${rb}"/> </label>
                             <input onload="now(this)" type="number" min="0" class="form-control" id="number" name="houseNumber" required>
                         </div>
                     </div>
                     <br>
-                    <label for="price"><fmt:message key="offer_lot.price" bundle="${rb}"/> </label>
+                    <label for="price"><fmt:message key="offer-lot.price" bundle="${rb}"/> </label>
                     <input type="number" step="0.01" min="0" class="form-control" id="price" name="price" required>
                     <br>
-                    <label for="count"><fmt:message key="offer_lot.count" bundle="${rb}"/> </label>
+                    <label for="count"><fmt:message key="offer-lot.count" bundle="${rb}"/> </label>
                     <input type="number" min="0" class="form-control" id="count" name="count" required>
                     <br>
-                    <label for="end"><fmt:message key="offer_lot.end" bundle="${rb}"/></label>
+                    <label for="end"><fmt:message key="offer-lot.end" bundle="${rb}"/></label>
                     <input type="datetime-local" class="form-control" id="end" name="end" required/>
                     <br>
-                    <label for="description"><fmt:message key="offer_lot.description" bundle="${rb}"/></label>
+                    <label for="description"><fmt:message key="offer-lot.description" bundle="${rb}"/></label>
                     <textarea class="form-control" rows="3" name="description" id="description" required></textarea>
                 </div>
                 <c:choose>
@@ -97,7 +97,7 @@
                         <br/>
                     </c:otherwise>
                 </c:choose>
-                <button class="btn btn-primary btn-block" type="submit"><fmt:message key="offer_lot.submitButton"
+                <button class="btn btn-primary btn-block" type="submit"><fmt:message key="offer-lot.submitButton"
                                                                                      bundle="${rb}"/></button>
             </form>
         </div>

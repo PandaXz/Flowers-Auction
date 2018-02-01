@@ -10,13 +10,16 @@ public enum PathPage {
     ERROR("/jsp/error.jsp"),
     REGISTRATION("/jsp/registration.jsp"),
     AUCTION("/jsp/auction.jsp"),
-    USER_LOTS("/jsp/lot/user_lots.jsp"),
-    LOT_INFORMATION("/jsp/lot/lot_full.jsp"),
-    USER_INFORMATION("/jsp/user/user_info.jsp"),
-    CHANGE_USER_INFO("/jsp/user/change_user_info.jsp"),
-    CHANGE_PASSWORD("/jsp/user/change_password.jsp"),
-    OFFER_LOT("/jsp/lot/offer_lot.jsp"),
-    ADDED_LOTS("/jsp/admin/added_lots.jsp");
+    USER_LOTS("/jsp/lot/user-lots.jsp"),
+    LOT_INFORMATION("/jsp/lot/lot-info.jsp"),
+    USER_INFORMATION("/jsp/user/user-info.jsp"),
+    CHANGE_USER_INFO("/jsp/user/change-user-info.jsp"),
+    CHANGE_PASSWORD("/jsp/user/change-password.jsp"),
+    OFFER_LOT("/jsp/lot/offer-lot.jsp"),
+    ADDED_LOTS("/jsp/admin/added-lots.jsp"),
+    ADD_CITY("/jsp/admin/add-city.jsp"),
+    ADD_FLOWER("/jsp/admin/add-flower.jsp"),
+    USER_LIST("/jsp/admin/user-list.jsp");
 
     private String path;
     private PathPage(String path) {

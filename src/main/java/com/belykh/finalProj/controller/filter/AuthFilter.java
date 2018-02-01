@@ -29,6 +29,9 @@ public class AuthFilter implements Filter {
         adminCommands.add("DENY_LOT");
         adminCommands.add("ADDED_LOTS");
         adminCommands.add("CHANGE_BALANCE");
+        adminCommands.add("ADD_FLOWER");
+        adminCommands.add("ADD_CITY");
+        adminCommands.add("USER_LIST");
 
         guestCommands = new ArrayList<>();
         guestCommands.add("SIGNUP");

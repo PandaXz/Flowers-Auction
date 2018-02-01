@@ -46,6 +46,10 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="auction?command=added_lots">Added lots</a></li>
+                            <li><a href="auction?command=user_list">User list</a></li>
+                            <li><a href="auction?command=add_flower">Add flower</a></li>
+                            <li><a href="auction?command=add_city">Add city</a></li>
+
                             <!--<li role="separator" class="divider"></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#">One more separated link</a></li>-->
@@ -78,31 +82,3 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<!--<header class="bg-dark">
-<div class="card-body ">
-<div class="btn-group-sm row">
-<form action="controller">
-<input type="hidden" name="command" value="English_language">
-<button class="btn" type="submit">Eng</button>
-</form>
-<form action="controller">
-<input type="hidden" name="command" value="Russian_language">
-<button class="btn" type="submit">Рус</button>
-</form>
-<c:if test="${not empty iduser && empty isLogin}">
-    <form action="controller">
-    <input type="hidden" name="command" value="LOGOUT">
-    <button class="btn" type="submit"><fmt:message key="header.logout" bundle="${rb}"/></button>
-    </form>
-</c:if>
-</div>
-</div>
-<nav class="navbar navbar-dark">
-<div class="container-fluid">
-<div class="header-content">
-
-</div>
-</div>
-</nav>
-</header>
--->

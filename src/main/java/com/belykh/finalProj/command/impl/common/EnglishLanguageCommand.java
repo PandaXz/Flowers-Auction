@@ -1,4 +1,4 @@
-package com.belykh.finalProj.command.impl;
+package com.belykh.finalProj.command.impl.common;
 
 
 import com.belykh.finalProj.command.ActionCommand;
@@ -17,12 +17,11 @@ import java.util.Locale;
 /**
  * Created by panda on 6.12.17.
  */
-public class RussianLanguageCommand implements ActionCommand {
+public class EnglishLanguageCommand implements ActionCommand {
 
     private final static String COOKIE_NAME = "locale";
 
-    private final static String COOKIE_VALUE = "ru_RU";
-    private static final String LOCALE_RU_VALUE = "ru";
+    private final static String COOKIE_VALUE = "en_US";
 
     private final static int COOKIE_AGE_IN_SEC = 86_400;
 
@@ -33,10 +32,9 @@ public class RussianLanguageCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String page = null;
-        Locale rus = new Locale(LOCALE_RU_VALUE, LOCALE_RU_VALUE.toUpperCase());
-        Locale.setDefault(rus);
-        AuctionServlet.resourceManager.changeLocale(rus);
-        AuctionServlet.messageManager.changeLocale(rus);
+        Locale.setDefault(Locale.US);
+        AuctionServlet.resourceManager.changeLocale(Locale.US);
+        AuctionServlet.messageManager.changeLocale(Locale.US);
         Cookie cookie = new Cookie(COOKIE_NAME, COOKIE_VALUE);
         cookie.setMaxAge(COOKIE_AGE_IN_SEC);
         response.addCookie(cookie);

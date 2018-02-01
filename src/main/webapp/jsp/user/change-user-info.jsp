@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title><fmt:message key="change_user_info.title" bundle="${rb}"/> </title>
+    <title><fmt:message key="change-user-info.title" bundle="${rb}"/> </title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -41,9 +41,9 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8 col-xs-12 main">
+        <div class="col-md-offset-1 col-md-10 col-sm-12 col-xs-12 main">
             <c:import url="../navbar.jsp"/>
-            <h2><fmt:message key="change_user_info.header" bundle="${rb}"/> </h2>
+            <h2><fmt:message key="change-user-info.header" bundle="${rb}"/> </h2>
             <br>
             <c:if test="${ not empty errorUserInfoIsEmpty}">
                 <div class="alert-danger alert">${errorUserInfoIsEmpty}</div>
@@ -53,19 +53,19 @@
                     <input type="hidden" name="command" value="change_user_info">
 
                     <div class="form-group ">
-                        <label for="email"><fmt:message key="change_user_info.email" bundle="${rb}"/></label>
+                        <label for="email"><fmt:message key="change-user-info.email" bundle="${rb}"/></label>
                         <input type="email" class="form-control" id="email" name="email"  value="${userInfo.email}" pattern="^[\w\.]+@\w+\.\w+$" required/>
                         <br>
-                        <label for="fname"><fmt:message key="change_user_info.firstName" bundle="${rb}"/></label>
+                        <label for="fname"><fmt:message key="change-user-info.firstName" bundle="${rb}"/></label>
                         <input type="text" class="form-control" id="fname" name="fname" value="${userInfo.firstName}" pattern="^[A-Za-z]*$" required/>
                         <br>
-                        <label for="lname"><fmt:message key="change_user_info.lastName" bundle="${rb}"/></label>
+                        <label for="lname"><fmt:message key="change-user-info.lastName" bundle="${rb}"/></label>
                         <input type="text" class="form-control" id="lname" name="lname" value="${userInfo.lastName}" pattern="^[A-Za-z]*$" required/>
                     </div>
 
-                    <button class="btn btn-primary" type="submit"><fmt:message key="change_user_info.submitButton"
+                    <button class="btn btn-primary" type="submit"><fmt:message key="change-user-info.submitButton"
                                                                                          bundle="${rb}"/></button>
-                    <a href="auction?command=user_info" class="btn bg-primary"><fmt:message key="change_user_info.cancelButton"
+                    <a href="auction?command=user_info" class="btn bg-primary"><fmt:message key="change-user-info.cancelButton"
                                                                                          bundle="${rb}"/></a>
                 </form>
             </c:if>

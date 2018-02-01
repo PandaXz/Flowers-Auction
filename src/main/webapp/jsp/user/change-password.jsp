@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title><fmt:message key="change_password.title" bundle="${rb}"/> </title>
+    <title><fmt:message key="change-password.title" bundle="${rb}"/> </title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -37,18 +37,18 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8 col-xs-12 main">
+        <div class="col-md-offset-1 col-md-10 col-sm-12 col-xs-12 main">
             <c:import url="../navbar.jsp"/>
-            <h2><fmt:message key="change_password.header" bundle="${rb}"/> </h2>
+            <h2><fmt:message key="change-password.header" bundle="${rb}"/> </h2>
             <br>
             <form action="auction" method="post">
                 <input type="hidden" name="command" value="change_password">
 
                 <div class="form-group">
-                    <label for="password"><fmt:message key="change_password.password" bundle="${rb}"/> </label>
+                    <label for="password"><fmt:message key="change-password.password" bundle="${rb}"/> </label>
                     <input type="password" class="form-control" id="password" name="password" pattern="^\w+$" required>
                     <br>
-                    <label for="passwordRepeat"><fmt:message key="change_password.passwordRepeat" bundle="${rb}"/></label>
+                    <label for="passwordRepeat"><fmt:message key="change-password.passwordRepeat" bundle="${rb}"/></label>
                     <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat" pattern="^\w+$"  required/>
                 </div>
                 <c:choose>
@@ -64,7 +64,7 @@
                         <br/>
                     </c:otherwise>
                 </c:choose>
-                <button class="btn btn-primary btn-block" type="submit"><fmt:message key="change_password.submitButton"
+                <button class="btn btn-primary btn-block" type="submit"><fmt:message key="change-password.submitButton"
                                                                                      bundle="${rb}"/></button>
             </form>
         </div>

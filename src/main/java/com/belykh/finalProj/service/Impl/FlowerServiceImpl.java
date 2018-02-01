@@ -33,4 +33,16 @@ public class FlowerServiceImpl implements FlowerService {
         }
         return result;
     }
+    @Override
+    public  boolean addFlower(String name) throws ServiceException{
+        boolean result = false;
+        FlowerDAO dao = DAOFactory.getInstance().getFlowerDAO();
+        try {
+            result = dao.addFlower(new FlowerDBO(0l,name));
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+
+        return result;
+    }
 }
