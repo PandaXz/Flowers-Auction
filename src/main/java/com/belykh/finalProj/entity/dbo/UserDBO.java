@@ -26,6 +26,8 @@ public class UserDBO {
         this.balance = balance;
     }
 
+    public UserDBO() {
+    }
 
     public Long getId() {
         return id;
@@ -131,7 +133,7 @@ public class UserDBO {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", role=" + role +
-                ", money=" + balance +
+                ", balance=" + balance +
                 '}';
     }
 }

@@ -9,8 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by panda on 14.1.18.
@@ -70,14 +68,6 @@ public class AddressDAOImpl implements AddressDAO {
         }
     }
 
-
-    private List<AddressDBO> createAddressList(ResultSet resultSet) throws SQLException {
-        List<AddressDBO> resultList = new ArrayList<>();
-        while(resultSet.next()){
-            resultList.add(createAddress(resultSet));
-        }
-        return resultList;
-    }
 
     private AddressDBO createAddress(ResultSet resultSet) throws SQLException {
         Long id = resultSet.getLong(ADDRESS_ID);

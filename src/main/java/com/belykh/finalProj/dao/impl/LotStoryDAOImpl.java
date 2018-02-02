@@ -19,6 +19,7 @@ import java.util.List;
 public class LotStoryDAOImpl implements LotStoryDAO {
 
     private static final String SQL_ADD_LOTSTORY = "INSERT INTO `lot_story` (`user_id_fk`, `lot_id_fk`,`price`) VALUES (?,?,?)";
+    private static final String SQL_FIND_LOTSTORY_BY_LOT="SELECT `lot_story`.`id`,`lot_story`.`lot_id_fk`,`lot_story`.`user_id_fk`,`lot_story`.`price` FROM `lot_story` WHERE lot_id_fk=?";
 
     private static final String LOTSTORY_ID="id";
     private static final String LOTSTORY_USER_ID="user_id_fk";
@@ -37,7 +38,21 @@ public class LotStoryDAOImpl implements LotStoryDAO {
         }
     }
 
+    @Override
+    public List<LotStoryDBO> findLotStoriesByLotId(Long id) throws DAOException {
+        List<LotStoryDBO> result = null;
+        try(Connection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOTSTORY_BY_LOT)) {
+            statement.setLong(1,id);
+            ResultSet resultSet = statement.executeQuery();
 
+            result =createLotStoriesList(resultSet);
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return result;
+    }
     private List<LotStoryDBO> createLotStoriesList(ResultSet resultSet) throws SQLException {
         List<LotStoryDBO> resultList = new ArrayList<>();
         while(resultSet.next()){

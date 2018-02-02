@@ -1,0 +1,1 @@
+DROP DATABASE IF EXISTS `flower_auction_db_test`;
