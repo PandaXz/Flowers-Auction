@@ -18,19 +18,19 @@ import java.util.List;
  */
 public class UserDAOImpl implements UserDAO {
 
-    private static final String SQL_FIND_USER_BY_LOGIN = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`money`,`user`.`role`\n" +
+    private static final String SQL_FIND_USER_BY_LOGIN = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`balance`,`user`.`role`\n" +
             "FROM user WHERE `user`.`login`=?";
-    private static final String SQL_FIND_USER_BY_ID = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`money`,`user`.`role`\n" +
+    private static final String SQL_FIND_USER_BY_ID = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`balance`,`user`.`role`\n" +
             "FROM user WHERE `user`.`id`=?";
-    private static final String SQL_FIND_ALL_USERS = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`money`,`user`.`role` FROM user ";
+    private static final String SQL_FIND_ALL_USERS = "SELECT `user`.`id`, `user`.`first_name`, `user`.email, `user`.`password_hash`,`user`.`login`,`user`.`last_name`,`user`.`balance`,`user`.`role` FROM user ";
 
     private static final String SQL_FIND_USER_ID_BY_LOGIN = "SELECT `user`.`id` FROM user WHERE `user`.`login`=?";
-    private static final String SQL_ADD_USER = "INSERT INTO `user` (`login`, `password_hash`, `email`, `first_name`, `last_name`, `role`, `money`) VALUES (?,?,?,?,?,?,?)";
+    private static final String SQL_ADD_USER = "INSERT INTO `user` (`login`, `password_hash`, `email`, `first_name`, `last_name`, `role`, `balance`) VALUES (?,?,?,?,?,?,?)";
     private static final String SQL_UPDATE_PASSWORD = "UPDATE `user` SET `user`.`password_hash` = ? WHERE `user`.`login`=?";
-    private static final String SQL_UPDATE_MONEY = "UPDATE `user` SET `user`.`money` = ? WHERE `user`.`id`=?";
+    private static final String SQL_UPDATE_MONEY = "UPDATE `user` SET `user`.`balance` = ? WHERE `user`.`id`=?";
     private static final String SQL_UPDATE_USER_INFO = "UPDATE `user` SET `user`.`email` = ?,`user`.`first_name` = ?,`user`.`last_name` = ? WHERE `user`.`login`=?";
-    private static final String SQL_DEPOSIT_MONEY = "UPDATE `user` SET `money` = (`money` + ?) WHERE `id` = ?";
-    private static final String SQL_WITHDRAW_USER_MONEY = "UPDATE `user` SET `money` = (`money` - ?) WHERE `id` = ? AND `money` >= ?";
+    private static final String SQL_DEPOSIT_MONEY = "UPDATE `user` SET `balance` = (`balance` + ?) WHERE `id` = ?";
+    private static final String SQL_WITHDRAW_USER_MONEY = "UPDATE `user` SET `balance` = (`user`.`balance` - ?) WHERE `id` = ? AND `balance` >= ?";
 
     private static final String USER_ID = "id";
     private static final String USER_FIRST_NAME = "first_name";
@@ -38,7 +38,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String USER_PASSWORD = "password_hash";
     private static final String USER_LOGIN = "login";
     private static final String USER_LAST_NAME = "last_name";
-    private static final String USER_BALANCE = "money";
+    private static final String USER_BALANCE = "balance";
     private static final String USER_ROLE = "role";
 
 

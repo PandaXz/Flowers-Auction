@@ -4,6 +4,7 @@ import com.belykh.finalProj.command.ActionCommand;
 import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.entity.LotHeader;
+import com.belykh.finalProj.entity.dbo.LotState;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.LotService;
@@ -19,7 +20,7 @@ public class AcceptedLotListCommand implements ActionCommand {
         String result = null;
         LotService service = ServiceFactory.getInstance().getLotService();
         try {
-            List<LotHeader> lotList = service.findAcceptedLotHeaders();
+            List<LotHeader> lotList = service.findLotHeadersByState(LotState.ACCEPTED);
             if(lotList.isEmpty()){
                 request.setAttribute("errorLotListIsEmpty", AuctionServlet.messageManager.getProperty("message.errorLotListIsEmpty"));
                 request.setAttribute("lotList",null);

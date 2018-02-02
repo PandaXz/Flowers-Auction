@@ -68,7 +68,7 @@
                         </div>
                         <div class="col-md-5 col-xs-8">
                             <label for="street"><fmt:message key="offer-lot.street" bundle="${rb}"/> </label>
-                            <input type="text"  class="form-control" id="street" name="street" pattern="^[\w-]+$" required>
+                            <input type="text"  class="form-control" id="street" name="street" pattern="^[\wА-Яа-я-]+$" required>
                         </div>
                         <div class="col-md-2 col-xs-4">
                             <label for="number"><fmt:message key="offer-lot.number" bundle="${rb}"/> </label>

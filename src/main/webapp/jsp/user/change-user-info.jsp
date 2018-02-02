@@ -57,10 +57,10 @@
                         <input type="email" class="form-control" id="email" name="email"  value="${userInfo.email}" pattern="^[\w\.]+@\w+\.\w+$" required/>
                         <br>
                         <label for="fname"><fmt:message key="change-user-info.firstName" bundle="${rb}"/></label>
-                        <input type="text" class="form-control" id="fname" name="fname" value="${userInfo.firstName}" pattern="^[A-Za-z]*$" required/>
+                        <input type="text" class="form-control" id="fname" name="fname" value="${userInfo.firstName}" pattern="^[A-Za-zА-Яа-я]*$" required/>
                         <br>
                         <label for="lname"><fmt:message key="change-user-info.lastName" bundle="${rb}"/></label>
-                        <input type="text" class="form-control" id="lname" name="lname" value="${userInfo.lastName}" pattern="^[A-Za-z]*$" required/>
+                        <input type="text" class="form-control" id="lname" name="lname" value="${userInfo.lastName}" pattern="^[A-Za-zА-Яа-я]*$" required/>
                     </div>
 
                     <button class="btn btn-primary" type="submit"><fmt:message key="change-user-info.submitButton"

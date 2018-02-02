@@ -54,10 +54,10 @@
                     <input type="email" class="form-control" id="email" name="email"  pattern="^[\w\.]+@\w+\.\w+$" required/>
                     <br>
                     <label for="fname"><fmt:message key="registration.firstName" bundle="${rb}"/></label>
-                    <input type="text" class="form-control" id="fname" name="fname" pattern="^[A-Za-z]*$" required/>
+                    <input type="text" class="form-control" id="fname" name="fname" pattern="^[A-Za-zА-Яа-я]*$" required/>
                     <br>
                     <label for="lname"><fmt:message key="registration.lastName" bundle="${rb}"/></label>
-                    <input type="text" class="form-control" id="lname" name="lname" pattern="^[A-Za-z]*$" required />
+                    <input type="text" class="form-control" id="lname" name="lname" pattern="^[A-Za-zА-Яа-я]*$" required />
                 </div>
                 <a href="auction?command=forward&page=login" class="label-notification" role="button"><fmt:message key="registration.hasAccount" bundle="${rb}"/></a>
                 <c:choose>

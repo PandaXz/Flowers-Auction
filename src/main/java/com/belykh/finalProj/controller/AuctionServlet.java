@@ -2,6 +2,7 @@ package com.belykh.finalProj.controller;
 
 import com.belykh.finalProj.command.ActionCommand;
 import com.belykh.finalProj.command.CommandProvider;
+import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.manager.MessageManager;
 import com.belykh.finalProj.manager.ResourceManager;
@@ -80,6 +81,9 @@ public class AuctionServlet extends HttpServlet {
                 RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);
                 requestDispatcher.forward(request, response);
             }
+        }else{
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(PathPage.INDEX.getPath());
+            requestDispatcher.forward(request, response);
         }
     }
 }

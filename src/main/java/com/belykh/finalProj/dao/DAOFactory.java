@@ -14,12 +14,17 @@ public class DAOFactory {
     private final FlowerDAO flowerDAO = new FlowerDAOImpl();
     private final LotStoryDAO lotStoryDAO = new LotStoryDAOImpl();
     private final LotDAO lotDAO = new LotDAOImpl();
+    private final LotHeaderDAO lotHeaderDAO = new LotHeaderDAOImpl();
 
     public static DAOFactory getInstance() {
         return instance;
     }
 
     private DAOFactory() {
+    }
+
+    public LotHeaderDAO getLotHeaderDAO() {
+        return lotHeaderDAO;
     }
 
     public LotDAO getLotDAO() {

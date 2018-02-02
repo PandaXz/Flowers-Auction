@@ -9,8 +9,6 @@ import com.belykh.finalProj.pool.ConnectionPool;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by panda on 14.1.18.
@@ -18,9 +16,6 @@ import java.util.List;
 public class LotDAOImpl implements LotDAO{
 
     private static final String SQL_FIND_LOT_BY_ID="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`id`=?";
-    private static final String SQL_FIND_LOTS_BY_STATE="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`state`=?";
-    private static final String SQL_FIND_LOTS_BY_STATE_AND_OWNER_ID="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`owner_id_fk`=? AND `lot`.`state`=?";
-    private static final String SQL_FIND_LOTS_BY_STATE_AND_BUYER_ID="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`buyer_id_fk`=? AND `lot`.`state`=?";
     private static final String SQL_ADD_LOT = "INSERT INTO `lot` ( owner_id_fk, flowerType_id_fk, address_id_fk, start_price, current_price,state, `count`,`end_datetime`, description) VALUES (?,?,?,?,?,?,?,?,?)";
     private static final String SQL_DELETE_LOT = "DELETE FROM `lot` WHERE `lot`.`id`=?";
     private static final String SQL_UPDATE_STATE = "UPDATE `lot` SET `lot`.`state` = ? WHERE `lot`.`id`=?";
@@ -66,46 +61,6 @@ public class LotDAOImpl implements LotDAO{
             throw new DAOException(e);
         }
     }
-
-
-    @Override
-    public List<LotDBO> findAllLotsByState(LotState state) throws DAOException {
-
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOTS_BY_STATE)) {
-            statement.setString(1,state.toString());
-            ResultSet resultSet = statement.executeQuery();
-            return createLotsList(resultSet);
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        }
-    }
-
-    @Override
-    public List<LotDBO> findAllLotsByStateAndOwnerId(Long ownerId, LotState state) throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOTS_BY_STATE_AND_OWNER_ID)) {
-            statement.setLong(1,ownerId);
-            statement.setString(2,state.toString());
-            ResultSet resultSet = statement.executeQuery();
-            return createLotsList(resultSet);
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        }
-    }
-    @Override
-    public List<LotDBO> findAllLotsByStateAndBuyerId(Long buyerId, LotState state) throws DAOException {
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_LOTS_BY_STATE_AND_BUYER_ID)) {
-            statement.setString(2,state.toString());
-            statement.setLong(1,buyerId);
-            ResultSet resultSet = statement.executeQuery();
-            return createLotsList(resultSet);
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        }
-    }
-
 
     @Override
     public boolean changeBuyerAndPrice(Long id, Long userId, BigDecimal newPrice) throws DAOException {
@@ -155,15 +110,6 @@ public class LotDAOImpl implements LotDAO{
         } catch (SQLException e) {
             throw new DAOException(e);
         }
-    }
-
-    private List<LotDBO> createLotsList(ResultSet resultSet) throws SQLException {
-
-        List<LotDBO> resultList = new ArrayList<>();
-        while(resultSet.next()){
-            resultList.add(createLot(resultSet));
-        }
-        return resultList;
     }
 
     private LotDBO createLot(ResultSet resultSet) throws SQLException {

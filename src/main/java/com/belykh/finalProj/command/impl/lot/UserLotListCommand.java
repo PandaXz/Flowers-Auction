@@ -36,12 +36,8 @@ public class UserLotListCommand implements ActionCommand {
             Long userId = (Long)session.getAttribute("userId");
             LotService service = ServiceFactory.getInstance().getLotService();
             try {
-                List<LotHeader> lotList;
-                if(isBuyerId){
-                    lotList=service.findLotHeadersByStateAndBuyerId(userId, state);
-                }else {
-                    lotList=service.findLotHeadersByStateAndOwnerId(userId, state);
-                }
+                List<LotHeader> lotList=service.findLotHeadersByStateAndId(userId, state,isBuyerId );
+
                 if (lotList.isEmpty()) {
                     request.setAttribute("lotList", null);
                     request.setAttribute("errorLotListIsEmpty", AuctionServlet.messageManager.getProperty("message.errorLotListIsEmpty"));
