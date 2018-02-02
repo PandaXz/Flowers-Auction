@@ -18,11 +18,17 @@ import java.util.List;
  */
 public class UserServiceImpl implements UserService {
 
+    private DAOFactory daoFactory = new DAOFactory();
+
+    public void setDaoFactory(DAOFactory daoFactory) {
+        this.daoFactory = daoFactory;
+    }
+
     @Override
     public UserDBO Authorization(String login, String password) throws ServiceException {
         UserDBO result = null;
         String passHash = MD5Util.getInstance().getMD5Hash(password);
-        UserDAO dao = DAOFactory.getInstance().getUserDAO();
+        UserDAO dao = daoFactory.getUserDAO();
         try {
             UserDBO userDBO = dao.findUserByLogin(login);
             if(userDBO !=null&&userDBO.getPass().toUpperCase().equals(passHash.toUpperCase())){
@@ -39,7 +45,7 @@ public class UserServiceImpl implements UserService {
     public boolean SignUp(String login, String password, String passwordRepeat, String email, String firstName, String lastName) throws ServiceException {
         boolean result = false;
             if(password.equals(passwordRepeat)){
-                UserDAO dao = DAOFactory.getInstance().getUserDAO();
+                UserDAO dao = daoFactory.getUserDAO();
                 try {
                     if(dao.isLoginFree(login)){
                         UserDBO newUser = new UserDBO(0l,login,MD5Util.getInstance().getMD5Hash(password),email,firstName,lastName,1,new BigDecimal(0));
@@ -55,7 +61,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserInfo> findUsersInfo() throws ServiceException {
         List<UserInfo> result = new ArrayList<>();
-        UserDAO dao = DAOFactory.getInstance().getUserDAO();
+        UserDAO dao = daoFactory.getUserDAO();
         try {
             List<UserDBO> userList = dao.findAllUsers();
             for(UserDBO user:userList){
@@ -71,7 +77,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo findUserInfo(String login) throws ServiceException {
         UserInfo result = null;
-        UserDAO dao = DAOFactory.getInstance().getUserDAO();
+        UserDAO dao = daoFactory.getUserDAO();
         try {
             UserDBO user = dao.findUserByLogin(login);
             if(user !=null){
@@ -87,7 +93,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo findUserInfoById(Long id) throws ServiceException {
         UserInfo result = null;
-        UserDAO dao = DAOFactory.getInstance().getUserDAO();
+        UserDAO dao = daoFactory.getUserDAO();
         try {
             UserDBO user = dao.findUserById(id);
             if(user !=null){
@@ -103,7 +109,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean changeUserInfo(String login,String email, String firstName,String lastName) throws ServiceException {
         boolean result = false;
-        UserDAO dao = DAOFactory.getInstance().getUserDAO();
+        UserDAO dao = daoFactory.getUserDAO();
         try {
             UserDBO user= dao.findUserByLogin(login);
             user.setEmail(email);
@@ -122,7 +128,7 @@ public class UserServiceImpl implements UserService {
     public boolean changePassword(String login, String newPass, String newPassRepeat) throws ServiceException {
         boolean result = false;
         if(newPass.equals(newPassRepeat)){
-            UserDAO dao = DAOFactory.getInstance().getUserDAO();
+            UserDAO dao = daoFactory.getUserDAO();
             try {
 
                 result = dao.changePassword(login, MD5Util.getInstance().getMD5Hash(newPass));
@@ -137,7 +143,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean changeBalance(Long id, BigDecimal balance) throws ServiceException {
         boolean result;
-        UserDAO dao = DAOFactory.getInstance().getUserDAO();
+        UserDAO dao = daoFactory.getUserDAO();
         try {
             result = dao.changeMoney(id, balance);
 

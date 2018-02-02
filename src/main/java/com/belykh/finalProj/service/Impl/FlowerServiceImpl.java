@@ -10,10 +10,17 @@ import com.belykh.finalProj.service.FlowerService;
 import java.util.List;
 
 public class FlowerServiceImpl implements FlowerService {
+
+    private DAOFactory daoFactory = new DAOFactory();
+
+    public void setDaoFactory(DAOFactory daoFactory) {
+        this.daoFactory = daoFactory;
+    }
+
     @Override
     public FlowerDBO findFlowerById(Long id) throws ServiceException {
         FlowerDBO result = null;
-        FlowerDAO dao = DAOFactory.getInstance().getFlowerDAO();
+        FlowerDAO dao = daoFactory.getFlowerDAO();
         try {
             result = dao.findFlowerById(id);
         } catch (DAOException e) {
@@ -25,7 +32,7 @@ public class FlowerServiceImpl implements FlowerService {
     @Override
     public List<FlowerDBO> findAllFlowers() throws ServiceException{
         List<FlowerDBO> result = null;
-        FlowerDAO dao = DAOFactory.getInstance().getFlowerDAO();
+        FlowerDAO dao = daoFactory.getFlowerDAO();
         try {
             result = dao.findAllFlowers();
         } catch (DAOException e) {
@@ -36,7 +43,7 @@ public class FlowerServiceImpl implements FlowerService {
     @Override
     public  boolean addFlower(String name) throws ServiceException{
         boolean result = false;
-        FlowerDAO dao = DAOFactory.getInstance().getFlowerDAO();
+        FlowerDAO dao = daoFactory.getFlowerDAO();
         try {
             result = dao.addFlower(new FlowerDBO(0l,name));
         } catch (DAOException e) {

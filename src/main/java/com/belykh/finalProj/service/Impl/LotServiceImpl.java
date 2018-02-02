@@ -21,11 +21,17 @@ import java.util.List;
 
 public class LotServiceImpl implements LotService {
 
+    private DAOFactory daoFactory = new DAOFactory();
+
+    public void setDaoFactory(DAOFactory daoFactory) {
+        this.daoFactory = daoFactory;
+    }
+
     @Override
     public LotFull findFullLotInfo(Long id) throws ServiceException {
         checkUnpaidLots();
         LotFull result = null;
-        LotDAO lotDAO = DAOFactory.getInstance().getLotDAO();
+        LotDAO lotDAO = daoFactory.getLotDAO();
         try {
             LotDBO lot = lotDAO.findLotById(id);
             if (lot != null) {
@@ -46,7 +52,7 @@ public class LotServiceImpl implements LotService {
     public boolean deleteLot(Long id, Long ownerId) throws ServiceException {
         checkUnpaidLots();
         boolean result = false;
-        LotDAO dao = DAOFactory.getInstance().getLotDAO();
+        LotDAO dao = daoFactory.getLotDAO();
         try {
             LotDBO lot = dao.findLotById(id);
             if (lot.getOwnerId().equals(ownerId)) {
@@ -63,8 +69,8 @@ public class LotServiceImpl implements LotService {
     public boolean buyLot(Long id, Long buyerId, BigDecimal price) throws ServiceException {
         checkUnpaidLots();
         boolean result = false;
-        LotDAO dao = DAOFactory.getInstance().getLotDAO();
-        LotStoryDAO lotStoryDAO = DAOFactory.getInstance().getLotStoryDAO();
+        LotDAO dao = daoFactory.getLotDAO();
+        LotStoryDAO lotStoryDAO = daoFactory.getLotStoryDAO();
         try {
             UserInfo user = ServiceFactory.getInstance().getUserService().findUserInfoById(buyerId);
             if (user.getBalance().compareTo(price) != -1) {
@@ -83,8 +89,8 @@ public class LotServiceImpl implements LotService {
     @Override
     public boolean payLot(Long lotId) throws ServiceException {
         boolean result = false;
-        LotDAO dao = DAOFactory.getInstance().getLotDAO();
-        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+        LotDAO dao = daoFactory.getLotDAO();
+        UserDAO userDAO = daoFactory.getUserDAO();
         try {
             LotDBO lot = dao.findLotById(lotId);
             if (userDAO.payment(lot.getOwnerId(), lot.getBuyerId(), lot.getCurrentPrice())) {
@@ -102,7 +108,7 @@ public class LotServiceImpl implements LotService {
     @Override
     public boolean offerLot(Long ownerId, Long flowerId, Long cityId, String street, Integer houseNumber, BigDecimal price, Integer count, LocalDateTime end, String description) throws ServiceException {
         boolean result = false;
-        LotDAO dao = DAOFactory.getInstance().getLotDAO();
+        LotDAO dao = daoFactory.getLotDAO();
         AddressService service = ServiceFactory.getInstance().getAddressService();
         try {
             result = dao.addLot(new LotDBO(0l, null, ownerId, flowerId, service.addAddress(cityId, street, houseNumber), price, price, LotState.ADDED, count, end, description));
@@ -116,7 +122,7 @@ public class LotServiceImpl implements LotService {
     @Override
     public boolean approveLot(Long lotId) throws ServiceException {
         boolean result = false;
-        LotDAO dao = DAOFactory.getInstance().getLotDAO();
+        LotDAO dao = daoFactory.getLotDAO();
         try {
             result = dao.changeState(lotId, LotState.ACCEPTED);
         } catch (DAOException e) {
@@ -129,7 +135,7 @@ public class LotServiceImpl implements LotService {
     @Override
     public boolean denyLot(Long lotId) throws ServiceException {
         boolean result = false;
-        LotDAO dao = DAOFactory.getInstance().getLotDAO();
+        LotDAO dao = daoFactory.getLotDAO();
         try {
             result = dao.changeState(lotId, LotState.DENIED);
         } catch (DAOException e) {
@@ -144,7 +150,7 @@ public class LotServiceImpl implements LotService {
     public List<LotHeader> findLotHeadersByStateAndId(Long id, LotState state, boolean isBuyer) throws ServiceException {
         checkUnpaidLots();
         List<LotHeader> result = null;
-        LotHeaderDAO dao = DAOFactory.getInstance().getLotHeaderDAO();
+        LotHeaderDAO dao = daoFactory.getLotHeaderDAO();
         try {
             if (isBuyer) {
                 result = dao.findLotHeadersByStateAndBuyerId(id, state);
@@ -158,7 +164,7 @@ public class LotServiceImpl implements LotService {
     }
 
     private void checkUnpaidLots() throws ServiceException {
-        LotDAO lotDAO = DAOFactory.getInstance().getLotDAO();
+        LotDAO lotDAO = daoFactory.getLotDAO();
         try {
             lotDAO.checkUnpaidLots();
         } catch (DAOException e) {
@@ -169,7 +175,7 @@ public class LotServiceImpl implements LotService {
     public List<LotHeader> findLotHeadersByState(LotState state) throws ServiceException {
         checkUnpaidLots();
         List<LotHeader> result;
-        LotHeaderDAO dao = DAOFactory.getInstance().getLotHeaderDAO();
+        LotHeaderDAO dao = daoFactory.getLotHeaderDAO();
         try {
             result = dao.findLotHeadersByState(state);
         } catch (DAOException e) {

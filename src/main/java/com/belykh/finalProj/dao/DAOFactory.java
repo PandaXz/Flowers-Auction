@@ -6,8 +6,6 @@ import com.belykh.finalProj.dao.impl.*;
  * Created by panda on 7.1.18.
  */
 public class DAOFactory {
-    private static DAOFactory instance = new DAOFactory();
-
     private final UserDAO userDAO = new UserDAOImpl();
     private final CityDAO cityDAO = new CityDAOImpl();
     private final AddressDAO addressDAO = new AddressDAOImpl();
@@ -16,12 +14,6 @@ public class DAOFactory {
     private final LotDAO lotDAO = new LotDAOImpl();
     private final LotHeaderDAO lotHeaderDAO = new LotHeaderDAOImpl();
 
-    public static DAOFactory getInstance() {
-        return instance;
-    }
-
-    private DAOFactory() {
-    }
 
     public LotHeaderDAO getLotHeaderDAO() {
         return lotHeaderDAO;

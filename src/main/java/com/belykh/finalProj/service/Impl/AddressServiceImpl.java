@@ -13,11 +13,18 @@ import com.belykh.finalProj.service.AddressService;
 import java.util.List;
 
 public class AddressServiceImpl implements AddressService {
+
+    private DAOFactory daoFactory = new DAOFactory();
+
+    public void setDaoFactory(DAOFactory daoFactory) {
+        this.daoFactory = daoFactory;
+    }
+
     @Override
     public Address findAddressById(Long addressId) throws ServiceException {
         Address result = null;
-        AddressDAO addressDAO = DAOFactory.getInstance().getAddressDAO();
-        CityDAO cityDAO = DAOFactory.getInstance().getCityDAO();
+        AddressDAO addressDAO = daoFactory.getAddressDAO();
+        CityDAO cityDAO = daoFactory.getCityDAO();
         try {
             AddressDBO addressDBO = addressDAO.findAddressById(addressId);
             if (addressDBO != null) {
@@ -34,7 +41,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public List<CityDBO> findAllCities() throws ServiceException {
         List<CityDBO> result = null;
-        CityDAO cityDAO = DAOFactory.getInstance().getCityDAO();
+        CityDAO cityDAO = daoFactory.getCityDAO();
         try {
             result = cityDAO.findAllCities();
 
@@ -47,7 +54,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public Long addAddress(Long cityId, String street, int houseNumber) throws ServiceException {
         Long result = null;
-        AddressDAO addressDAO = DAOFactory.getInstance().getAddressDAO();
+        AddressDAO addressDAO = daoFactory.getAddressDAO();
         try {
             AddressDBO addressDBO = addressDAO.findAddressByCityIdAndAddress(cityId, street, houseNumber);
             if (addressDBO == null && addressDAO.addAddress(new AddressDBO(0l, street, houseNumber, cityId))) {
@@ -64,7 +71,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public boolean addCity(String name) throws ServiceException {
         boolean result = false;
-        CityDAO dao = DAOFactory.getInstance().getCityDAO();
+        CityDAO dao = daoFactory.getCityDAO();
         try {
             result = dao.addCity(new CityDBO(0l,name));
 
