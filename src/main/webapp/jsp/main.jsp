@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/errorTag" %>
 <fmt:setLocale value="${lang}" scope="session"/>
 <fmt:setBundle basename="text" var="rb"/>
 <!DOCTYPE html>
@@ -47,9 +48,7 @@
             </c:if>
             <h2><fmt:message key="main.header" bundle="${rb}"/></h2>
             <br>
-            <c:if test="${ not empty errorLotListIsEmpty}">
-                <div class="alert-danger alert">${errorLotListIsEmpty}</div>
-            </c:if>
+            <ct:ctg errorMessage="${errorLotListIsEmpty}"/>
             <c:if test="${not empty lotList}">
                 <div class="table-responsive">
                     <table class="table table-hover table-style">

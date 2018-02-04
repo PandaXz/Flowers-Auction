@@ -18,11 +18,8 @@ import java.util.List;
  */
 public class UserServiceImpl implements UserService {
 
-    private DAOFactory daoFactory = new DAOFactory();
+    public static DAOFactory daoFactory = new DAOFactory();
 
-    public void setDaoFactory(DAOFactory daoFactory) {
-        this.daoFactory = daoFactory;
-    }
 
     @Override
     public UserDBO Authorization(String login, String password) throws ServiceException {

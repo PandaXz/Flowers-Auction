@@ -61,7 +61,7 @@ public class LotStoryDAOTest extends Assert {
         Assert.assertEquals(lotStoryDAO.findLotStoriesByLotId(10L).size(),1);
     }
 
-    @Test(dependsOnMethods = {"findLotStoriesByLotId_Test"})
+    @Test
     public void addLotStory_Test() throws  DAOException {
         lotStoryDAO.addLotStory(new LotStoryDBO(0L,1L,10L,new BigDecimal("100.0000")));
         Assert.assertEquals(lotStoryDAO.findLotStoriesByLotId(10L).size(),2);

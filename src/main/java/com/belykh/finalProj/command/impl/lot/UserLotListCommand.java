@@ -8,7 +8,6 @@ import com.belykh.finalProj.entity.dbo.LotState;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.LotService;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +33,7 @@ public class UserLotListCommand implements ActionCommand {
         HttpSession session = request.getSession(false);
         if(session!=null) {
             Long userId = (Long)session.getAttribute("userId");
-            LotService service = ServiceFactory.getInstance().getLotService();
+            LotService service = serviceFactory.getLotService();
             try {
                 List<LotHeader> lotList=service.findLotHeadersByStateAndId(userId, state,isBuyerId );
 

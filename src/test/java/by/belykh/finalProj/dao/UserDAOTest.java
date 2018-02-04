@@ -69,7 +69,7 @@ public class UserDAOTest extends Assert {
         Assert.assertEquals(userDAO.findUserById(5l),user);
     }
 
-    @Test(dependsOnMethods = {"findUserById_Test"})
+    @Test
     public void addUser_Test() throws  DAOException {
         UserDBO user = new UserDBO(7l, "SuperPuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("0.0000"));
         userDAO.addUser(user);
@@ -86,21 +86,21 @@ public class UserDAOTest extends Assert {
         Assert.assertFalse(userDAO.isLoginFree("SuperUser"));
     }
 
-    @Test(dependsOnMethods = {"findUserById_Test"})
+    @Test
     public void changePassword_Test() throws  DAOException {
         UserDBO user = new UserDBO(5l, "SuperUser", "AAAA", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("99900.0000"));
         userDAO.changePassword("SuperUser","AAAA");
         Assert.assertEquals(userDAO.findUserById(5l),user);
     }
 
-    @Test(dependsOnMethods = {"findUserById_Test"})
+    @Test
     public void changeUserInfo_Test() throws  DAOException {
         UserDBO user = new UserDBO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "superPuper.user@gmail.com", "SuperPuper", "User", 1, new BigDecimal("99900.0000"));
         userDAO.changeUserInfo(user);
         Assert.assertEquals(userDAO.findUserById(5l),user);
     }
 
-    @Test(dependsOnMethods = {"findUserById_Test"})
+    @Test
     public void changeMoney_Test() throws  DAOException {
         UserDBO user = new UserDBO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("100.0000"));
         userDAO.changeMoney(5l,new BigDecimal("100.0000"));

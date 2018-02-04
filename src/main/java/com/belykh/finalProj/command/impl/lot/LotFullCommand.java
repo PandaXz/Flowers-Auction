@@ -7,7 +7,6 @@ import com.belykh.finalProj.entity.LotFull;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.LotService;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +19,7 @@ public class LotFullCommand implements ActionCommand {
 
         if(ParameterValidator.getInstance().validateId(lotId)) {
 
-            LotService service = ServiceFactory.getInstance().getLotService();
+            LotService service = serviceFactory.getLotService();
             try {
                 LotFull lot = service.findFullLotInfo(Long.decode(lotId));
                 if (lot==null) {

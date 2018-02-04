@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/errorTag" %>
 <fmt:setLocale value="${lang}" scope="session"/>
 <fmt:setBundle basename="text" var="rb"/>
 <!DOCTYPE html>
@@ -51,19 +52,11 @@
                     <label for="passwordRepeat"><fmt:message key="change-password.passwordRepeat" bundle="${rb}"/></label>
                     <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat" pattern="^\w+$"  required/>
                 </div>
-                <c:choose>
-                    <c:when test="${ not empty errorChangeMessage }">
-                        <div class="alert-danger alert"><c:out value="${errorChangeMessage}"/></div>
+                <ct:ctg errorMessage="${errorChangeMessage}"/>
+                <c:if test="${ not empty successChangeMessage }">
+                    <div class="alert-success alert"><c:out value="${successChangeMessage}"/></div>
 
-                    </c:when>
-                    <c:when test="${ not empty successChangeMessage }">
-                        <div class="alert-success alert"><c:out value="${successChangeMessage}"/></div>
-
-                    </c:when>
-                    <c:otherwise>
-                        <br/>
-                    </c:otherwise>
-                </c:choose>
+                </c:if>
                 <button class="btn btn-primary btn-block" type="submit"><fmt:message key="change-password.submitButton"
                                                                                      bundle="${rb}"/></button>
             </form>

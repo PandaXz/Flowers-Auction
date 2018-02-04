@@ -6,7 +6,6 @@ import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.entity.UserInfo;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
 import com.belykh.finalProj.util.ParameterValidator;
 
@@ -27,7 +26,7 @@ public class UserInfoCommand implements ActionCommand {
         }else{
             userId=Long.decode(userIdString);
         }
-        UserService service = ServiceFactory.getInstance().getUserService();
+        UserService service = serviceFactory.getUserService();
         try {
             UserInfo user = service.findUserInfoById(userId);
             if (user==null) {

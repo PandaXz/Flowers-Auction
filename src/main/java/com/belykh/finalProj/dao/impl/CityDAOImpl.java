@@ -15,6 +15,7 @@ import java.util.List;
 public class CityDAOImpl implements CityDAO {
 
     private static final String SQL_FIND_CITY_BY_ID="SELECT `city`.`id`,`city`.`city_name` FROM `city` WHERE `city`.`id`=?";
+    private static final String SQL_FIND_CITY_BY_NAME="SELECT `city`.`id`,`city`.`city_name` FROM `city` WHERE `city`.`city_name`=?";
     private static final String SQL_FIND_ALL_CITIES="SELECT `city`.`id`,`city`.`city_name` FROM `city` ";
     private static final String SQL_ADD_CITY = "INSERT INTO `city` SET `city_name`=?";
 
@@ -31,6 +32,20 @@ public class CityDAOImpl implements CityDAO {
             if(resultSet.next()){
                 result= createCity(resultSet);
             }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean findCityByName(String name) throws DAOException {
+        boolean result =false;
+        try(Connection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL_FIND_CITY_BY_NAME)) {
+            statement.setString(1,name);
+            ResultSet resultSet = statement.executeQuery();
+            result= resultSet.next();
         } catch (SQLException e) {
             throw new DAOException(e);
         }

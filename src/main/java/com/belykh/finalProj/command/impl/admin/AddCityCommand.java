@@ -6,7 +6,6 @@ import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.AddressService;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,7 @@ public class AddCityCommand implements ActionCommand {
         ParameterValidator validator = ParameterValidator.getInstance();
         if(cityName!=null) {
             if (validator.validateName(cityName)) {
-                AddressService service = ServiceFactory.getInstance().getAddressService();
+                AddressService service = serviceFactory.getAddressService();
                 try {
                     if (!service.addCity(cityName)) {
                         request.setAttribute("errorAddMessage", AuctionServlet.messageManager.getProperty("message.errorAddCityMessage"));

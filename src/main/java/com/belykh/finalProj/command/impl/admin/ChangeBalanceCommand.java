@@ -4,7 +4,6 @@ import com.belykh.finalProj.command.ActionCommand;
 import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
 import com.belykh.finalProj.util.ParameterValidator;
 
@@ -28,7 +27,7 @@ public class ChangeBalanceCommand implements ActionCommand {
         ParameterValidator validator = ParameterValidator.getInstance();
 
         if(validator.validateId(id)&&validator.validateMoney(balance)) {
-            UserService service = ServiceFactory.getInstance().getUserService();
+            UserService service = serviceFactory.getUserService();
             try {
                 service.changeBalance(Long.decode(id),new BigDecimal(balance));
             } catch (ServiceException e) {

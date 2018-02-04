@@ -9,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/errorTag" %>
 <fmt:setLocale value="${lang}" scope="session"/>
 <fmt:setBundle basename="text" var="rb"/>
 <!DOCTYPE html>
@@ -46,9 +47,7 @@
             <c:import url="../navbar.jsp"/>
             <h2><fmt:message key="user-list.header" bundle="${rb}"/> </h2>
             <br>
-            <c:if test="${ not empty errorUserListIsEmpty}">
-                <div class="alert-danger alert">${errorUserListIsEmpty}</div>
-            </c:if>
+            <ct:ctg errorMessage="${errorUserListIsEmpty}"/>
             <c:if test="${not empty userList}">
                 <div class="table-responsive">
                     <table class="table table-hover table-style">

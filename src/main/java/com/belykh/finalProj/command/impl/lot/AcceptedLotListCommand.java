@@ -8,7 +8,6 @@ import com.belykh.finalProj.entity.dbo.LotState;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.LotService;
-import com.belykh.finalProj.service.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,7 @@ public class AcceptedLotListCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String result = null;
-        LotService service = ServiceFactory.getInstance().getLotService();
+        LotService service = serviceFactory.getLotService();
         try {
             List<LotHeader> lotList = service.findLotHeadersByState(LotState.ACCEPTED);
             if(lotList.isEmpty()){

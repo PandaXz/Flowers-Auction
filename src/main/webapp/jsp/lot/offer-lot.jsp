@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/errorTag" %>
 <fmt:setLocale value="${lang}" scope="session"/>
 <fmt:setBundle basename="text" var="rb"/>
 <c:set var="isLogin" value="true"/>
@@ -88,15 +89,7 @@
                     <label for="description"><fmt:message key="offer-lot.description" bundle="${rb}"/></label>
                     <textarea class="form-control" rows="3" name="description" id="description" required></textarea>
                 </div>
-                <c:choose>
-                    <c:when test="${ not empty errorOfferLotMessage }">
-                        <div class="alert-danger alert">${errorOfferLotMessage}</div>
-
-                    </c:when>
-                    <c:otherwise>
-                        <br/>
-                    </c:otherwise>
-                </c:choose>
+                <ct:ctg errorMessage="${errorOfferLotMessage}"/>
                 <button class="btn btn-primary btn-block" type="submit"><fmt:message key="offer-lot.submitButton"
                                                                                      bundle="${rb}"/></button>
             </form>

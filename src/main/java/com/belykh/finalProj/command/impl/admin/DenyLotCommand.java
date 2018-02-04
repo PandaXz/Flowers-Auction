@@ -5,7 +5,6 @@ import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.LotService;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +25,7 @@ public class DenyLotCommand implements ActionCommand {
         ParameterValidator validator = ParameterValidator.getInstance();
 
         if(validator.validateId(lotId)) {
-            LotService service = ServiceFactory.getInstance().getLotService();
+            LotService service = serviceFactory.getLotService();
             try {
                 service.denyLot(Long.decode(lotId));
             } catch (ServiceException e) {

@@ -16,6 +16,9 @@ public interface LotService {
     List<LotHeader> findLotHeadersByStateAndId(Long id, LotState state, boolean isBuyer) throws ServiceException;
     LotFull findFullLotInfo(Long id) throws ServiceException;
     boolean deleteLot(Long id,Long ownerId) throws ServiceException;
+
+    boolean deleteLot(Long id) throws ServiceException;
+
     boolean buyLot(Long id, Long buyerId, BigDecimal price) throws ServiceException;
     boolean payLot(Long lotId) throws ServiceException;
     boolean offerLot(Long ownerId, Long flowerId, Long cityId, String street, Integer houseNumber, BigDecimal price, Integer count, LocalDateTime end, String description) throws ServiceException;

@@ -6,7 +6,6 @@ import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.LotService;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +35,7 @@ public class OfferLotCommand implements ActionCommand {
         if (validator.validateId(flowerId) && validator.validateId(cityId)
                 && validator.validateStreet(street) && validator.validateNumber(houseNumber)
                 && validator.validateMoney(price) && validator.validateNumber(count) && validator.validateDateTime(end)&&description!=null) {
-            LotService service = ServiceFactory.getInstance().getLotService();
+            LotService service = serviceFactory.getLotService();
 
             try {
                 if (service.offerLot(userId,Long.decode(flowerId),Long.decode(cityId),street,Integer.decode(houseNumber),new BigDecimal(price),Integer.decode(count),LocalDateTime.parse(end),description)) {

@@ -10,6 +10,9 @@ import java.util.List;
  */
 public interface FlowerDAO {
     FlowerDBO findFlowerById(Long id) throws DAOException;
+
+    boolean findFlowerByName(String name) throws DAOException;
+
     List<FlowerDBO> findAllFlowers() throws DAOException;
     boolean addFlower(FlowerDBO flowerDBO) throws DAOException;
 }

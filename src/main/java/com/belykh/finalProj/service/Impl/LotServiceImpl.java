@@ -5,10 +5,7 @@ import com.belykh.finalProj.entity.Address;
 import com.belykh.finalProj.entity.LotFull;
 import com.belykh.finalProj.entity.LotHeader;
 import com.belykh.finalProj.entity.UserInfo;
-import com.belykh.finalProj.entity.dbo.FlowerDBO;
-import com.belykh.finalProj.entity.dbo.LotDBO;
-import com.belykh.finalProj.entity.dbo.LotState;
-import com.belykh.finalProj.entity.dbo.LotStoryDBO;
+import com.belykh.finalProj.entity.dbo.*;
 import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.AddressService;
@@ -21,11 +18,8 @@ import java.util.List;
 
 public class LotServiceImpl implements LotService {
 
-    private DAOFactory daoFactory = new DAOFactory();
-
-    public void setDaoFactory(DAOFactory daoFactory) {
-        this.daoFactory = daoFactory;
-    }
+    public static DAOFactory daoFactory = new DAOFactory();
+    public static ServiceFactory serviceFactory = new ServiceFactory();
 
     @Override
     public LotFull findFullLotInfo(Long id) throws ServiceException {
@@ -35,7 +29,6 @@ public class LotServiceImpl implements LotService {
         try {
             LotDBO lot = lotDAO.findLotById(id);
             if (lot != null) {
-                ServiceFactory serviceFactory = ServiceFactory.getInstance();
                 FlowerDBO flower = serviceFactory.getFlowerService().findFlowerById(lot.getFlowerId());
                 UserInfo owner = serviceFactory.getUserService().findUserInfoById(lot.getOwnerId());
                 UserInfo buyer = serviceFactory.getUserService().findUserInfoById(lot.getBuyerId());
@@ -66,13 +59,28 @@ public class LotServiceImpl implements LotService {
     }
 
     @Override
+    public boolean deleteLot(Long id) throws ServiceException {
+        checkUnpaidLots();
+        boolean result = false;
+        LotDAO dao = daoFactory.getLotDAO();
+        try {
+            result = dao.delete(id);
+
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+
+        return result;
+    }
+
+    @Override
     public boolean buyLot(Long id, Long buyerId, BigDecimal price) throws ServiceException {
         checkUnpaidLots();
         boolean result = false;
         LotDAO dao = daoFactory.getLotDAO();
         LotStoryDAO lotStoryDAO = daoFactory.getLotStoryDAO();
         try {
-            UserInfo user = ServiceFactory.getInstance().getUserService().findUserInfoById(buyerId);
+            UserDBO user = daoFactory.getUserDAO().findUserById(buyerId);
             if (user.getBalance().compareTo(price) != -1) {
                 result = dao.changeBuyerAndPrice(id, buyerId, price);
                 if (result) {
@@ -109,7 +117,7 @@ public class LotServiceImpl implements LotService {
     public boolean offerLot(Long ownerId, Long flowerId, Long cityId, String street, Integer houseNumber, BigDecimal price, Integer count, LocalDateTime end, String description) throws ServiceException {
         boolean result = false;
         LotDAO dao = daoFactory.getLotDAO();
-        AddressService service = ServiceFactory.getInstance().getAddressService();
+        AddressService service = serviceFactory.getAddressService();
         try {
             result = dao.addLot(new LotDBO(0l, null, ownerId, flowerId, service.addAddress(cityId, street, houseNumber), price, price, LotState.ADDED, count, end, description));
         } catch (DAOException e) {

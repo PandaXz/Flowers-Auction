@@ -11,6 +11,9 @@ import java.util.List;
 public interface CityDAO {
 
     CityDBO findCityById(Long id) throws DAOException;
+
+    boolean findCityByName(String name) throws DAOException;
+
     List<CityDBO> findAllCities() throws DAOException;
     boolean addCity(CityDBO cityDBO) throws DAOException;
 }

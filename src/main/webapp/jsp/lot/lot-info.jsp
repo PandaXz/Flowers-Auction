@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/errorTag" %>
 <fmt:setLocale value="${lang}" scope="session"/>
 <fmt:setBundle basename="text" var="rb"/>
 <!DOCTYPE html>
@@ -45,14 +46,12 @@
             <c:import url="../navbar.jsp"/>
             <h2><fmt:message key="lot-full.header" bundle="${rb}"/></h2>
             <br>
-            <c:if test="${ not empty errorLotIsEmpty}">
-                <div class="alert-danger alert">${errorLotIsEmpty}</div>
-            </c:if>
+            <ct:ctg errorMessage="${errorLotIsEmpty}"/>
 
             <c:if test="${not empty lot}">
                 <div class="row">
 
-                    <c:if test='${(lot.state.name() == "DENIED"||lot.state.name() == "ADDED")&&lot.owner.id==userId}'>
+                    <c:if test='${((lot.state.name() == "DENIED"||lot.state.name() == "ADDED")&&lot.owner.id==userId)||not empty isAdmin}'>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <a href="auction?command=delete_lot&id=${lot.id}" class="btn btn-primary"

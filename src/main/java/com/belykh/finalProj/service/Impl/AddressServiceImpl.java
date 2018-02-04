@@ -14,11 +14,7 @@ import java.util.List;
 
 public class AddressServiceImpl implements AddressService {
 
-    private DAOFactory daoFactory = new DAOFactory();
-
-    public void setDaoFactory(DAOFactory daoFactory) {
-        this.daoFactory = daoFactory;
-    }
+    public static DAOFactory daoFactory = new DAOFactory();
 
     @Override
     public Address findAddressById(Long addressId) throws ServiceException {
@@ -70,11 +66,12 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public boolean addCity(String name) throws ServiceException {
-        boolean result = false;
+        boolean result = true;
         CityDAO dao = daoFactory.getCityDAO();
         try {
-            result = dao.addCity(new CityDBO(0l,name));
-
+            if(dao.findCityByName(name)) {
+                result = dao.addCity(new CityDBO(0l, name));
+            }
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

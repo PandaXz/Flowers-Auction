@@ -6,7 +6,6 @@ import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.FlowerService;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,7 @@ public class AddFlowerCommand implements ActionCommand {
         ParameterValidator validator = ParameterValidator.getInstance();
         if(flowerName!=null) {
             if (validator.validateName(flowerName)) {
-                FlowerService service = ServiceFactory.getInstance().getFlowerService();
+                FlowerService service = serviceFactory.getFlowerService();
                 try {
                     if (!service.addFlower(flowerName)) {
                         request.setAttribute("errorAddMessage", AuctionServlet.messageManager.getProperty("message.errorAddFlowerMessage"));

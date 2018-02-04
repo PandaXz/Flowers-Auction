@@ -5,7 +5,6 @@ import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
 import com.belykh.finalProj.util.ParameterValidator;
 
@@ -25,7 +24,7 @@ public class ChangeUserInfoCommand implements ActionCommand{
         ParameterValidator validator = ParameterValidator.getInstance();
         if(validator.validateEmail(email)&&
                 validator.validateName(firstName)&&validator.validateName(lastName)){
-            UserService service = ServiceFactory.getInstance().getUserService();
+            UserService service = serviceFactory.getUserService();
 
             try {
                 if(service.changeUserInfo(login,email.trim(),firstName.trim(),lastName.trim())){

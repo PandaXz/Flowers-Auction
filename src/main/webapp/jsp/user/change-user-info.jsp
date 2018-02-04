@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/errorTag" %>
 <fmt:setLocale value="${lang}" scope="session"/>
 <fmt:setBundle basename="text" var="rb"/>
 <!DOCTYPE html>
@@ -45,9 +46,7 @@
             <c:import url="../navbar.jsp"/>
             <h2><fmt:message key="change-user-info.header" bundle="${rb}"/> </h2>
             <br>
-            <c:if test="${ not empty errorUserInfoIsEmpty}">
-                <div class="alert-danger alert">${errorUserInfoIsEmpty}</div>
-            </c:if>
+            <ct:ctg errorMessage="${errorUserInfoIsEmpty}"/>
             <c:if test="${not empty userInfo}">
                 <form action="auction" method="post">
                     <input type="hidden" name="command" value="change_user_info">
@@ -69,9 +68,8 @@
                                                                                          bundle="${rb}"/></a>
                 </form>
             </c:if>
-            <c:if test="${ not empty errorChangeMessage }">
-                <div class="alert-danger alert">${errorChangeMessage}</div>
-            </c:if>
+            <ct:ctg errorMessage="${errorChangeMessage}"/>
+
 
         </div>
     </div>

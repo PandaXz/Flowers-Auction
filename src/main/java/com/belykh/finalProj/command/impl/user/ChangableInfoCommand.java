@@ -6,7 +6,6 @@ import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.entity.UserInfo;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,7 @@ public class ChangableInfoCommand implements ActionCommand {
         String userLogin = (String) session.getAttribute("user");
 
 
-        UserService service = ServiceFactory.getInstance().getUserService();
+        UserService service = serviceFactory.getUserService();
         try {
             UserInfo user = service.findUserInfo(userLogin);
             if (user==null) {

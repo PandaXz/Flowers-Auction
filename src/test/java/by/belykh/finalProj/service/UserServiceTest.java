@@ -19,7 +19,7 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class UserServiceTest extends Assert {
+public class UserServiceTest{
 
     private UserService userService;
     private UserDAO userDAO;
@@ -30,7 +30,7 @@ public class UserServiceTest extends Assert {
 
         DAOFactory daoFactory = mock(DAOFactory.class);
 
-        userServiceImpl.setDaoFactory(daoFactory);
+        userServiceImpl.daoFactory=daoFactory;
         userService=userServiceImpl;
         userDAO = mock(UserDAO.class);
         when(daoFactory.getUserDAO()).thenReturn(userDAO);

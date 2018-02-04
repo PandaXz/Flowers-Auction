@@ -50,9 +50,6 @@ public class FlowerDAOTest extends Assert {
         connection.close();
         ConnectionPool.getInstance().destroy();
     }
-//    FlowerDBO findFlowerById(Long id) throws DAOException;
-//    List<FlowerDBO> findAllFlowers() throws DAOException;
-//    boolean addFlower(FlowerDBO flowerDBO) throws DAOException;
 
     @Test
     public void findFlowerById_Test() throws  DAOException {
@@ -65,7 +62,17 @@ public class FlowerDAOTest extends Assert {
         Assert.assertEquals(flowerDAO.findAllFlowers().size(),3);
     }
 
-    @Test(dependsOnMethods = {"findFlowerById_Test"})
+    @Test
+    public void findFlowerByName_PositiveTest() throws  DAOException {
+        Assert.assertTrue(flowerDAO.findFlowerByName("Rose"));
+    }
+
+    @Test
+    public void findFlowerByName_NegativeTest() throws  DAOException {
+        Assert.assertFalse(flowerDAO.findFlowerByName("test"));
+    }
+
+    @Test
     public void addFlower_Test() throws  DAOException {
         FlowerDBO flower = new FlowerDBO(4L,"Test");
         flowerDAO.addFlower(flower);

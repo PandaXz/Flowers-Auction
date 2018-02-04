@@ -11,11 +11,8 @@ import java.util.List;
 
 public class FlowerServiceImpl implements FlowerService {
 
-    private DAOFactory daoFactory = new DAOFactory();
+    public static DAOFactory daoFactory = new DAOFactory();
 
-    public void setDaoFactory(DAOFactory daoFactory) {
-        this.daoFactory = daoFactory;
-    }
 
     @Override
     public FlowerDBO findFlowerById(Long id) throws ServiceException {
@@ -42,10 +39,12 @@ public class FlowerServiceImpl implements FlowerService {
     }
     @Override
     public  boolean addFlower(String name) throws ServiceException{
-        boolean result = false;
+        boolean result = true;
         FlowerDAO dao = daoFactory.getFlowerDAO();
         try {
-            result = dao.addFlower(new FlowerDBO(0l,name));
+            if(dao.findFlowerByName(name)) {
+                result = dao.addFlower(new FlowerDBO(0l, name));
+            }
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

@@ -69,11 +69,21 @@ public class CityDAOTest extends Assert {
         Assert.assertEquals(cityDAO.findCityById(1l),new CityDBO(1l,"Minsk"));
     }
 
-    @Test(dependsOnMethods = {"findCityById_Test"})
+    @Test
     public void addCity_Test() throws DAOException {
 
         CityDBO cityDBO= new CityDBO(5l,"Grodno");
         cityDAO.addCity(cityDBO);
         Assert.assertEquals(cityDAO.findCityById(5l),cityDBO);
+    }
+
+    @Test
+    public void findCityByName_PositiveTest() throws  DAOException {
+        Assert.assertTrue(cityDAO.findCityByName("Minsk"));
+    }
+
+    @Test
+    public void findCityByName_NegativeTest() throws  DAOException {
+        Assert.assertFalse(cityDAO.findCityByName("test"));
     }
 }

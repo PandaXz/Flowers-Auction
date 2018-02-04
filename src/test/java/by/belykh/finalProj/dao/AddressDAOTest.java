@@ -62,7 +62,7 @@ public class AddressDAOTest extends Assert {
         AddressDBO address = new AddressDBO(1l, "Lenina", 1, 1l);
         Assert.assertEquals(addressDAO.findAddressByCityIdAndAddress(1l,"Lenina", 1),address);
     }
-    @Test(dependsOnMethods = {"findAddressById_Test"})
+    @Test()
     public void addAddress_Test() throws DAOException {
         AddressDBO address = new AddressDBO(7l, "Lenina", 1, 2l);
         addressDAO.addAddress(address);

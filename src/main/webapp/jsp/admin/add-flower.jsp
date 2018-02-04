@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/errorTag" %>
 <fmt:setLocale value="${lang}" scope="session"/>
 <fmt:setBundle basename="text" var="rb"/>
 <!DOCTYPE html>
@@ -44,18 +45,10 @@
 
                 <div class="form-group">
                     <label for="flowerName"><fmt:message key="add-flower.flowerName" bundle="${rb}"/></label>
-                    <input type="text" class="form-control" id="flowerName" name="flowerName"  pattern="^[A-Za-z]*$" required/>
+                    <input type="text" class="form-control" id="flowerName" name="flowerName"  pattern="^[A-Za-zА-Яа-я]*$" required/>
                     <br>
                 </div>
-                <c:choose>
-                    <c:when test="${ not empty errorAddMessage }">
-                        <div class="alert-danger alert"><c:out value="${errorAddMessage}"/></div>
-
-                    </c:when>
-                    <c:otherwise>
-                        <br/>
-                    </c:otherwise>
-                </c:choose>
+                <ct:ctg errorMessage="${errorAddMessage}"/>
                 <button class="btn btn-primary btn-block" type="submit"><fmt:message key="add-flower.submitButton"
                                                                                      bundle="${rb}"/></button>
             </form>

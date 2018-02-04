@@ -61,31 +61,31 @@ public class LotDAOTest extends Assert {
         Assert.assertEquals(lotDAO.findLotById(8l),new LotDBO(8l,5l,6l,1l,5l,new BigDecimal("40.0000"),new BigDecimal("120.0000"),LotState.UNPAID,10,LocalDateTime.parse("2018-02-01T20:00:00"),"Rose, blue, natural, pickup"));
     }
 
-    @Test(dependsOnMethods = {"findLotById_Test"})
+    @Test
     public void changeBuyerAndPrice_Test() throws  DAOException {
         lotDAO.changeBuyerAndPrice(11l,6l,new BigDecimal(140.0000));
         Assert.assertEquals(lotDAO.findLotById(11l),new LotDBO(11l,6l,5l,3l,5l,new BigDecimal("40.0000"),new BigDecimal("140.0000"),LotState.ACCEPTED,13,LocalDateTime.parse("2018-02-16T20:00:00"),"Pickup"));
     }
 
-    @Test(dependsOnMethods = {"findLotById_Test"})
+    @Test
     public void changeState_Test() throws  DAOException {
         lotDAO.changeState(11l,LotState.UNPAID);
         Assert.assertEquals(lotDAO.findLotById(11l),new LotDBO(11l,0l,5l,3l,5l,new BigDecimal("40.0000"),new BigDecimal("40.0000"),LotState.UNPAID,13,LocalDateTime.parse("2018-02-16T20:00:00"),"Pickup"));
     }
 
-    @Test(dependsOnMethods = {"findLotById_Test"})
+    @Test
     public void delete_Test() throws  DAOException {
         lotDAO.delete(11l);
         Assert.assertEquals(lotDAO.findLotById(11l),null);
     }
 
-    @Test(dependsOnMethods = {"findLotById_Test"})
+    @Test
     public void checkUnpaidLots_Test() throws  DAOException {
         lotDAO.checkUnpaidLots();
         Assert.assertEquals(lotDAO.findLotById(5l),new LotDBO(5l,5l,6l,1l,5l,new BigDecimal("40.0000"),new BigDecimal("120.0000"),LotState.UNPAID,10,LocalDateTime.parse("2018-02-01T20:00:00"),"Rose, blue, natural, pickup"));
     }
 
-    @Test(dependsOnMethods = {"findLotById_Test"})
+    @Test
     public void addLot_Test() throws  DAOException {
         LotDBO lot =new LotDBO(15l,0l,6l,1l,5l,new BigDecimal("40.0000"),new BigDecimal("120.0000"),LotState.UNPAID,10,LocalDateTime.parse("2018-02-01T20:00:00"),"Rose, blue, natural, pickup");
         lotDAO.addLot(lot);

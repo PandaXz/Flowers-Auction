@@ -15,6 +15,7 @@ import java.util.List;
 public class FlowerDAOImpl implements FlowerDAO {
 
     private static final String SQL_FIND_FLOWER_BY_ID="SELECT `flowerType`.`id`,`flowerType`.`name` FROM `flowerType` WHERE `flowerType`.`id`=?";
+    private static final String SQL_FIND_FLOWER_BY_NAME="SELECT `flowerType`.`id`,`flowerType`.`name` FROM `flowerType` WHERE `flowerType`.`name`=?";
     private static final String SQL_FIND_ALL_FLOWERS="SELECT `flowerType`.`id`,`flowerType`.`name` FROM `flowerType` ";
     private static final String SQL_ADD_FLOWER = "INSERT INTO `flowerType` (`name`) VALUES (?)";
 
@@ -34,6 +35,19 @@ public class FlowerDAOImpl implements FlowerDAO {
             throw new DAOException(e);
         }
         return result;
+    }
+
+    @Override
+    public boolean findFlowerByName(String name) throws DAOException {
+
+        try(Connection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL_FIND_FLOWER_BY_NAME)) {
+            statement.setString(1,name);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
     }
 
     @Override

@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/errorTag" %>
 <fmt:setLocale value="${lang}" scope="session"/>
 <fmt:setBundle basename="text" var="rb"/>
 <c:set var="isLogin" value="true"/>
@@ -48,15 +49,8 @@
                         <input type="password" class="form-control" id="password" name="password" pattern="^\w+$" required>
                     </div>
                     <a href="auction?command=forward&page=registration" class="label-notification" role="button"><fmt:message key="login.noAccount" bundle="${rb}"/></a>
-                    <c:choose>
-                        <c:when test="${ not empty errorLoginPassMessage }">
-                            <div class="alert-danger alert">${errorLoginPassMessage}</div>
 
-                        </c:when>
-                        <c:otherwise>
-                            <br/>
-                        </c:otherwise>
-                    </c:choose>
+                    <ct:ctg errorMessage="${ errorLoginPassMessage }"/>
                     <button class="btn btn-primary btn-block" type="submit"><fmt:message key="login.submitButton"
                                                                                bundle="${rb}"/></button>
                 </form>

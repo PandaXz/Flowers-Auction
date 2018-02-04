@@ -5,7 +5,6 @@ import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
 import com.belykh.finalProj.util.ParameterValidator;
 
@@ -29,7 +28,7 @@ public class SignUpCommand implements ActionCommand {
         if(validator.validateLogin(login)&&validator.validatePassword(password)&&
                 validator.validatePassword(passwordRepeat)&&validator.validateEmail(email)&&
                 validator.validateName(firstName)&&validator.validateName(lastName)){
-            UserService service = ServiceFactory.getInstance().getUserService();
+            UserService service = serviceFactory.getUserService();
 
             try {
                 if(service.SignUp(login.trim(),password.trim(),passwordRepeat.trim(),email.trim(),firstName.trim(),lastName.trim())){

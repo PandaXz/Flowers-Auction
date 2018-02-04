@@ -5,7 +5,6 @@ import com.belykh.finalProj.constant.PathPage;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.LotService;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.util.ParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +18,7 @@ public class DeleteLotCommand implements ActionCommand {
 
     private static final String PARAM_NAME_SERVLET = "auction?";
 
+    private static final int ADMIN_NUMBER = 2;
 
 
     @Override
@@ -26,12 +26,18 @@ public class DeleteLotCommand implements ActionCommand {
         String result = null;
         HttpSession session = request.getSession(false);
         Long ownerId = (Long) session.getAttribute("userId");
+        boolean role = (boolean) session.getAttribute("isAdmin");
         String lotId = request.getParameter("id");
 
         if(ParameterValidator.getInstance().validateId(lotId)) {
-            LotService service = ServiceFactory.getInstance().getLotService();
+            LotService service = serviceFactory.getLotService();
             try {
-                service.deleteLot(Long.decode(lotId),ownerId);
+                if(role) {
+                    service.deleteLot(Long.decode(lotId), ownerId);
+                }else{
+                    service.deleteLot(Long.decode(lotId));
+                }
+
             } catch (ServiceException e) {
                 throw new CommandException(e);
             }

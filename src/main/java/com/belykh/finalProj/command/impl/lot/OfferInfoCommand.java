@@ -8,7 +8,6 @@ import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.AddressService;
 import com.belykh.finalProj.service.FlowerService;
-import com.belykh.finalProj.service.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +18,8 @@ public class OfferInfoCommand implements ActionCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String result = null;
 
-        FlowerService flowerService = ServiceFactory.getInstance().getFlowerService();
-        AddressService addressService = ServiceFactory.getInstance().getAddressService();
+        FlowerService flowerService = serviceFactory.getFlowerService();
+        AddressService addressService = serviceFactory.getAddressService();
         try {
             List<FlowerDBO> flowerList = flowerService.findAllFlowers();
             List<CityDBO> cityList = addressService.findAllCities();

@@ -6,7 +6,6 @@ import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.entity.UserInfo;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,7 @@ public class UserListCommand implements ActionCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String result = null;
 
-        UserService service = ServiceFactory.getInstance().getUserService();
+        UserService service = serviceFactory.getUserService();
         try {
             List<UserInfo> userList=service.findUsersInfo();
             if (userList.isEmpty()) {

@@ -6,7 +6,6 @@ import com.belykh.finalProj.controller.AuctionServlet;
 import com.belykh.finalProj.entity.dbo.UserDBO;
 import com.belykh.finalProj.exception.CommandException;
 import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.service.ServiceFactory;
 import com.belykh.finalProj.service.UserService;
 import com.belykh.finalProj.util.ParameterValidator;
 
@@ -25,7 +24,7 @@ public class AuthorizationCommand implements ActionCommand {
         String password = request.getParameter("password");
         ParameterValidator validator = ParameterValidator.getInstance();
         if(validator.validateLogin(login)&&validator.validatePassword(password)){
-            UserService service = ServiceFactory.getInstance().getUserService();
+            UserService service = serviceFactory.getUserService();
             try {
                 UserDBO user = service.Authorization(login.trim(),password.trim());
                 if(user!=null){
