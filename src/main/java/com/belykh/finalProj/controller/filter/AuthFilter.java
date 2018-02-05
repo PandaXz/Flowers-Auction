@@ -12,16 +12,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 16.11.17.
+ * The Class AuthFilter.
  */
 public class AuthFilter implements Filter {
 
     private static final Logger logger = LogManager.getLogger(AuthFilter.class);
 
+    /** The admin commands. */
     List<String> adminCommands;
+    
+    /** The guest commands. */
     List<String> guestCommands;
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         adminCommands = new ArrayList<>();
@@ -42,6 +49,9 @@ public class AuthFilter implements Filter {
 
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -65,6 +75,9 @@ public class AuthFilter implements Filter {
 
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#destroy()
+     */
     @Override
     public void destroy() {
 

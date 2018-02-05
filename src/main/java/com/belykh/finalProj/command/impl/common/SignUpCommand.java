@@ -11,9 +11,16 @@ import com.belykh.finalProj.util.ParameterValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SignUpCommand.
+ */
 public class SignUpCommand implements ActionCommand {
 
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.command.ActionCommand#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String result = null;

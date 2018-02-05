@@ -10,8 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 14.1.18.
+ * The Class AddressDAOImpl.
  */
 public class AddressDAOImpl implements AddressDAO {
 
@@ -24,6 +25,9 @@ public class AddressDAOImpl implements AddressDAO {
     private static final String ADDRESS_STREET="street";
     private static final String ADDRESS_HOUSE="house_number";
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.AddressDAO#findAddressById(java.lang.Long)
+     */
     @Override
     public AddressDBO findAddressById(Long id) throws DAOException {
         AddressDBO result = null;
@@ -40,6 +44,9 @@ public class AddressDAOImpl implements AddressDAO {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.AddressDAO#findAddressByCityIdAndAddress(java.lang.Long, java.lang.String, int)
+     */
     @Override
     public AddressDBO findAddressByCityIdAndAddress(Long cityId, String street, int houseNumber) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
@@ -57,6 +64,9 @@ public class AddressDAOImpl implements AddressDAO {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.AddressDAO#addAddress(com.belykh.finalProj.entity.dbo.AddressDBO)
+     */
     @Override
     public boolean addAddress(AddressDBO addressDBO) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();

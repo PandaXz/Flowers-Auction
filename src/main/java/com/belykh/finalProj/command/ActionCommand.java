@@ -6,10 +6,22 @@ import com.belykh.finalProj.service.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 16.11.17.
+ * The Interface ActionCommand.
  */
 public interface ActionCommand {
+    
+    /** The service factory. */
     ServiceFactory serviceFactory = new ServiceFactory();
+    
+    /**
+     * Execute.
+     *
+     * @param request the request
+     * @param response the response
+     * @return the string
+     * @throws CommandException the command exception
+     */
     String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException;
 }

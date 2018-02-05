@@ -13,8 +13,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 14.1.18.
+ * The Class LotStoryDAOImpl.
  */
 public class LotStoryDAOImpl implements LotStoryDAO {
 
@@ -27,6 +28,9 @@ public class LotStoryDAOImpl implements LotStoryDAO {
     private static final String LOTSTORY_PRICE= "price";
 
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.LotStoryDAO#addLotStory(com.belykh.finalProj.entity.dbo.LotStoryDBO)
+     */
     @Override
     public boolean addLotStory(LotStoryDBO lotStoryDBO) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
@@ -38,6 +42,9 @@ public class LotStoryDAOImpl implements LotStoryDAO {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.LotStoryDAO#findLotStoriesByLotId(java.lang.Long)
+     */
     @Override
     public List<LotStoryDBO> findLotStoriesByLotId(Long id) throws DAOException {
         List<LotStoryDBO> result = null;

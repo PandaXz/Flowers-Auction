@@ -14,8 +14,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Locale;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 6.12.17.
+ * The Class EnglishLanguageCommand.
  */
 public class EnglishLanguageCommand implements ActionCommand {
 
@@ -29,6 +30,9 @@ public class EnglishLanguageCommand implements ActionCommand {
 
     private static final String PARAM_NAME_SERVLET = "auction?";
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.command.ActionCommand#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String page = null;

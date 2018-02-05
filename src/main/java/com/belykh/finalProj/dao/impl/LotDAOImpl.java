@@ -10,8 +10,9 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDateTime;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 14.1.18.
+ * The Class LotDAOImpl.
  */
 public class LotDAOImpl implements LotDAO{
 
@@ -37,6 +38,9 @@ public class LotDAOImpl implements LotDAO{
     private static final String LOT_DESCRIPTION="description";
 
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.LotDAO#findLotById(java.lang.Long)
+     */
     @Override
     public LotDBO findLotById(Long id) throws DAOException {
         LotDBO result = null;
@@ -53,6 +57,9 @@ public class LotDAOImpl implements LotDAO{
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.LotDAO#getLastId()
+     */
     @Override
     public Long getLastId() throws DAOException {
         Long result = 0l;
@@ -68,6 +75,9 @@ public class LotDAOImpl implements LotDAO{
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.LotDAO#checkUnpaidLots()
+     */
     @Override
     public void checkUnpaidLots() throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
@@ -79,6 +89,9 @@ public class LotDAOImpl implements LotDAO{
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.LotDAO#changeBuyerAndPrice(java.lang.Long, java.lang.Long, java.math.BigDecimal)
+     */
     @Override
     public boolean changeBuyerAndPrice(Long id, Long userId, BigDecimal newPrice) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
@@ -94,6 +107,9 @@ public class LotDAOImpl implements LotDAO{
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.LotDAO#changeState(java.lang.Long, com.belykh.finalProj.entity.dbo.LotState)
+     */
     @Override
     public boolean changeState(Long id,LotState state) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
@@ -107,6 +123,9 @@ public class LotDAOImpl implements LotDAO{
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.LotDAO#addLot(com.belykh.finalProj.entity.dbo.LotDBO)
+     */
     @Override
     public boolean addLot(LotDBO lotDBO) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
@@ -118,6 +137,9 @@ public class LotDAOImpl implements LotDAO{
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.LotDAO#delete(java.lang.Long)
+     */
     @Override
     public boolean delete(Long id) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();

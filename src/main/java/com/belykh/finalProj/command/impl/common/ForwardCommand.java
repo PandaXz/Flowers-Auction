@@ -7,10 +7,15 @@ import com.belykh.finalProj.exception.CommandException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 7.12.17.
+ * The Class ForwardCommand.
  */
 public class ForwardCommand implements ActionCommand {
+    
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.command.ActionCommand#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String page = request.getParameter("page");

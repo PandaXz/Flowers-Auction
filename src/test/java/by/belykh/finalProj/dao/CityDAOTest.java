@@ -21,11 +21,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CityDAOTest.
+ */
 public class CityDAOTest extends Assert {
     private ScriptRunner scriptRunner;
     private Connection connection;
     private CityDAO cityDAO;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception the exception
+     */
     @BeforeClass
     public void setUp() throws Exception {
         cityDAO = new CityDAOImpl();
@@ -39,12 +48,22 @@ public class CityDAOTest extends Assert {
         ConnectionPool.init(20);
     }
 
+    /**
+     * Before method set up.
+     *
+     * @throws Exception the exception
+     */
     @BeforeMethod
     public void beforeMethodSetUp() throws Exception {
         scriptRunner.runScript(new InputStreamReader(ConnectionPool.class.getResourceAsStream("/insert/insert_city.sql")));
 
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception the exception
+     */
     @AfterClass
     public void tearDown() throws Exception {
         Reader reader = new InputStreamReader(ConnectionPool.class.getResourceAsStream("/Drop.sql"));
@@ -54,11 +73,21 @@ public class CityDAOTest extends Assert {
     }
 
 
+    /**
+     * Find city by id test.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findCityById_Test() throws DAOException {
         Assert.assertEquals(cityDAO.findCityById(1l),new CityDBO(1l,"Minsk"));
     }
 
+    /**
+     * Find all cities test.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findAllCities_Test() throws DAOException {
         List<CityDBO> list= new ArrayList<>();
@@ -69,6 +98,11 @@ public class CityDAOTest extends Assert {
         Assert.assertEquals(cityDAO.findCityById(1l),new CityDBO(1l,"Minsk"));
     }
 
+    /**
+     * Adds the city test.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void addCity_Test() throws DAOException {
 
@@ -77,11 +111,21 @@ public class CityDAOTest extends Assert {
         Assert.assertEquals(cityDAO.findCityById(5l),cityDBO);
     }
 
+    /**
+     * Find city by name positive test.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findCityByName_PositiveTest() throws  DAOException {
         Assert.assertTrue(cityDAO.findCityByName("Minsk"));
     }
 
+    /**
+     * Find city by name negative test.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findCityByName_NegativeTest() throws  DAOException {
         Assert.assertFalse(cityDAO.findCityByName("test"));

@@ -21,8 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 15.11.17.
+ * The Class AuctionServlet.
  */
 @WebServlet(name = "AuctionServlet")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
@@ -32,21 +33,34 @@ import java.util.Locale;
 public class AuctionServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger(AuctionServlet.class);
+    
+    /** The message manager. */
     public static MessageManager messageManager = MessageManager.INSTANCE;
+    
+    /** The resource manager. */
     public static ResourceManager resourceManager = ResourceManager.INSTANCE;
 
     private static final String LOCALE_RU_VALUE = "ru";
     private final static String LOCALE_RU = "ru_RU";
 
+    /* (non-Javadoc)
+     * @see javax.servlet.GenericServlet#init()
+     */
     @Override
     public void init() throws ServletException {
         //LOGGER.log(Level.DEBUG, "initialize servlet");
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }

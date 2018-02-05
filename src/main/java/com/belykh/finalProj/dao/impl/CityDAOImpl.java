@@ -9,8 +9,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 14.1.18.
+ * The Class CityDAOImpl.
  */
 public class CityDAOImpl implements CityDAO {
 
@@ -22,6 +23,9 @@ public class CityDAOImpl implements CityDAO {
     private static final String CITY_ID = "id";
     private static final String CITY_NAME=  "city_name";
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.CityDAO#findCityById(java.lang.Long)
+     */
     @Override
     public CityDBO findCityById(Long id) throws DAOException {
         CityDBO result = null;
@@ -38,6 +42,9 @@ public class CityDAOImpl implements CityDAO {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.CityDAO#findCityByName(java.lang.String)
+     */
     @Override
     public boolean findCityByName(String name) throws DAOException {
         boolean result =false;
@@ -52,6 +59,9 @@ public class CityDAOImpl implements CityDAO {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.CityDAO#findAllCities()
+     */
     @Override
     public List<CityDBO> findAllCities() throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
@@ -65,6 +75,9 @@ public class CityDAOImpl implements CityDAO {
     }
 
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.CityDAO#addCity(com.belykh.finalProj.entity.dbo.CityDBO)
+     */
     @Override
     public boolean addCity(CityDBO city) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();

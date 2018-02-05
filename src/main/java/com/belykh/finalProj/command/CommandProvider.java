@@ -6,14 +6,21 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 4.12.17.
+ * The Class CommandProvider.
  */
 public class CommandProvider {
 
     private static final Logger LOGGER = LogManager.getLogger(CommandProvider.class);
     private static final String PARAM_COMMAND = "command";
 
+    /**
+     * Gets the command.
+     *
+     * @param request the request
+     * @return the command
+     */
     public ActionCommand getCommand(HttpServletRequest request) {
         ActionCommand result = new EmptyCommand();
         String command = request.getParameter(PARAM_COMMAND);

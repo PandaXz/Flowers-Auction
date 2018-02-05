@@ -19,10 +19,17 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class OfferLotCommand.
+ */
 public class OfferLotCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(OfferLotCommand.class);
 
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.command.ActionCommand#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String result = null;

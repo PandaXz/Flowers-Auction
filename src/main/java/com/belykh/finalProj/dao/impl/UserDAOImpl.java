@@ -13,8 +13,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 6.1.18.
+ * The Class UserDAOImpl.
  */
 public class UserDAOImpl implements UserDAO {
 
@@ -42,6 +43,9 @@ public class UserDAOImpl implements UserDAO {
     private static final String USER_ROLE = "role";
 
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.UserDAO#findAllUsers()
+     */
     @Override
     public List<UserDBO> findAllUsers() throws DAOException {
 
@@ -56,6 +60,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.UserDAO#findUserByLogin(java.lang.String)
+     */
     @Override
     public UserDBO findUserByLogin(String login) throws DAOException {
         UserDBO result = null;
@@ -73,6 +80,9 @@ public class UserDAOImpl implements UserDAO {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.UserDAO#findUserById(java.lang.Long)
+     */
     @Override
     public UserDBO findUserById(Long id) throws DAOException {
         UserDBO result = null;
@@ -90,6 +100,9 @@ public class UserDAOImpl implements UserDAO {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.UserDAO#addUser(com.belykh.finalProj.entity.dbo.UserDBO)
+     */
     @Override
     public boolean addUser(UserDBO userDBO) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -101,6 +114,9 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.UserDAO#isLoginFree(java.lang.String)
+     */
     @Override
     public boolean isLoginFree(String login) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -114,6 +130,9 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.UserDAO#changePassword(java.lang.String, java.lang.String)
+     */
     @Override
     public boolean changePassword(String login, String newPass) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -128,6 +147,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.UserDAO#changeMoney(java.lang.Long, java.math.BigDecimal)
+     */
     @Override
     public boolean changeMoney(Long id, BigDecimal money) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -140,6 +162,9 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.UserDAO#payment(java.lang.Long, java.lang.Long, java.math.BigDecimal)
+     */
     @Override
     public boolean payment(Long ownerId, Long buyerId, BigDecimal price) throws DAOException {
         boolean result = false;
@@ -184,6 +209,9 @@ public class UserDAOImpl implements UserDAO {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.UserDAO#changeUserInfo(com.belykh.finalProj.entity.dbo.UserDBO)
+     */
     @Override
     public boolean changeUserInfo(UserDBO user) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();

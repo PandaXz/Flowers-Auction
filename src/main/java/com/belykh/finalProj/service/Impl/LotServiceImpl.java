@@ -19,11 +19,21 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LotServiceImpl.
+ */
 public class LotServiceImpl implements LotService {
 
+    /** The dao factory. */
     public static DAOFactory daoFactory = new DAOFactory();
+    
+    /** The service factory. */
     public static ServiceFactory serviceFactory = new ServiceFactory();
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.LotService#findFullLotInfo(java.lang.Long)
+     */
     @Override
     public LotFull findFullLotInfo(Long id) throws ServiceException {
         checkUnpaidLots();
@@ -44,6 +54,9 @@ public class LotServiceImpl implements LotService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.LotService#deleteLot(java.lang.Long, java.lang.Long)
+     */
     @Override
     public boolean deleteLot(Long id, Long ownerId) throws ServiceException {
         checkUnpaidLots();
@@ -61,6 +74,9 @@ public class LotServiceImpl implements LotService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.LotService#deleteLot(java.lang.Long)
+     */
     @Override
     public boolean deleteLot(Long id) throws ServiceException {
         checkUnpaidLots();
@@ -76,6 +92,9 @@ public class LotServiceImpl implements LotService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.LotService#buyLot(java.lang.Long, java.lang.Long, java.math.BigDecimal)
+     */
     @Override
     public boolean buyLot(Long id, Long buyerId, BigDecimal price) throws ServiceException {
         checkUnpaidLots();
@@ -97,6 +116,9 @@ public class LotServiceImpl implements LotService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.LotService#payLot(java.lang.Long)
+     */
     @Override
     public boolean payLot(Long lotId) throws ServiceException {
         boolean result = false;
@@ -116,6 +138,9 @@ public class LotServiceImpl implements LotService {
     }
 
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.LotService#offerLot(java.lang.Long, java.lang.Long, java.lang.Long, java.lang.String, java.lang.Integer, java.math.BigDecimal, java.lang.Integer, java.time.LocalDateTime, java.lang.String, javax.servlet.http.Part, java.lang.String)
+     */
     @Override
     public boolean offerLot(Long ownerId, Long flowerId, Long cityId, String street, Integer houseNumber, BigDecimal price, Integer count, LocalDateTime end, String description, Part image, String savePath) throws ServiceException {
         boolean result = false;
@@ -134,6 +159,9 @@ public class LotServiceImpl implements LotService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.LotService#approveLot(java.lang.Long)
+     */
     @Override
     public boolean approveLot(Long lotId) throws ServiceException {
         boolean result = false;
@@ -147,6 +175,9 @@ public class LotServiceImpl implements LotService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.LotService#denyLot(java.lang.Long)
+     */
     @Override
     public boolean denyLot(Long lotId) throws ServiceException {
         boolean result = false;
@@ -161,6 +192,9 @@ public class LotServiceImpl implements LotService {
     }
 
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.LotService#findLotHeadersByStateAndId(java.lang.Long, com.belykh.finalProj.entity.dbo.LotState, boolean)
+     */
     @Override
     public List<LotHeader> findLotHeadersByStateAndId(Long id, LotState state, boolean isBuyer) throws ServiceException {
         checkUnpaidLots();
@@ -187,6 +221,9 @@ public class LotServiceImpl implements LotService {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.LotService#findLotHeadersByState(com.belykh.finalProj.entity.dbo.LotState)
+     */
     public List<LotHeader> findLotHeadersByState(LotState state) throws ServiceException {
         checkUnpaidLots();
         List<LotHeader> result;

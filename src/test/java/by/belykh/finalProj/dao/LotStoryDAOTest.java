@@ -20,11 +20,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LotStoryDAOTest.
+ */
 public class LotStoryDAOTest extends Assert {
     private ScriptRunner scriptRunner;
     private Connection connection;
         private LotStoryDAO lotStoryDAO;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception the exception
+     */
     @BeforeClass
     public void setUp() throws Exception {
         lotStoryDAO = new LotStoryDAOImpl();
@@ -38,12 +47,22 @@ public class LotStoryDAOTest extends Assert {
         ConnectionPool.init(20);
     }
 
+    /**
+     * Before method set up.
+     *
+     * @throws Exception the exception
+     */
     @BeforeMethod
     public void beforeMethodSetUp() throws Exception {
         scriptRunner.runScript(new InputStreamReader(ConnectionPool.class.getResourceAsStream("/insert/insert_lot_story.sql")));
 
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception the exception
+     */
     @AfterClass
     public void tearDown() throws Exception {
         Reader reader = new InputStreamReader(ConnectionPool.class.getResourceAsStream("/Drop.sql"));
@@ -56,11 +75,21 @@ public class LotStoryDAOTest extends Assert {
 //
 //    List<LotStoryDBO> findLotStoriesByLotId(Long id) throws DAOException;
 
-    @Test
+    /**
+ * Find lot stories by lot id test.
+ *
+ * @throws DAOException the DAO exception
+ */
+@Test
     public void findLotStoriesByLotId_Test() throws  DAOException {
         Assert.assertEquals(lotStoryDAO.findLotStoriesByLotId(10L).size(),1);
     }
 
+    /**
+     * Adds the lot story test.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void addLotStory_Test() throws  DAOException {
         lotStoryDAO.addLotStory(new LotStoryDBO(0L,1L,10L,new BigDecimal("100.0000")));

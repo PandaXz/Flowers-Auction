@@ -26,6 +26,10 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LotServiceTest.
+ */
 public class LotServiceTest {
 
 
@@ -40,6 +44,11 @@ public class LotServiceTest {
     private UserService userService;
 
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception the exception
+     */
     @BeforeClass
     public void setUp() throws Exception {
         LotServiceImpl lotServiceImpl = new LotServiceImpl();
@@ -67,6 +76,12 @@ public class LotServiceTest {
         when(serviceFactory.getFlowerService()).thenReturn(flowerService);
     }
 
+    /**
+     * Find lot headers by state test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findLotHeadersByState_Test() throws ServiceException, DAOException {
         LotHeader lotHeader = new LotHeader(lotId, 1l, "Rose", 2l, "SuperUser", new BigDecimal("10.0000"), LotState.ADDED, 10, LocalDateTime.parse("2018-02-01T20:00:00"),"TestPath");
@@ -78,6 +93,12 @@ public class LotServiceTest {
         Assert.assertEquals(lotService.findLotHeadersByState(LotState.ADDED), list);
     }
 
+    /**
+     * Find full lot info test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findFullLotInfo_Test() throws ServiceException, DAOException {
         BigDecimal price = new BigDecimal("100.0000");
@@ -92,6 +113,12 @@ public class LotServiceTest {
         Assert.assertEquals(lotService.findFullLotInfo(lotId), new LotFull(lot.getId(), null, user, flower, address, lot.getStartPrice(), lot.getCurrentPrice(), lot.getState(), lot.getCount(), lot.getEnd(), lot.getDescription(),"TestPath") );
     }
 
+    /**
+     * Deny lot test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void denyLot_Test() throws ServiceException, DAOException {
 
@@ -99,6 +126,12 @@ public class LotServiceTest {
         Assert.assertTrue(lotService.denyLot(lotId));
     }
 
+    /**
+     * Find lot headers by state and id test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findLotHeadersByStateAndId_Test() throws ServiceException, DAOException {
         LotHeader lotHeader = new LotHeader(lotId, 1l, "Rose", 2l, "SuperUser", new BigDecimal("10.0000"), LotState.ADDED, 10, LocalDateTime.parse("2018-02-01T20:00:00"),"TestPath");
@@ -110,6 +143,12 @@ public class LotServiceTest {
         Assert.assertEquals(lotService.findLotHeadersByStateAndId(lotId, LotState.ADDED, true), list);
     }
 
+    /**
+     * Find lot headers by state and id test 1.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findLotHeadersByStateAndId_Test1() throws ServiceException, DAOException {
         LotHeader lotHeader = new LotHeader(lotId, 1l, "Rose", 2l, "SuperUser", new BigDecimal("10.0000"), LotState.ADDED, 10, LocalDateTime.parse("2018-02-01T20:00:00"),"TestPath");
@@ -121,6 +160,12 @@ public class LotServiceTest {
         Assert.assertEquals(lotService.findLotHeadersByStateAndId(1l, LotState.ADDED, false), list);
     }
 
+    /**
+     * Delete lot test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void deleteLot_Test() throws ServiceException, DAOException {
 
@@ -131,6 +176,12 @@ public class LotServiceTest {
         Assert.assertTrue(lotService.deleteLot(lotId, 1l));
     }
 
+    /**
+     * Delete lot test 1.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void deleteLot_Test1() throws ServiceException, DAOException {
 
@@ -138,6 +189,12 @@ public class LotServiceTest {
         Assert.assertTrue(lotService.deleteLot(lotId));
     }
 
+    /**
+     * Buy lot positive test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void buyLot_PositiveTest() throws ServiceException, DAOException {
         UserDBO user = new UserDBO();
@@ -149,6 +206,12 @@ public class LotServiceTest {
         Assert.assertTrue(lotService.buyLot(lotId, 1l, price));
     }
 
+    /**
+     * Buy lot negative test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void buyLot_NegativeTest() throws ServiceException, DAOException {
         UserDBO user = new UserDBO();
@@ -158,6 +221,12 @@ public class LotServiceTest {
         Assert.assertFalse(lotService.buyLot(lotId, 1l, price));
     }
 
+    /**
+     * Pay lot test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void payLot_Test() throws ServiceException, DAOException {
         BigDecimal price = new BigDecimal("100.0000");
@@ -171,6 +240,13 @@ public class LotServiceTest {
         Assert.assertTrue(lotService.payLot(lotId));
     }
 
+    /**
+     * Offer lot test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void offerLot_Test() throws ServiceException, DAOException, IOException {
         BigDecimal price = new BigDecimal("100.0000");
@@ -189,6 +265,12 @@ public class LotServiceTest {
         Assert.assertTrue(lotService.offerLot(1l, 1l, 1l, "Test", 1, price, 10, LocalDateTime.parse("2018-02-01T20:00:00"), "Test",image ,filePath ));
     }
 
+    /**
+     * Approve lot test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void approveLot_Test() throws ServiceException, DAOException {
 

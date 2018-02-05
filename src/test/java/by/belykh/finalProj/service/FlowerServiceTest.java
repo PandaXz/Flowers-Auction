@@ -17,11 +17,20 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FlowerServiceTest.
+ */
 public class FlowerServiceTest {
     private FlowerService flowerService;
     private FlowerDAO flowerDAO;
 
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception the exception
+     */
     @BeforeClass
     public void setUp() throws Exception {
         FlowerServiceImpl flowerServiceImpl = new FlowerServiceImpl();
@@ -36,6 +45,12 @@ public class FlowerServiceTest {
     }
 
 
+    /**
+     * Find flower by id test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findFlowerById_Test() throws ServiceException, DAOException {
         FlowerDBO flower = new FlowerDBO(1L,"Test");
@@ -44,6 +59,12 @@ public class FlowerServiceTest {
         Assert.assertEquals(flowerService.findFlowerById(1l),flower);
     }
 
+    /**
+     * Find all flowers test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findAllFlowers_Test() throws ServiceException, DAOException {
         FlowerDBO flower = new FlowerDBO(1L,"Test");
@@ -54,6 +75,12 @@ public class FlowerServiceTest {
         Assert.assertEquals(flowerService.findAllFlowers(),list);
     }
 
+    /**
+     * Adds the flower test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void addFlower_Test() throws ServiceException, DAOException {
         FlowerDBO flower = new FlowerDBO(0L,"Test");

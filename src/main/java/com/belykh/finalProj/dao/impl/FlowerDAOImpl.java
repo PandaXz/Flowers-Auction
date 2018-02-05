@@ -9,8 +9,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 14.1.18.
+ * The Class FlowerDAOImpl.
  */
 public class FlowerDAOImpl implements FlowerDAO {
 
@@ -22,6 +23,9 @@ public class FlowerDAOImpl implements FlowerDAO {
     private static final String FLOWER_ID="id";
     private static final String FLOWER_NAME="name";
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.FlowerDAO#findFlowerById(java.lang.Long)
+     */
     @Override
     public FlowerDBO findFlowerById(Long id) throws DAOException {
         FlowerDBO result = null;
@@ -37,6 +41,9 @@ public class FlowerDAOImpl implements FlowerDAO {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.FlowerDAO#findFlowerByName(java.lang.String)
+     */
     @Override
     public boolean findFlowerByName(String name) throws DAOException {
 
@@ -50,6 +57,9 @@ public class FlowerDAOImpl implements FlowerDAO {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.FlowerDAO#findAllFlowers()
+     */
     @Override
     public List<FlowerDBO> findAllFlowers() throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
@@ -62,6 +72,9 @@ public class FlowerDAOImpl implements FlowerDAO {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.FlowerDAO#addFlower(com.belykh.finalProj.entity.dbo.FlowerDBO)
+     */
     @Override
     public boolean addFlower(FlowerDBO flowerDBO) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();

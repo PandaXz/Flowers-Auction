@@ -9,11 +9,19 @@ import com.belykh.finalProj.service.FlowerService;
 
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FlowerServiceImpl.
+ */
 public class FlowerServiceImpl implements FlowerService {
 
+    /** The dao factory. */
     public static DAOFactory daoFactory = new DAOFactory();
 
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.FlowerService#findFlowerById(java.lang.Long)
+     */
     @Override
     public FlowerDBO findFlowerById(Long id) throws ServiceException {
         FlowerDBO result = null;
@@ -26,6 +34,9 @@ public class FlowerServiceImpl implements FlowerService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.FlowerService#findAllFlowers()
+     */
     @Override
     public List<FlowerDBO> findAllFlowers() throws ServiceException{
         List<FlowerDBO> result = null;
@@ -37,6 +48,10 @@ public class FlowerServiceImpl implements FlowerService {
         }
         return result;
     }
+    
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.FlowerService#addFlower(java.lang.String)
+     */
     @Override
     public  boolean addFlower(String name) throws ServiceException{
         boolean result = true;

@@ -1,8 +1,19 @@
 package com.belykh.finalProj.entity.dbo;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 14.1.18.
+ * The Enum LotState.
  */
 public enum LotState {
-    ADDED,ACCEPTED,DENIED,SOLD,UNPAID;
+    
+    /** The added. */
+    ADDED,
+/** The accepted. */
+ACCEPTED,
+/** The denied. */
+DENIED,
+/** The sold. */
+SOLD,
+/** The unpaid. */
+UNPAID;
 }

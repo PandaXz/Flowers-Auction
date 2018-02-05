@@ -5,6 +5,10 @@ import com.belykh.finalProj.entity.dbo.LotState;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ParameterValidator.
+ */
 public class ParameterValidator {
 
     private static ParameterValidator intstance = new ParameterValidator();
@@ -21,40 +25,106 @@ public class ParameterValidator {
 
     private ParameterValidator() {
     }
+    
+    /**
+     * Gets the single instance of ParameterValidator.
+     *
+     * @return single instance of ParameterValidator
+     */
     public static ParameterValidator getInstance() {
         return intstance;
     }
 
+    /**
+     * Validate login.
+     *
+     * @param login the login
+     * @return true, if successful
+     */
     public boolean validateLogin(String login){
         return checkString(login, REGEX_LOGIN);
     }
 
+    /**
+     * Validate password.
+     *
+     * @param password the password
+     * @return true, if successful
+     */
     public boolean validatePassword(String password){
         return checkString(password, REGEX_PASSWORD);
     }
 
+    /**
+     * Validate email.
+     *
+     * @param email the email
+     * @return true, if successful
+     */
     public boolean validateEmail(String email){
         return checkString(email, REGEX_EMAIL);
     }
 
+    /**
+     * Validate name.
+     *
+     * @param name the name
+     * @return true, if successful
+     */
     public boolean validateName(String name){
         return checkString(name, REGEX_NAME);
     }
 
+    /**
+     * Validate id.
+     *
+     * @param id the id
+     * @return true, if successful
+     */
     public boolean validateId(String id){
         return checkString(id, REGEX_ID);
     }
 
+    /**
+     * Validate money.
+     *
+     * @param price the price
+     * @return true, if successful
+     */
     public boolean validateMoney(String price){
         return checkString(price, REGEX_PRICE);
     }
 
+    /**
+     * Validate date time.
+     *
+     * @param datetime the datetime
+     * @return true, if successful
+     */
     public boolean validateDateTime(String datetime){return  checkString(datetime,REGEX_DATETIME);}
 
+    /**
+     * Validate number.
+     *
+     * @param number the number
+     * @return true, if successful
+     */
     public boolean validateNumber(String number){return  checkString(number,REGEX_NUMBER);}
 
+    /**
+     * Validate street.
+     *
+     * @param street the street
+     * @return true, if successful
+     */
     public boolean validateStreet(String street){return  checkString(street,REGEX_STREET);}
 
+    /**
+     * Validate state.
+     *
+     * @param state the state
+     * @return true, if successful
+     */
     public boolean validateState(String state){
         if (state == null || state.isEmpty()) {
             return false;

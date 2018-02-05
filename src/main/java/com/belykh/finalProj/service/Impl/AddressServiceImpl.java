@@ -12,10 +12,18 @@ import com.belykh.finalProj.service.AddressService;
 
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AddressServiceImpl.
+ */
 public class AddressServiceImpl implements AddressService {
 
+    /** The dao factory. */
     public static DAOFactory daoFactory = new DAOFactory();
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.AddressService#findAddressById(java.lang.Long)
+     */
     @Override
     public Address findAddressById(Long addressId) throws ServiceException {
         Address result = null;
@@ -34,6 +42,9 @@ public class AddressServiceImpl implements AddressService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.AddressService#findAllCities()
+     */
     @Override
     public List<CityDBO> findAllCities() throws ServiceException {
         List<CityDBO> result = null;
@@ -47,6 +58,9 @@ public class AddressServiceImpl implements AddressService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.AddressService#addAddress(java.lang.Long, java.lang.String, int)
+     */
     @Override
     public Long addAddress(Long cityId, String street, int houseNumber) throws ServiceException {
         Long result = null;
@@ -64,6 +78,9 @@ public class AddressServiceImpl implements AddressService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.AddressService#addCity(java.lang.String)
+     */
     @Override
     public boolean addCity(String name) throws ServiceException {
         boolean result = true;

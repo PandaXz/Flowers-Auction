@@ -5,8 +5,9 @@ import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 16.11.17.
+ * The Class MD5Util.
  */
 public class MD5Util {
     private static MD5Util instance = new MD5Util();
@@ -16,10 +17,21 @@ public class MD5Util {
     }
 
     
+    /**
+     * Gets the single instance of MD5Util.
+     *
+     * @return single instance of MD5Util
+     */
     public static MD5Util getInstance() {
         return instance;
     }
 
+    /**
+     * Gets the MD 5 hash.
+     *
+     * @param data the data
+     * @return the MD 5 hash
+     */
     public String getMD5Hash(String data) {
         String hash = "";
         try {

@@ -13,14 +13,19 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 7.1.18.
+ * The Class UserServiceImpl.
  */
 public class UserServiceImpl implements UserService {
 
+    /** The dao factory. */
     public static DAOFactory daoFactory = new DAOFactory();
 
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.UserService#Authorization(java.lang.String, java.lang.String)
+     */
     @Override
     public UserDBO Authorization(String login, String password) throws ServiceException {
         UserDBO result = null;
@@ -38,6 +43,9 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.UserService#SignUp(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     */
     @Override
     public boolean SignUp(String login, String password, String passwordRepeat, String email, String firstName, String lastName) throws ServiceException {
         boolean result = false;
@@ -55,6 +63,9 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.UserService#findUsersInfo()
+     */
     @Override
     public List<UserInfo> findUsersInfo() throws ServiceException {
         List<UserInfo> result = new ArrayList<>();
@@ -71,6 +82,9 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.UserService#findUserInfo(java.lang.String)
+     */
     @Override
     public UserInfo findUserInfo(String login) throws ServiceException {
         UserInfo result = null;
@@ -87,6 +101,9 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.UserService#findUserInfoById(java.lang.Long)
+     */
     @Override
     public UserInfo findUserInfoById(Long id) throws ServiceException {
         UserInfo result = null;
@@ -103,6 +120,9 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.UserService#changeUserInfo(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     */
     @Override
     public boolean changeUserInfo(String login,String email, String firstName,String lastName) throws ServiceException {
         boolean result = false;
@@ -121,6 +141,9 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.UserService#changePassword(java.lang.String, java.lang.String, java.lang.String)
+     */
     @Override
     public boolean changePassword(String login, String newPass, String newPassRepeat) throws ServiceException {
         boolean result = false;
@@ -137,6 +160,9 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.service.UserService#changeBalance(java.lang.Long, java.math.BigDecimal)
+     */
     @Override
     public boolean changeBalance(Long id, BigDecimal balance) throws ServiceException {
         boolean result;

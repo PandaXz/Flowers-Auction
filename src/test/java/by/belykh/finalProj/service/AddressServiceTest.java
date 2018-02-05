@@ -20,12 +20,21 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AddressServiceTest.
+ */
 public class AddressServiceTest {
     private AddressService addressService;
     private AddressDAO addressDAO;
     private CityDAO cityDAO;
 
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception the exception
+     */
     @BeforeClass
     public void setUp() throws Exception {
         AddressServiceImpl addressServiceImpl = new AddressServiceImpl();
@@ -41,6 +50,12 @@ public class AddressServiceTest {
         when(daoFactory.getAddressDAO()).thenReturn(addressDAO);
     }
 
+    /**
+     * Find address by id test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findAddressById_Test() throws ServiceException, DAOException {
         Address address = new Address(1l,1l,"Test",1,"TestCity");
@@ -51,6 +66,12 @@ public class AddressServiceTest {
         Assert.assertEquals(addressService.findAddressById(1l),address);
     }
 
+    /**
+     * Find all cities test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findAllCities_Test() throws ServiceException, DAOException {
         CityDBO cityDBO = new CityDBO(1l,"TestCity");
@@ -61,6 +82,12 @@ public class AddressServiceTest {
         Assert.assertEquals(addressService.findAllCities(),list);
     }
 
+    /**
+     * Adds the address test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void addAddress_Test() throws ServiceException, DAOException {
 
@@ -71,6 +98,12 @@ public class AddressServiceTest {
         Assert.assertEquals(addressService.addAddress(1l,"Test",1),new Long(1l));
     }
 
+    /**
+     * Adds the city test.
+     *
+     * @throws ServiceException the service exception
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void addCity_Test() throws ServiceException, DAOException {
         CityDBO cityDBO = new CityDBO(0l,"TestCity");

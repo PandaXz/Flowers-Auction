@@ -15,6 +15,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LotHeaderDAOImpl.
+ */
 public class LotHeaderDAOImpl implements LotHeaderDAO {
 
     private static final String SQL_FIND_LOTHEADERS_BY_STATE_AND_BUYER_ID = "SELECT `lot`.`id`, `lot`.`owner_id_fk`, `owner`.`login` AS `ownerName`, `lot`.`flowerType_id_fk`, " +
@@ -46,6 +50,9 @@ public class LotHeaderDAOImpl implements LotHeaderDAO {
     private static final String LOT_IMAGE_PATH="image_path";
     private static final String LOT_END = "end_datetime";
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.LotHeaderDAO#findLotHeadersByStateAndOwnerId(java.lang.Long, com.belykh.finalProj.entity.dbo.LotState)
+     */
     @Override
     public List<LotHeader> findLotHeadersByStateAndOwnerId(Long ownerId, LotState state) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -59,6 +66,9 @@ public class LotHeaderDAOImpl implements LotHeaderDAO {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.LotHeaderDAO#findLotHeadersByStateAndBuyerId(java.lang.Long, com.belykh.finalProj.entity.dbo.LotState)
+     */
     @Override
     public List<LotHeader> findLotHeadersByStateAndBuyerId(Long buyerId, LotState state) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -72,6 +82,9 @@ public class LotHeaderDAOImpl implements LotHeaderDAO {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.dao.LotHeaderDAO#findLotHeadersByState(com.belykh.finalProj.entity.dbo.LotState)
+     */
     @Override
     public List<LotHeader> findLotHeadersByState(LotState state) throws DAOException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();

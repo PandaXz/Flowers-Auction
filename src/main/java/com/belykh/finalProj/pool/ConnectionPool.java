@@ -11,8 +11,9 @@ import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executor;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by panda on 15.11.17.
+ * The Class ConnectionPool.
  */
 public class ConnectionPool {
 
@@ -33,22 +34,47 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Inits the.
+     *
+     * @param poolSize the pool size
+     */
     public static void init(int poolSize) {
         ConnectionPoolHolder.POOL_INSTANCE = new ConnectionPool(poolSize);
     }
 
+    /**
+     * Close connection.
+     *
+     * @param connection the connection
+     */
     public void closeConnection(ProxyConnection connection) {
         connections.offer(connection);
     }
 
+    /**
+     * Gets the single instance of ConnectionPool.
+     *
+     * @return single instance of ConnectionPool
+     */
     public static ConnectionPool getInstance() {
         return ConnectionPoolHolder.POOL_INSTANCE;
     }
 
+    /**
+     * Gets the pool size.
+     *
+     * @return the pool size
+     */
     public int getPoolSize() {
         return connections.size();
     }
 
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     */
     public Connection getConnection() {
         try {
             return connections.take();
@@ -58,6 +84,9 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Destroy.
+     */
     public void destroy() {
         int count = 0;
         for (ProxyConnection c : connections) {

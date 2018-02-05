@@ -13,11 +13,18 @@ import javax.servlet.http.HttpSession;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PayLotCommand.
+ */
 public class PayLotCommand implements ActionCommand{
     private static final String PARAM_HEADER_REFERER = "referer";
 
     private static final String PARAM_NAME_SERVLET = "auction?";
 
+    /* (non-Javadoc)
+     * @see com.belykh.finalProj.command.ActionCommand#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String result = null;
