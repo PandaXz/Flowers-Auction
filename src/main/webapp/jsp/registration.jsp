@@ -40,7 +40,7 @@
         <div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12 main">
             <h2><fmt:message key="registration.header" bundle="${rb}"/> </h2>
             <br>
-            <form action="auction" method="post">
+            <form action="auction" method="post" onsubmit="return validatePasswordRepeat()">
                 <input type="hidden" name="command" value="signUp">
                 <div class="form-group">
                     <label for="login"><fmt:message key="registration.login" bundle="${rb}"/> </label>

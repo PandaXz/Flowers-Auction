@@ -42,7 +42,7 @@
             <c:import url="../navbar.jsp"/>
             <h2><fmt:message key="change-password.header" bundle="${rb}"/> </h2>
             <br>
-            <form action="auction" method="post">
+            <form action="auction" method="post" onsubmit="return validatePasswordRepeat()">
                 <input type="hidden" name="command" value="change_password">
 
                 <div class="form-group">
@@ -51,6 +51,7 @@
                     <br>
                     <label for="passwordRepeat"><fmt:message key="change-password.passwordRepeat" bundle="${rb}"/></label>
                     <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat" pattern="^\w+$"  required/>
+
                 </div>
                 <ct:ctg errorMessage="${errorChangeMessage}"/>
                 <c:if test="${ not empty successChangeMessage }">
