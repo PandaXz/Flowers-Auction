@@ -102,7 +102,7 @@
 
                 <div class="list-group-item">
                     <div class="row">
-                        <div class="col-md-6 col-xs-6">
+                        <div class="col-md-offset-3 col-md-6 col-xs-offset-1 col-xs-10">
                             <img class="img-responsive" src="${lot.imagePath}" alt="img" />
                         </div>
                     </div>
