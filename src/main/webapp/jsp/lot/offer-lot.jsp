@@ -46,7 +46,7 @@
             <c:import url="../navbar.jsp"/>
             <h2><fmt:message key="offer-lot.header" bundle="${rb}"/></h2>
             <br>
-            <form action="auction" method="post">
+            <form action="auction" method="post" enctype="multipart/form-data" accept-charset="utf-8">
                 <input type="hidden" name="command" value="offer_lot">
 
 
@@ -76,6 +76,8 @@
                             <input onload="now(this)" type="number" min="0" class="form-control" id="number" name="houseNumber" required>
                         </div>
                     </div>
+                    <label for="img"><fmt:message key="offer-lot.image" bundle="${ rb }" /></label>
+                    <input type="file" class="form-control" id="img" accept="image/jpeg" name="img" required>
                     <br>
                     <label for="price"><fmt:message key="offer-lot.price" bundle="${rb}"/> </label>
                     <input type="number" step="0.01" min="0" class="form-control" id="price" name="price" required>

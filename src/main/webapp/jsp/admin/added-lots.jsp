@@ -43,7 +43,7 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8 col-xs-12 main">
+        <div class="col-md-offset-1 col-md-10 col-sm-12 col-xs-12 main">
             <c:import url="../navbar.jsp"/>
             <h2><fmt:message key="added-lots.header" bundle="${rb}"/></h2>
             <br>
@@ -65,7 +65,7 @@
                         <c:forEach items="${lotList}" var="lot" varStatus="status">
 
                             <tr onclick="relocate('auction?command=lot_full&id=${lot.id}')">
-                                <td><c:out value="${lot.owner}"/></td>
+                                <td><a href="auction?command=user_info&id=${lot.ownerId}"><c:out value="${lot.owner}"/></a></td>
                                 <td><c:out value="${ lot.flowerName }"/></td>
                                 <td><c:out value="${lot.end.toLocalDate()} ${lot.end.toLocalTime()}"/></td>
                                 <td><c:out value="${ lot.count }"/></td>

@@ -16,8 +16,9 @@ public class LotHeader {
     private LotState state;
     private int count;
     private LocalDateTime end;
+    private String filePath;
 
-    public LotHeader(Long id, Long flowerId, String flowerName, Long ownerId, String owner, BigDecimal currentPrice, LotState state, int count, LocalDateTime end) {
+    public LotHeader(Long id, Long flowerId, String flowerName, Long ownerId, String owner, BigDecimal currentPrice, LotState state, int count, LocalDateTime end, String filePath) {
         this.id = id;
         this.flowerId = flowerId;
         this.flowerName = flowerName;
@@ -27,33 +28,7 @@ public class LotHeader {
         this.state = state;
         this.count = count;
         this.end = end;
-    }
-
-    public LotHeader() {
-    }
-
-    public Long getOwnerId() {
-        return ownerId;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    public LocalDateTime getEnd() {
-        return end;
-    }
-
-    public void setEnd(LocalDateTime end) {
-        this.end = end;
+        this.filePath = filePath;
     }
 
     public Long getId() {
@@ -80,6 +55,22 @@ public class LotHeader {
         this.flowerName = flowerName;
     }
 
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     public BigDecimal getCurrentPrice() {
         return currentPrice;
     }
@@ -104,6 +95,22 @@ public class LotHeader {
         this.count = count;
     }
 
+    public LocalDateTime getEnd() {
+        return end;
+    }
+
+    public void setEnd(LocalDateTime end) {
+        this.end = end;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -117,13 +124,14 @@ public class LotHeader {
                 Objects.equals(owner, lotHeader.owner) &&
                 Objects.equals(currentPrice, lotHeader.currentPrice) &&
                 state == lotHeader.state &&
-                Objects.equals(end, lotHeader.end);
+                Objects.equals(end, lotHeader.end) &&
+                Objects.equals(filePath, lotHeader.filePath);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, flowerId, flowerName, ownerId, owner, currentPrice, state, count, end);
+        return Objects.hash(id, flowerId, flowerName, ownerId, owner, currentPrice, state, count, end, filePath);
     }
 
     @Override
@@ -138,6 +146,7 @@ public class LotHeader {
                 ", state=" + state +
                 ", count=" + count +
                 ", end=" + end +
+                ", filePath='" + filePath + '\'' +
                 '}';
     }
 }

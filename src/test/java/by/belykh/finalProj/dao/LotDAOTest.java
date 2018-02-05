@@ -58,19 +58,19 @@ public class LotDAOTest extends Assert {
 
     @Test
     public void findLotById_Test() throws  DAOException {
-        Assert.assertEquals(lotDAO.findLotById(8l),new LotDBO(8l,5l,6l,1l,5l,new BigDecimal("40.0000"),new BigDecimal("120.0000"),LotState.UNPAID,10,LocalDateTime.parse("2018-02-01T20:00:00"),"Rose, blue, natural, pickup"));
+        Assert.assertEquals(lotDAO.findLotById(8l),new LotDBO(8l,5l,6l,1l,5l,new BigDecimal("40.0000"),new BigDecimal("120.0000"),LotState.UNPAID,10,LocalDateTime.parse("2018-02-01T20:00:00"),"Rose, blue, natural, pickup","/auction/images/8.jpg"));
     }
 
     @Test
     public void changeBuyerAndPrice_Test() throws  DAOException {
         lotDAO.changeBuyerAndPrice(11l,6l,new BigDecimal(140.0000));
-        Assert.assertEquals(lotDAO.findLotById(11l),new LotDBO(11l,6l,5l,3l,5l,new BigDecimal("40.0000"),new BigDecimal("140.0000"),LotState.ACCEPTED,13,LocalDateTime.parse("2018-02-16T20:00:00"),"Pickup"));
+        Assert.assertEquals(lotDAO.findLotById(11l),new LotDBO(11l,6l,5l,3l,5l,new BigDecimal("40.0000"),new BigDecimal("140.0000"),LotState.ACCEPTED,13,LocalDateTime.parse("2018-02-16T20:00:00"),"Pickup","/auction/images/11.jpg"));
     }
 
     @Test
     public void changeState_Test() throws  DAOException {
         lotDAO.changeState(11l,LotState.UNPAID);
-        Assert.assertEquals(lotDAO.findLotById(11l),new LotDBO(11l,0l,5l,3l,5l,new BigDecimal("40.0000"),new BigDecimal("40.0000"),LotState.UNPAID,13,LocalDateTime.parse("2018-02-16T20:00:00"),"Pickup"));
+        Assert.assertEquals(lotDAO.findLotById(11l),new LotDBO(11l,0l,5l,3l,5l,new BigDecimal("40.0000"),new BigDecimal("40.0000"),LotState.UNPAID,13,LocalDateTime.parse("2018-02-16T20:00:00"),"Pickup","/auction/images/11.jpg"));
     }
 
     @Test
@@ -82,12 +82,12 @@ public class LotDAOTest extends Assert {
     @Test
     public void checkUnpaidLots_Test() throws  DAOException {
         lotDAO.checkUnpaidLots();
-        Assert.assertEquals(lotDAO.findLotById(5l),new LotDBO(5l,5l,6l,1l,5l,new BigDecimal("40.0000"),new BigDecimal("120.0000"),LotState.UNPAID,10,LocalDateTime.parse("2018-02-01T20:00:00"),"Rose, blue, natural, pickup"));
+        Assert.assertEquals(lotDAO.findLotById(5l),new LotDBO(5l,5l,6l,1l,5l,new BigDecimal("40.0000"),new BigDecimal("120.0000"),LotState.UNPAID,10,LocalDateTime.parse("2018-02-01T20:00:00"),"Rose, blue, natural, pickup","/auction/images/5.jpg"));
     }
 
     @Test
     public void addLot_Test() throws  DAOException {
-        LotDBO lot =new LotDBO(15l,0l,6l,1l,5l,new BigDecimal("40.0000"),new BigDecimal("120.0000"),LotState.UNPAID,10,LocalDateTime.parse("2018-02-01T20:00:00"),"Rose, blue, natural, pickup");
+        LotDBO lot =new LotDBO(15l,0l,6l,1l,5l,new BigDecimal("40.0000"),new BigDecimal("120.0000"),LotState.UNPAID,10,LocalDateTime.parse("2018-02-01T20:00:00"),"Rose, blue, natural, pickup","test");
         lotDAO.addLot(lot);
         Assert.assertEquals(lotDAO.findLotById(15l),lot);
     }

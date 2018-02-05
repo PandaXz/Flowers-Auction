@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `flower_auction_db_test` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `flower_auction_db_test`;
 -- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
 --
 -- Host: localhost    Database: flower_auction_db_test
@@ -25,16 +23,16 @@ DROP TABLE IF EXISTS `lot_story`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lot_story` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id записи',
-  `lot_id_fk` bigint(20) unsigned NOT NULL COMMENT 'id лота ',
-  `user_id_fk` bigint(20) unsigned NOT NULL COMMENT 'id пользователя',
-  `price` decimal(19,4) unsigned NOT NULL COMMENT 'Предложенная цена',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id ??????',
+  `lot_id_fk` bigint(20) unsigned NOT NULL COMMENT 'id ???? ',
+  `user_id_fk` bigint(20) unsigned NOT NULL COMMENT 'id ????????????',
+  `price` decimal(19,4) unsigned NOT NULL COMMENT '???????????? ????',
   PRIMARY KEY (`id`),
   KEY `fk_lot_story_lot1_idx` (`lot_id_fk`),
   KEY `fk_lot_story_user1_idx` (`user_id_fk`),
   CONSTRAINT `fk_lot_story_lot1` FOREIGN KEY (`lot_id_fk`) REFERENCES `lot` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_lot_story_user1` FOREIGN KEY (`user_id_fk`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='Хранит цену предложенную за лот пользователем';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='?????? ???? ???????????? ?? ??? ?????????????';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-02  5:29:36
+-- Dump completed on 2018-02-05 19:07:49

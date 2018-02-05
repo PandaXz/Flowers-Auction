@@ -19,8 +19,9 @@ public class LotFull {
     private int count;
     private LocalDateTime end;
     private String description;
+    private String imagePath;
 
-    public LotFull(Long id, UserInfo buyer, UserInfo owner, FlowerDBO flower, Address address, BigDecimal startPrice, BigDecimal currentPrice, LotState state, int count, LocalDateTime end, String description) {
+    public LotFull(Long id, UserInfo buyer, UserInfo owner, FlowerDBO flower, Address address, BigDecimal startPrice, BigDecimal currentPrice, LotState state, int count, LocalDateTime end, String description, String filePath) {
         this.id = id;
         this.buyer = buyer;
         this.owner = owner;
@@ -32,9 +33,15 @@ public class LotFull {
         this.count = count;
         this.end = end;
         this.description = description;
+        this.imagePath = filePath;
     }
 
-    public LotFull() {
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String filePath) {
+        this.imagePath = filePath;
     }
 
     public Long getId() {
@@ -127,23 +134,6 @@ public class LotFull {
     }
 
     @Override
-    public String toString() {
-        return "LotFull{" +
-                "id=" + id +
-                ", buyer=" + buyer +
-                ", owner=" + owner +
-                ", flower=" + flower +
-                ", address=" + address +
-                ", startPrice=" + startPrice +
-                ", currentPrice=" + currentPrice +
-                ", state=" + state +
-                ", count=" + count +
-                ", end=" + end +
-                ", description='" + description + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -158,12 +148,32 @@ public class LotFull {
                 Objects.equals(currentPrice, lotFull.currentPrice) &&
                 state == lotFull.state &&
                 Objects.equals(end, lotFull.end) &&
-                Objects.equals(description, lotFull.description);
+                Objects.equals(description, lotFull.description) &&
+                Objects.equals(imagePath, lotFull.imagePath);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, buyer, owner, flower, address, startPrice, currentPrice, state, count, end, description);
+        return Objects.hash(id, buyer, owner, flower, address, startPrice, currentPrice, state, count, end, description, imagePath);
     }
+
+    @Override
+    public String toString() {
+        return "LotFull{" +
+                "id=" + id +
+                ", buyer=" + buyer +
+                ", owner=" + owner +
+                ", flower=" + flower +
+                ", address=" + address +
+                ", startPrice=" + startPrice +
+                ", currentPrice=" + currentPrice +
+                ", state=" + state +
+                ", count=" + count +
+                ", end=" + end +
+                ", description='" + description + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                '}';
+    }
+
 }

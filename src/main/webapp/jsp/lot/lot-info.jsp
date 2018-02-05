@@ -99,6 +99,14 @@
                     </c:if>
 
                 </div>
+
+                <div class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <img class="img-responsive" src="${lot.imagePath}" alt="img" />
+                        </div>
+                    </div>
+                </div>
                 <div class="list-group">
                     <div class="list-group-item">
                         <div class="row">

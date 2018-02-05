@@ -1,6 +1,6 @@
 .header {
     background-size:  cover;
-    background: #FFB500 url("../image/3.jpg") repeat-x;
+    background: #FFB500 url("../images/back.jpg") repeat-x;
     color: #ffffff;
     text-shadow: 2px 2px 4px #000000;
     padding: 25px;
@@ -18,7 +18,7 @@
 }
 .footer {
     background-size:  cover;
-    background: #FFB500 url("../image/3.jpg") repeat-x;
+    background: #FFB500 url("../images/back.jpg") repeat-x;
     color: #ffffff;
     padding: 15px;
     min-height: 20px;

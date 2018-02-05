@@ -12,6 +12,9 @@ import com.belykh.finalProj.service.AddressService;
 import com.belykh.finalProj.service.LotService;
 import com.belykh.finalProj.service.ServiceFactory;
 
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,7 +36,7 @@ public class LotServiceImpl implements LotService {
                 UserInfo owner = serviceFactory.getUserService().findUserInfoById(lot.getOwnerId());
                 UserInfo buyer = serviceFactory.getUserService().findUserInfoById(lot.getBuyerId());
                 Address address = serviceFactory.getAddressService().findAddressById(lot.getAddressId());
-                result = new LotFull(lot.getId(), buyer, owner, flower, address, lot.getStartPrice(), lot.getCurrentPrice(), lot.getState(), lot.getCount(), lot.getEnd(), lot.getDescription());
+                result = new LotFull(lot.getId(), buyer, owner, flower, address, lot.getStartPrice(), lot.getCurrentPrice(), lot.getState(), lot.getCount(), lot.getEnd(), lot.getDescription(),lot.getFilePath());
             }
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -114,13 +117,17 @@ public class LotServiceImpl implements LotService {
 
 
     @Override
-    public boolean offerLot(Long ownerId, Long flowerId, Long cityId, String street, Integer houseNumber, BigDecimal price, Integer count, LocalDateTime end, String description) throws ServiceException {
+    public boolean offerLot(Long ownerId, Long flowerId, Long cityId, String street, Integer houseNumber, BigDecimal price, Integer count, LocalDateTime end, String description, Part image, String savePath) throws ServiceException {
         boolean result = false;
         LotDAO dao = daoFactory.getLotDAO();
         AddressService service = serviceFactory.getAddressService();
         try {
-            result = dao.addLot(new LotDBO(0l, null, ownerId, flowerId, service.addAddress(cityId, street, houseNumber), price, price, LotState.ADDED, count, end, description));
-        } catch (DAOException e) {
+            Long lastId = dao.getLastId()+1l;
+            String filePath = savePath + File.separator + lastId  + ".jpg";
+            image.write(filePath);
+            filePath = "/auction/images"+File.separator + lastId  + ".jpg";
+            result = dao.addLot(new LotDBO(0l, null, ownerId, flowerId, service.addAddress(cityId, street, houseNumber), price, price, LotState.ADDED, count, end, description,filePath));
+        } catch (DAOException | IOException e) {
             throw new ServiceException(e);
         }
 

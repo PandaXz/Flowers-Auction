@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `flower_auction_db_test` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `flower_auction_db_test`;
 -- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
 --
 -- Host: localhost    Database: flower_auction_db_test
@@ -25,17 +23,17 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id записи пользователя',
-  `login` varchar(30) NOT NULL COMMENT 'Логин пользователя',
-  `password_hash` char(32) NOT NULL COMMENT 'Хэш пароля пользователя',
-  `email` varchar(30) NOT NULL COMMENT 'email пользователя',
-  `first_name` varchar(50) NOT NULL COMMENT 'Имя пользователя',
-  `last_name` varchar(50) NOT NULL COMMENT 'Фамилия пользователя',
-  `role` char(5) NOT NULL DEFAULT 'USER' COMMENT 'Роль пользователя. Может содержать \nUSER - для пользователей  \nADMIN - для администратора',
-  `balance` decimal(19,4) NOT NULL COMMENT 'Баланс пользователя',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id ?????? ????????????',
+  `login` varchar(30) NOT NULL COMMENT '????? ????????????',
+  `password_hash` char(32) NOT NULL COMMENT '??? ?????? ????????????',
+  `email` varchar(30) NOT NULL COMMENT 'email ????????????',
+  `first_name` varchar(50) NOT NULL COMMENT '??? ????????????',
+  `last_name` varchar(50) NOT NULL COMMENT '??????? ????????????',
+  `role` char(5) NOT NULL DEFAULT 'USER' COMMENT '???? ????????????. ????? ????????? \nUSER - ??? ?????????????  \nADMIN - ??? ??????????????',
+  `balance` decimal(19,4) NOT NULL COMMENT '?????? ????????????',
   PRIMARY KEY (`id`),
   UNIQUE KEY `login_UNIQUE` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='Таблица пользователей веб-приложения';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='??????? ????????????? ???-??????????';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-02  5:29:35
+-- Dump completed on 2018-02-05 19:07:48

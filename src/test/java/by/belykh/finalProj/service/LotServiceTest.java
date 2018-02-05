@@ -10,17 +10,21 @@ import com.belykh.finalProj.exception.DAOException;
 import com.belykh.finalProj.exception.ServiceException;
 import com.belykh.finalProj.service.*;
 import com.belykh.finalProj.service.Impl.LotServiceImpl;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class LotServiceTest {
 
@@ -65,7 +69,7 @@ public class LotServiceTest {
 
     @Test
     public void findLotHeadersByState_Test() throws ServiceException, DAOException {
-        LotHeader lotHeader = new LotHeader(lotId, 1l, "Rose", 2l, "SuperUser", new BigDecimal("10.0000"), LotState.ADDED, 10, LocalDateTime.parse("2018-02-01T20:00:00"));
+        LotHeader lotHeader = new LotHeader(lotId, 1l, "Rose", 2l, "SuperUser", new BigDecimal("10.0000"), LotState.ADDED, 10, LocalDateTime.parse("2018-02-01T20:00:00"),"TestPath");
         List<LotHeader> list = new ArrayList<>();
         list.add(lotHeader);
         list.add(lotHeader);
@@ -77,7 +81,7 @@ public class LotServiceTest {
     @Test
     public void findFullLotInfo_Test() throws ServiceException, DAOException {
         BigDecimal price = new BigDecimal("100.0000");
-        LotDBO lot = new LotDBO(1l, null, 1l, 1l, 1l, price, price, LotState.ADDED, 10, LocalDateTime.parse("2018-02-01T20:00:00"), "Test");
+        LotDBO lot = new LotDBO(1l, null, 1l, 1l, 1l, price, price, LotState.ADDED, 10, LocalDateTime.parse("2018-02-01T20:00:00"), "Test","TestPath");
         FlowerDBO flower = new FlowerDBO(1L,"Test");
         UserInfo user = new UserInfo(5l, "SuperUser", "super.user@gmail.com", "Super", "User",  new BigDecimal("99900.0000"));
         Address address = new Address(1l,1l,"Test",1,"TestCity");
@@ -85,7 +89,7 @@ public class LotServiceTest {
         when(userService.findUserInfoById(1l)).thenReturn(user);
         when(flowerService.findFlowerById(1l)).thenReturn(flower);
         when(addressService.findAddressById(1l)).thenReturn(address);
-        Assert.assertEquals(lotService.findFullLotInfo(lotId), new LotFull(lot.getId(), null, user, flower, address, lot.getStartPrice(), lot.getCurrentPrice(), lot.getState(), lot.getCount(), lot.getEnd(), lot.getDescription()) );
+        Assert.assertEquals(lotService.findFullLotInfo(lotId), new LotFull(lot.getId(), null, user, flower, address, lot.getStartPrice(), lot.getCurrentPrice(), lot.getState(), lot.getCount(), lot.getEnd(), lot.getDescription(),"TestPath") );
     }
 
     @Test
@@ -97,7 +101,7 @@ public class LotServiceTest {
 
     @Test
     public void findLotHeadersByStateAndId_Test() throws ServiceException, DAOException {
-        LotHeader lotHeader = new LotHeader(lotId, 1l, "Rose", 2l, "SuperUser", new BigDecimal("10.0000"), LotState.ADDED, 10, LocalDateTime.parse("2018-02-01T20:00:00"));
+        LotHeader lotHeader = new LotHeader(lotId, 1l, "Rose", 2l, "SuperUser", new BigDecimal("10.0000"), LotState.ADDED, 10, LocalDateTime.parse("2018-02-01T20:00:00"),"TestPath");
         List<LotHeader> list = new ArrayList<>();
         list.add(lotHeader);
         list.add(lotHeader);
@@ -108,7 +112,7 @@ public class LotServiceTest {
 
     @Test
     public void findLotHeadersByStateAndId_Test1() throws ServiceException, DAOException {
-        LotHeader lotHeader = new LotHeader(lotId, 1l, "Rose", 2l, "SuperUser", new BigDecimal("10.0000"), LotState.ADDED, 10, LocalDateTime.parse("2018-02-01T20:00:00"));
+        LotHeader lotHeader = new LotHeader(lotId, 1l, "Rose", 2l, "SuperUser", new BigDecimal("10.0000"), LotState.ADDED, 10, LocalDateTime.parse("2018-02-01T20:00:00"),"TestPath");
         List<LotHeader> list = new ArrayList<>();
         list.add(lotHeader);
         list.add(lotHeader);
@@ -168,12 +172,21 @@ public class LotServiceTest {
     }
 
     @Test
-    public void offerLot_Test() throws ServiceException, DAOException {
+    public void offerLot_Test() throws ServiceException, DAOException, IOException {
         BigDecimal price = new BigDecimal("100.0000");
-
+        Part image = mock(Part.class);
+        String filePath = "TestFilePath";
+        when(image.toString()).thenReturn("TestPath");
+        doAnswer(new Answer<Void>() {
+            @Override
+            public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
+                return null;
+            }
+        }).when(image).write(filePath+ File.pathSeparator+1l +".jpg");
         when(addressService.addAddress(1l, "Test", 1)).thenReturn(1l);
-        when(lotDAO.addLot(new LotDBO(0l, null, 1l, 1l, 1l, price, price, LotState.ADDED, 10, LocalDateTime.parse("2018-02-01T20:00:00"), "Test"))).thenReturn(true);
-        Assert.assertTrue(lotService.offerLot(1l, 1l, 1l, "Test", 1, price, 10, LocalDateTime.parse("2018-02-01T20:00:00"), "Test"));
+        when(lotDAO.getLastId()).thenReturn(1l);
+        when(lotDAO.addLot(new LotDBO(0l, null, 1l, 1l, 1l, price, price, LotState.ADDED, 10, LocalDateTime.parse("2018-02-01T20:00:00"), "Test","/auction/images/"+2l +".jpg"))).thenReturn(true);
+        Assert.assertTrue(lotService.offerLot(1l, 1l, 1l, "Test", 1, price, 10, LocalDateTime.parse("2018-02-01T20:00:00"), "Test",image ,filePath ));
     }
 
     @Test

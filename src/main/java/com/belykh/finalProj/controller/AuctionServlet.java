@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +25,10 @@ import java.util.Locale;
  * Created by panda on 15.11.17.
  */
 @WebServlet(name = "AuctionServlet")
+@MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
+        maxFileSize=1024*1024*10,      // 10MB
+        maxRequestSize=1024*1024*50    // 50MB
+)
 public class AuctionServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger(AuctionServlet.class);
@@ -35,7 +40,7 @@ public class AuctionServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        LOGGER.log(Level.DEBUG, "initialize servlet");
+        //LOGGER.log(Level.DEBUG, "initialize servlet");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -18,19 +18,19 @@ import java.util.List;
 public class LotHeaderDAOImpl implements LotHeaderDAO {
 
     private static final String SQL_FIND_LOTHEADERS_BY_STATE_AND_BUYER_ID = "SELECT `lot`.`id`, `lot`.`owner_id_fk`, `owner`.`login` AS `ownerName`, `lot`.`flowerType_id_fk`, " +
-            "  `flower`.`name` AS `flowerName`, `lot`.`current_price`, `lot`.`state`, `lot`.`count`,`lot`.`end_datetime` " +
+            "  `flower`.`name` AS `flowerName`, `lot`.`current_price`, `lot`.`state`, `lot`.`count`,`lot`.`end_datetime`, `lot`.`image_path` " +
             "FROM `lot` JOIN `flowerType` AS `flower` ON `lot`.`flowerType_id_fk` = `flower`.`id` " +
             "            JOIN `user` AS `owner` ON `lot`.`owner_id_fk` = `owner`.`id` " +
             "WHERE `lot`.`buyer_id_fk` = ? AND `lot`.`state` = ?";
 
     private static final String SQL_FIND_LOTHEADERS_BY_STATE_AND_OWNER_ID = "SELECT `lot`.`id`, `lot`.`owner_id_fk`, `owner`.`login` AS `ownerName`, `lot`.`flowerType_id_fk`, " +
-            "  `flower`.`name` AS `flowerName`, `lot`.`current_price`, `lot`.`state`, `lot`.`count`,`lot`.`end_datetime` " +
+            "  `flower`.`name` AS `flowerName`, `lot`.`current_price`, `lot`.`state`, `lot`.`count`,`lot`.`end_datetime`,`lot`.`image_path` " +
             "FROM `lot` JOIN `flowerType` AS `flower` ON `lot`.`flowerType_id_fk` = `flower`.`id` " +
             "            JOIN `user` AS `owner` ON `lot`.`owner_id_fk` = `owner`.`id` " +
             "WHERE `lot`.`owner_id_fk` = ? AND `lot`.`state` = ?";
 
     private static final String SQL_FIND_LOTHEADERS_BY_STATE = "SELECT `lot`.`id`, `lot`.`owner_id_fk`, `owner`.`login` AS `ownerName`, `lot`.`flowerType_id_fk`, " +
-            "  `flower`.`name` AS `flowerName`, `lot`.`current_price`, `lot`.`state`, `lot`.`count`,`lot`.`end_datetime` " +
+            "  `flower`.`name` AS `flowerName`, `lot`.`current_price`, `lot`.`state`, `lot`.`count`,`lot`.`end_datetime`,`lot`.`image_path` " +
             "FROM `lot` JOIN `flowerType` AS `flower` ON `lot`.`flowerType_id_fk` = `flower`.`id` " +
             "            JOIN `user` AS `owner` ON `lot`.`owner_id_fk` = `owner`.`id` " +
             "WHERE `lot`.`state` = ?";
@@ -43,6 +43,7 @@ public class LotHeaderDAOImpl implements LotHeaderDAO {
     private static final String LOT_CURRENT_PRICE = "current_price";
     private static final String LOT_STATE = "state";
     private static final String LOT_COUNT = "count";
+    private static final String LOT_IMAGE_PATH="image_path";
     private static final String LOT_END = "end_datetime";
 
     @Override
@@ -102,6 +103,7 @@ public class LotHeaderDAOImpl implements LotHeaderDAO {
         LotState state = LotState.valueOf(resultSet.getString(LOT_STATE).toUpperCase());
         int count = resultSet.getInt(LOT_COUNT);
         LocalDateTime end = resultSet.getTimestamp(LOT_END).toLocalDateTime();
-        return new LotHeader(id,flowerId,flowerName,ownerId,ownerName,currentPrice,state,count,end);
+        String filePath = resultSet.getString(LOT_IMAGE_PATH);
+        return new LotHeader(id,flowerId,flowerName,ownerId,ownerName,currentPrice,state,count,end,filePath);
     }
 }

@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `flower_auction_db_test` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `flower_auction_db_test`;
 -- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
 --
 -- Host: localhost    Database: flower_auction_db_test
@@ -25,10 +23,10 @@ DROP TABLE IF EXISTS `city`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `city` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id записи города',
-  `city_name` varchar(45) NOT NULL COMMENT 'Название города',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id ?????? ??????',
+  `city_name` varchar(45) NOT NULL COMMENT '???????? ??????',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Таблица городов в которых находятся адреса';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='??????? ??????? ? ??????? ????????? ??????';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-02  5:29:35
+-- Dump completed on 2018-02-05 19:07:48

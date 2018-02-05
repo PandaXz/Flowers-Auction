@@ -113,6 +113,7 @@ CREATE TABLE `lot` (
   `count` int(10) unsigned NOT NULL COMMENT 'Количество цветов, продаваемых в лоте',
   `end_datetime` datetime NOT NULL COMMENT 'Время продажи лота',
   `description` text NOT NULL COMMENT 'Описание лота',
+  `image_path` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_lot_user1_idx` (`buyer_id_fk`),
   KEY `fk_lot_user2_idx` (`owner_id_fk`),
@@ -131,7 +132,7 @@ CREATE TABLE `lot` (
 
 LOCK TABLES `lot` WRITE;
 /*!40000 ALTER TABLE `lot` DISABLE KEYS */;
-INSERT INTO `lot` VALUES (5,5,6,1,5,40.0000,120.0000,'ACCEPTED',10,'2018-02-01 20:00:00','Rose, blue, natural, pickup'),(8,5,6,1,5,40.0000,120.0000,'UNPAID',10,'2018-02-01 20:00:00','Rose, blue, natural, pickup'),(9,NULL,6,2,5,15.0000,15.0000,'ADDED',7,'2018-02-16 20:00:00','Pickup'),(10,5,6,3,5,80.0000,100.0000,'SOLD',15,'2018-02-01 20:00:00','Pickup'),(11,NULL,5,3,5,40.0000,40.0000,'ACCEPTED',13,'2018-02-16 20:00:00','Pickup'),(12,NULL,6,2,2,100000.0000,100000.0000,'DENIED',9,'2018-02-16 20:00:00','Pickup'),(13,NULL,5,1,5,25.0000,25.0000,'ADDED',12,'2018-02-16 20:00:00','Rose, red, pickup'),(14,5,6,1,2,40.0000,130.0000,'ACCEPTED',3,'2018-02-16 20:00:00','Cool, natural, pickip');
+INSERT INTO `lot` VALUES (5,5,6,1,5,40.0000,120.0000,'ACCEPTED',10,'2018-02-01 20:00:00','Rose, blue, natural, pickup','/auction/images/5.jpg'),(8,5,6,1,5,40.0000,120.0000,'UNPAID',10,'2018-02-01 20:00:00','Rose, blue, natural, pickup','/auction/images/8.jpg'),(9,NULL,6,2,5,15.0000,15.0000,'ADDED',7,'2018-02-16 20:00:00','Pickup','/auction/images/9.jpg'),(10,5,6,3,5,80.0000,100.0000,'SOLD',15,'2018-02-01 20:00:00','Pickup','/auction/images/10.jpg'),(11,NULL,5,3,5,40.0000,40.0000,'ACCEPTED',13,'2018-02-16 20:00:00','Pickup','/auction/images/11.jpg'),(12,NULL,6,2,2,100000.0000,100000.0000,'DENIED',9,'2018-02-16 20:00:00','Pickup','/auction/images/12.jpg'),(13,NULL,5,1,5,25.0000,25.0000,'ADDED',12,'2018-02-16 20:00:00','Rose, red, pickup','/auction/images/13.jpg'),(14,5,6,1,2,40.0000,130.0000,'ACCEPTED',3,'2018-02-16 20:00:00','Cool, natural, pickip','/auction/images/14.jpg');
 /*!40000 ALTER TABLE `lot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,4 +206,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-02  5:04:52
+-- Dump completed on 2018-02-05 18:54:28

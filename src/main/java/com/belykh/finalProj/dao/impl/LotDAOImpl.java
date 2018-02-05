@@ -15,12 +15,13 @@ import java.time.LocalDateTime;
  */
 public class LotDAOImpl implements LotDAO{
 
-    private static final String SQL_FIND_LOT_BY_ID="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description` FROM `lot` WHERE `lot`.`id`=?";
-    private static final String SQL_ADD_LOT = "INSERT INTO `lot` ( owner_id_fk, flowerType_id_fk, address_id_fk, start_price, current_price,state, `count`,`end_datetime`, description) VALUES (?,?,?,?,?,?,?,?,?)";
+    private static final String SQL_FIND_LOT_BY_ID="SELECT `id`,`buyer_id_fk`,`owner_id_fk`,`flowerType_id_fk`,`address_id_fk`,`start_price`,`current_price`,`state`,`count`,`end_datetime`,`description`,`image_path` FROM `lot` WHERE `lot`.`id`=?";
+    private static final String SQL_ADD_LOT = "INSERT INTO `lot` ( owner_id_fk, flowerType_id_fk, address_id_fk, start_price, current_price,state, `count`,`end_datetime`, description,`image_path`) VALUES (?,?,?,?,?,?,?,?,?,?)";
     private static final String SQL_DELETE_LOT = "DELETE FROM `lot` WHERE `lot`.`id`=?";
     private static final String SQL_UPDATE_STATE = "UPDATE `lot` SET `lot`.`state` = ? WHERE `lot`.`id`=?";
     private static final String SQL_UPDATE_BUYER_AND_PRICE = "UPDATE `lot` SET `current_price`=?,`buyer_id_fk`=? WHERE `lot`.`id`=? AND `lot`.`current_price` < ? AND `lot`.`state`='ACCEPTED' ";
     private static final String SQL_CHECK_UNPAID_LOTS="UPDATE `lot` SET `state`='UNPAID' WHERE `lot`.`end_datetime`<=NOW() AND `lot`.`state`='ACCEPTED' ";
+    private static final String SQL_GET_LAST_ID="SELECT id FROM lot ORDER BY id DESC LIMIT 1";
 
     private static final String LOT_ID="id";
     private static final String LOT_BUYER_ID="buyer_id_fk";
@@ -32,6 +33,7 @@ public class LotDAOImpl implements LotDAO{
     private static final String LOT_STATE="state";
     private static final String LOT_COUNT="count";
     private static final String LOT_END="end_datetime";
+    private static final String LOT_IMAGE_PATH="image_path";
     private static final String LOT_DESCRIPTION="description";
 
 
@@ -44,6 +46,21 @@ public class LotDAOImpl implements LotDAO{
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()){
                 result =createLot(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public Long getLastId() throws DAOException {
+        Long result = 0l;
+        try(Connection connection = ConnectionPool.getInstance().getConnection();
+            Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SQL_GET_LAST_ID);
+            if(resultSet.next()){
+                result =resultSet.getLong(LOT_ID);
             }
         } catch (SQLException e) {
             throw new DAOException(e);
@@ -124,7 +141,8 @@ public class LotDAOImpl implements LotDAO{
         int count = resultSet.getInt(LOT_COUNT);
         LocalDateTime end = resultSet.getTimestamp(LOT_END).toLocalDateTime();
         String description = resultSet.getString(LOT_DESCRIPTION);
-        return new LotDBO(id,buyerId,ownerId,flowerId,addressId,startPrice,currentPrice,state,count,end,description);
+        String filePath = resultSet.getString(LOT_IMAGE_PATH);
+        return new LotDBO(id,buyerId,ownerId,flowerId,addressId,startPrice,currentPrice,state,count,end,description,filePath);
     }
     private void setStatement(PreparedStatement ps, LotDBO lotDBO) throws SQLException {
         ps.setLong(1, lotDBO.getOwnerId());
@@ -136,5 +154,6 @@ public class LotDAOImpl implements LotDAO{
         ps.setInt(7,lotDBO.getCount());
         ps.setTimestamp(8,Timestamp.valueOf(lotDBO.getEnd()));
         ps.setString(9,lotDBO.getDescription());
+        ps.setString(10,lotDBO.getFilePath());
     }
 }

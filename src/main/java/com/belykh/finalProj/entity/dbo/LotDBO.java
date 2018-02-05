@@ -19,8 +19,9 @@ public class LotDBO {
     private int count;
     private LocalDateTime end;
     private String description;
+    private String filePath;
 
-    public LotDBO(Long id, Long buyerId, Long ownerId, Long flowerId, Long addressId, BigDecimal startPrice, BigDecimal currentPrice, LotState state, int count, LocalDateTime end, String description) {
+    public LotDBO(Long id, Long buyerId, Long ownerId, Long flowerId, Long addressId, BigDecimal startPrice, BigDecimal currentPrice, LotState state, int count, LocalDateTime end, String description, String filePath) {
         this.id = id;
         this.buyerId = buyerId;
         this.ownerId = ownerId;
@@ -32,9 +33,18 @@ public class LotDBO {
         this.count = count;
         this.end = end;
         this.description = description;
+        this.filePath = filePath;
     }
 
     public LotDBO() {
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     public LocalDateTime getEnd() {
@@ -140,13 +150,14 @@ public class LotDBO {
                 Objects.equals(currentPrice, lotDBO.currentPrice) &&
                 state == lotDBO.state &&
                 Objects.equals(end, lotDBO.end) &&
-                Objects.equals(description, lotDBO.description);
+                Objects.equals(description, lotDBO.description) &&
+                Objects.equals(filePath, lotDBO.filePath);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, buyerId,  ownerId, flowerId, addressId, startPrice, currentPrice, state, count, end, description);
+        return Objects.hash(id, buyerId, ownerId, flowerId, addressId, startPrice, currentPrice, state, count, end, description, filePath);
     }
 
     @Override
@@ -163,6 +174,7 @@ public class LotDBO {
                 ", count=" + count +
                 ", end=" + end +
                 ", description='" + description + '\'' +
+                ", filePath='" + filePath + '\'' +
                 '}';
     }
 }

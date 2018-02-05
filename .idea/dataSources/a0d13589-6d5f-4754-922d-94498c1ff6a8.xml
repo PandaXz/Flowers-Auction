@@ -939,7 +939,32 @@
       <Comment>Таблица пользователей веб-приложения</Comment>
       <Engine>InnoDB</Engine>
     </table>
-    <column id="236" parent="230" name="id">
+    <table id="236" parent="3" name="address">
+      <Comment>Таблица адресов где находятся цветы, которые продаются на аукционе</Comment>
+      <Engine>InnoDB</Engine>
+    </table>
+    <table id="237" parent="3" name="city">
+      <Comment>Таблица городов в которых находятся адреса</Comment>
+      <Engine>InnoDB</Engine>
+    </table>
+    <table id="238" parent="3" name="flowerType">
+      <Comment>Таблица цветов доступны для продажи на аукционе</Comment>
+      <Engine>InnoDB</Engine>
+    </table>
+    <table id="239" parent="3" name="lot">
+      <Comment>Таблица лотов созданных пользователями для аукционов. 
+Администратор может принять или отклонить лот.</Comment>
+      <Engine>InnoDB</Engine>
+    </table>
+    <table id="240" parent="3" name="lot_story">
+      <Comment>Хранит цену предложенную за лот пользователем</Comment>
+      <Engine>InnoDB</Engine>
+    </table>
+    <table id="241" parent="3" name="user">
+      <Comment>Таблица пользователей веб-приложения</Comment>
+      <Engine>InnoDB</Engine>
+    </table>
+    <column id="242" parent="230" name="id">
       <Position>1</Position>
       <Comment>id записи адреса</Comment>
       <DataType>bigint(20) unsigned|0</DataType>
@@ -947,42 +972,42 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="237" parent="230" name="city_id_fk">
+    <column id="243" parent="230" name="city_id_fk">
       <Position>2</Position>
       <Comment>id города</Comment>
       <DataType>bigint(20) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="238" parent="230" name="street">
+    <column id="244" parent="230" name="street">
       <Position>3</Position>
       <Comment>Название улицы</Comment>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="239" parent="230" name="house_number">
+    <column id="245" parent="230" name="house_number">
       <Position>4</Position>
       <Comment>id города в котором находится адрес</Comment>
       <DataType>int(10) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="240" parent="230" name="fk_address_city1_idx">
+    <index id="246" parent="230" name="fk_address_city1_idx">
       <ColNames>city_id_fk</ColNames>
     </index>
-    <key id="241" parent="230" name="PRIMARY">
+    <key id="247" parent="230" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="242" parent="230" name="fk_address_city1">
+    <foreign-key id="248" parent="230" name="fk_address_city1">
       <ColNames>city_id_fk</ColNames>
       <RefSchemaName>flower_auction_db</RefSchemaName>
       <RefTableName>city</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="243" parent="231" name="id">
+    <column id="249" parent="231" name="id">
       <Position>1</Position>
       <Comment>id записи города</Comment>
       <DataType>bigint(20) unsigned|0</DataType>
@@ -990,19 +1015,19 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="244" parent="231" name="city_name">
+    <column id="250" parent="231" name="city_name">
       <Position>2</Position>
       <Comment>Название города</Comment>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="245" parent="231" name="PRIMARY">
+    <key id="251" parent="231" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="246" parent="232" name="id">
+    <column id="252" parent="232" name="id">
       <Position>1</Position>
       <Comment>id записи цветов</Comment>
       <DataType>bigint(20) unsigned|0</DataType>
@@ -1010,27 +1035,27 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="247" parent="232" name="name">
+    <column id="253" parent="232" name="name">
       <Position>2</Position>
       <Comment>Название цветка. Уникально для каждой записи.</Comment>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="248" parent="232" name="name_UNIQUE">
+    <index id="254" parent="232" name="name_UNIQUE">
       <ColNames>name</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="249" parent="232" name="PRIMARY">
+    <key id="255" parent="232" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="250" parent="232" name="name_UNIQUE">
+    <key id="256" parent="232" name="name_UNIQUE">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>name_UNIQUE</UnderlyingIndexName>
     </key>
-    <column id="251" parent="233" name="id">
+    <column id="257" parent="233" name="id">
       <Position>1</Position>
       <Comment>id записи лота</Comment>
       <DataType>bigint(20) unsigned|0</DataType>
@@ -1038,42 +1063,42 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="252" parent="233" name="buyer_id_fk">
+    <column id="258" parent="233" name="buyer_id_fk">
       <Position>2</Position>
       <Comment>id пользователя предложившего лучшую цену за лот.
 Изначально это id владельца лота.</Comment>
       <DataType>bigint(20) unsigned|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="253" parent="233" name="owner_id_fk">
+    <column id="259" parent="233" name="owner_id_fk">
       <Position>3</Position>
       <Comment>id пользователя предложившего лот</Comment>
       <DataType>bigint(20) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="254" parent="233" name="flowerType_id_fk">
+    <column id="260" parent="233" name="flowerType_id_fk">
       <Position>4</Position>
       <Comment>id цветов продаваемых в лоте</Comment>
       <DataType>bigint(20) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="255" parent="233" name="address_id_fk">
+    <column id="261" parent="233" name="address_id_fk">
       <Position>5</Position>
       <Comment>id адреса, где находятся цветы</Comment>
       <DataType>bigint(20) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="256" parent="233" name="start_price">
+    <column id="262" parent="233" name="start_price">
       <Position>6</Position>
       <Comment>Стартовая цена лота</Comment>
       <DataType>decimal(19,4) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="257" parent="233" name="current_price">
+    <column id="263" parent="233" name="current_price">
       <Position>7</Position>
       <Comment>Текущая цена за лот. 
 Пользователи которые учавствуют в аукционе могут 
@@ -1083,7 +1108,7 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="258" parent="233" name="state">
+    <column id="264" parent="233" name="state">
       <Position>8</Position>
       <Comment>Состояние лота. Может быть:
 added - добавлено. Когда лот только предложени пользователем
@@ -1096,69 +1121,76 @@ sold - продано. Когда лот был продан.</Comment>
       <DefaultExpression>&apos;ADDED&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="233" name="count">
+    <column id="265" parent="233" name="count">
       <Position>9</Position>
       <Comment>Количество цветов, продаваемых в лоте</Comment>
       <DataType>int(10) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="233" name="end_datetime">
+    <column id="266" parent="233" name="end_datetime">
       <Position>10</Position>
       <Comment>Время продажи лота</Comment>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="261" parent="233" name="description">
+    <column id="267" parent="233" name="description">
       <Position>11</Position>
       <Comment>Описание лота</Comment>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="262" parent="233" name="fk_lot_user1_idx">
+    <column id="268" parent="233" name="image_path">
+      <Position>12</Position>
+      <Comment>Image path</Comment>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="269" parent="233" name="fk_lot_user1_idx">
       <ColNames>buyer_id_fk</ColNames>
     </index>
-    <index id="263" parent="233" name="fk_lot_user2_idx">
+    <index id="270" parent="233" name="fk_lot_user2_idx">
       <ColNames>owner_id_fk</ColNames>
     </index>
-    <index id="264" parent="233" name="fk_lot_flower1_idx">
+    <index id="271" parent="233" name="fk_lot_flower1_idx">
       <ColNames>flowerType_id_fk</ColNames>
     </index>
-    <index id="265" parent="233" name="fk_lot_address1_idx">
+    <index id="272" parent="233" name="fk_lot_address1_idx">
       <ColNames>address_id_fk</ColNames>
     </index>
-    <key id="266" parent="233" name="PRIMARY">
+    <key id="273" parent="233" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="267" parent="233" name="fk_lot_user1">
+    <foreign-key id="274" parent="233" name="fk_lot_user1">
       <ColNames>buyer_id_fk</ColNames>
       <RefSchemaName>flower_auction_db</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="268" parent="233" name="fk_lot_user2">
+    <foreign-key id="275" parent="233" name="fk_lot_user2">
       <ColNames>owner_id_fk</ColNames>
       <RefSchemaName>flower_auction_db</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="269" parent="233" name="fk_lot_flower1">
+    <foreign-key id="276" parent="233" name="fk_lot_flower1">
       <ColNames>flowerType_id_fk</ColNames>
       <RefSchemaName>flower_auction_db</RefSchemaName>
       <RefTableName>flowerType</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="270" parent="233" name="fk_lot_address1">
+    <foreign-key id="277" parent="233" name="fk_lot_address1">
       <ColNames>address_id_fk</ColNames>
       <RefSchemaName>flower_auction_db</RefSchemaName>
       <RefTableName>address</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="271" parent="234" name="id">
+    <column id="278" parent="234" name="id">
       <Position>1</Position>
       <Comment>id записи</Comment>
       <DataType>bigint(20) unsigned|0</DataType>
@@ -1166,51 +1198,51 @@ sold - продано. Когда лот был продан.</Comment>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="272" parent="234" name="lot_id_fk">
+    <column id="279" parent="234" name="lot_id_fk">
       <Position>2</Position>
       <Comment>id лота </Comment>
       <DataType>bigint(20) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="273" parent="234" name="user_id_fk">
+    <column id="280" parent="234" name="user_id_fk">
       <Position>3</Position>
       <Comment>id пользователя</Comment>
       <DataType>bigint(20) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="274" parent="234" name="price">
+    <column id="281" parent="234" name="price">
       <Position>4</Position>
       <Comment>Предложенная цена</Comment>
       <DataType>decimal(19,4) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="275" parent="234" name="fk_lot_story_lot1_idx">
+    <index id="282" parent="234" name="fk_lot_story_lot1_idx">
       <ColNames>lot_id_fk</ColNames>
     </index>
-    <index id="276" parent="234" name="fk_lot_story_user1_idx">
+    <index id="283" parent="234" name="fk_lot_story_user1_idx">
       <ColNames>user_id_fk</ColNames>
     </index>
-    <key id="277" parent="234" name="PRIMARY">
+    <key id="284" parent="234" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="278" parent="234" name="fk_lot_story_lot1">
+    <foreign-key id="285" parent="234" name="fk_lot_story_lot1">
       <ColNames>lot_id_fk</ColNames>
       <RefSchemaName>flower_auction_db</RefSchemaName>
       <RefTableName>lot</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="279" parent="234" name="fk_lot_story_user1">
+    <foreign-key id="286" parent="234" name="fk_lot_story_user1">
       <ColNames>user_id_fk</ColNames>
       <RefSchemaName>flower_auction_db</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="280" parent="235" name="id">
+    <column id="287" parent="235" name="id">
       <Position>1</Position>
       <Comment>id записи пользователя</Comment>
       <DataType>bigint(20) unsigned|0</DataType>
@@ -1218,42 +1250,42 @@ sold - продано. Когда лот был продан.</Comment>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="281" parent="235" name="login">
+    <column id="288" parent="235" name="login">
       <Position>2</Position>
       <Comment>Логин пользователя</Comment>
       <DataType>varchar(30)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="282" parent="235" name="password_hash">
+    <column id="289" parent="235" name="password_hash">
       <Position>3</Position>
       <Comment>Хэш пароля пользователя</Comment>
       <DataType>char(32)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="283" parent="235" name="email">
+    <column id="290" parent="235" name="email">
       <Position>4</Position>
       <Comment>email пользователя</Comment>
       <DataType>varchar(30)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="235" name="first_name">
+    <column id="291" parent="235" name="first_name">
       <Position>5</Position>
       <Comment>Имя пользователя</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="235" name="last_name">
+    <column id="292" parent="235" name="last_name">
       <Position>6</Position>
       <Comment>Фамилия пользователя</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="286" parent="235" name="role">
+    <column id="293" parent="235" name="role">
       <Position>7</Position>
       <Comment>Роль пользователя. Может содержать 
 USER - для пользователей  
@@ -1263,23 +1295,373 @@ ADMIN - для администратора</Comment>
       <DefaultExpression>&apos;USER&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="287" parent="235" name="balance">
+    <column id="294" parent="235" name="balance">
       <Position>8</Position>
       <Comment>Баланс пользователя</Comment>
       <DataType>decimal(19,4)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="288" parent="235" name="login_UNIQUE">
+    <index id="295" parent="235" name="login_UNIQUE">
       <ColNames>login</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="289" parent="235" name="PRIMARY">
+    <key id="296" parent="235" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="290" parent="235" name="login_UNIQUE">
+    <key id="297" parent="235" name="login_UNIQUE">
+      <ColNames>login</ColNames>
+      <UnderlyingIndexName>login_UNIQUE</UnderlyingIndexName>
+    </key>
+    <column id="298" parent="236" name="id">
+      <Position>1</Position>
+      <Comment>id записи адреса</Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="299" parent="236" name="city_id_fk">
+      <Position>2</Position>
+      <Comment>id города</Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="300" parent="236" name="street">
+      <Position>3</Position>
+      <Comment>Название улицы</Comment>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="301" parent="236" name="house_number">
+      <Position>4</Position>
+      <Comment>id города в котором находится адрес</Comment>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="302" parent="236" name="fk_address_city1_idx">
+      <ColNames>city_id_fk</ColNames>
+    </index>
+    <key id="303" parent="236" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="304" parent="236" name="fk_address_city1">
+      <ColNames>city_id_fk</ColNames>
+      <RefSchemaName>flower_auction_db_test</RefSchemaName>
+      <RefTableName>city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="305" parent="237" name="id">
+      <Position>1</Position>
+      <Comment>id записи города</Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="306" parent="237" name="city_name">
+      <Position>2</Position>
+      <Comment>Название города</Comment>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="307" parent="237" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="308" parent="238" name="id">
+      <Position>1</Position>
+      <Comment>id записи цветов</Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="309" parent="238" name="name">
+      <Position>2</Position>
+      <Comment>Название цветка. Уникально для каждой записи.</Comment>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="310" parent="238" name="name_UNIQUE">
+      <ColNames>name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="311" parent="238" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="312" parent="238" name="name_UNIQUE">
+      <ColNames>name</ColNames>
+      <UnderlyingIndexName>name_UNIQUE</UnderlyingIndexName>
+    </key>
+    <column id="313" parent="239" name="id">
+      <Position>1</Position>
+      <Comment>id записи лота</Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="314" parent="239" name="buyer_id_fk">
+      <Position>2</Position>
+      <Comment>id пользователя предложившего лучшую цену за лот.
+Изначально это id владельца лота.</Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="315" parent="239" name="owner_id_fk">
+      <Position>3</Position>
+      <Comment>id пользователя предложившего лот</Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="316" parent="239" name="flowerType_id_fk">
+      <Position>4</Position>
+      <Comment>id цветов продаваемых в лоте</Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="317" parent="239" name="address_id_fk">
+      <Position>5</Position>
+      <Comment>id адреса, где находятся цветы</Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="318" parent="239" name="start_price">
+      <Position>6</Position>
+      <Comment>Стартовая цена лота</Comment>
+      <DataType>decimal(19,4) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="319" parent="239" name="current_price">
+      <Position>7</Position>
+      <Comment>Текущая цена за лот. 
+Пользователи которые учавствуют в аукционе могут 
+предложить большую цену.
+По умолчанию равна начальной цене.</Comment>
+      <DataType>decimal(19,4) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="320" parent="239" name="state">
+      <Position>8</Position>
+      <Comment>Состояние лота. Может быть:
+added - добавлено. Когда лот только предложени пользователем
+denied - отказано. Когда администратор отказал в добавлении.
+accepted - добавлено. Когда администратор принял лот.
+unpaid - продан, но не оплачен.
+sold - продано. Когда лот был продан.</Comment>
+      <DataType>char(8)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;ADDED&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="321" parent="239" name="count">
+      <Position>9</Position>
+      <Comment>Количество цветов, продаваемых в лоте</Comment>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="322" parent="239" name="end_datetime">
+      <Position>10</Position>
+      <Comment>Время продажи лота</Comment>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="323" parent="239" name="description">
+      <Position>11</Position>
+      <Comment>Описание лота</Comment>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="324" parent="239" name="image_path">
+      <Position>12</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="325" parent="239" name="fk_lot_user1_idx">
+      <ColNames>buyer_id_fk</ColNames>
+    </index>
+    <index id="326" parent="239" name="fk_lot_user2_idx">
+      <ColNames>owner_id_fk</ColNames>
+    </index>
+    <index id="327" parent="239" name="fk_lot_flower1_idx">
+      <ColNames>flowerType_id_fk</ColNames>
+    </index>
+    <index id="328" parent="239" name="fk_lot_address1_idx">
+      <ColNames>address_id_fk</ColNames>
+    </index>
+    <key id="329" parent="239" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="330" parent="239" name="fk_lot_user1">
+      <ColNames>buyer_id_fk</ColNames>
+      <RefSchemaName>flower_auction_db_test</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="331" parent="239" name="fk_lot_user2">
+      <ColNames>owner_id_fk</ColNames>
+      <RefSchemaName>flower_auction_db_test</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="332" parent="239" name="fk_lot_flower1">
+      <ColNames>flowerType_id_fk</ColNames>
+      <RefSchemaName>flower_auction_db_test</RefSchemaName>
+      <RefTableName>flowerType</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="333" parent="239" name="fk_lot_address1">
+      <ColNames>address_id_fk</ColNames>
+      <RefSchemaName>flower_auction_db_test</RefSchemaName>
+      <RefTableName>address</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="334" parent="240" name="id">
+      <Position>1</Position>
+      <Comment>id записи</Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="335" parent="240" name="lot_id_fk">
+      <Position>2</Position>
+      <Comment>id лота </Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="336" parent="240" name="user_id_fk">
+      <Position>3</Position>
+      <Comment>id пользователя</Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="337" parent="240" name="price">
+      <Position>4</Position>
+      <Comment>Предложенная цена</Comment>
+      <DataType>decimal(19,4) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="338" parent="240" name="fk_lot_story_lot1_idx">
+      <ColNames>lot_id_fk</ColNames>
+    </index>
+    <index id="339" parent="240" name="fk_lot_story_user1_idx">
+      <ColNames>user_id_fk</ColNames>
+    </index>
+    <key id="340" parent="240" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="341" parent="240" name="fk_lot_story_lot1">
+      <ColNames>lot_id_fk</ColNames>
+      <RefSchemaName>flower_auction_db_test</RefSchemaName>
+      <RefTableName>lot</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="342" parent="240" name="fk_lot_story_user1">
+      <ColNames>user_id_fk</ColNames>
+      <RefSchemaName>flower_auction_db_test</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="343" parent="241" name="id">
+      <Position>1</Position>
+      <Comment>id записи пользователя</Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="344" parent="241" name="login">
+      <Position>2</Position>
+      <Comment>Логин пользователя</Comment>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="345" parent="241" name="password_hash">
+      <Position>3</Position>
+      <Comment>Хэш пароля пользователя</Comment>
+      <DataType>char(32)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="346" parent="241" name="email">
+      <Position>4</Position>
+      <Comment>email пользователя</Comment>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="347" parent="241" name="first_name">
+      <Position>5</Position>
+      <Comment>Имя пользователя</Comment>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="348" parent="241" name="last_name">
+      <Position>6</Position>
+      <Comment>Фамилия пользователя</Comment>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="349" parent="241" name="role">
+      <Position>7</Position>
+      <Comment>Роль пользователя. Может содержать 
+USER - для пользователей  
+ADMIN - для администратора</Comment>
+      <DataType>char(5)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;USER&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="350" parent="241" name="balance">
+      <Position>8</Position>
+      <Comment>Баланс пользователя</Comment>
+      <DataType>decimal(19,4)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="351" parent="241" name="login_UNIQUE">
+      <ColNames>login</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="352" parent="241" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="353" parent="241" name="login_UNIQUE">
       <ColNames>login</ColNames>
       <UnderlyingIndexName>login_UNIQUE</UnderlyingIndexName>
     </key>
