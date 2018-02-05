@@ -7,7 +7,7 @@
     <uri>/WEB-INF/errorTag</uri>
     <tag>
         <name>ctg</name>
-        <tag-class>com.belykh.finalProj.jstl.ErrorTag</tag-class>
+        <tag-class>com.belykh.flowerAuction.jstl.ErrorTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>errorMessage</name>

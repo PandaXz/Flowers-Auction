@@ -1,10 +1,10 @@
 package by.belykh.finalProj.dao;
 
-import com.belykh.finalProj.dao.LotStoryDAO;
-import com.belykh.finalProj.dao.impl.LotStoryDAOImpl;
-import com.belykh.finalProj.entity.dbo.LotStoryDBO;
-import com.belykh.finalProj.exception.DAOException;
-import com.belykh.finalProj.pool.ConnectionPool;
+import com.belykh.flowerAuction.dao.LotStoryDAO;
+import com.belykh.flowerAuction.dao.impl.LotStoryDAOImpl;
+import com.belykh.flowerAuction.entity.dto.LotStoryDTO;
+import com.belykh.flowerAuction.exception.DAOException;
+import com.belykh.flowerAuction.pool.ConnectionPool;
 import com.ibatis.common.jdbc.ScriptRunner;
 import com.mysql.jdbc.Driver;
 import org.testng.Assert;
@@ -20,20 +20,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class LotStoryDAOTest.
- */
+
 public class LotStoryDAOTest extends Assert {
     private ScriptRunner scriptRunner;
     private Connection connection;
-        private LotStoryDAO lotStoryDAO;
+    private LotStoryDAO lotStoryDAO;
 
-    /**
-     * Sets the up.
-     *
-     * @throws Exception the exception
-     */
+
     @BeforeClass
     public void setUp() throws Exception {
         lotStoryDAO = new LotStoryDAOImpl();
@@ -47,22 +40,14 @@ public class LotStoryDAOTest extends Assert {
         ConnectionPool.init(20);
     }
 
-    /**
-     * Before method set up.
-     *
-     * @throws Exception the exception
-     */
+
     @BeforeMethod
     public void beforeMethodSetUp() throws Exception {
         scriptRunner.runScript(new InputStreamReader(ConnectionPool.class.getResourceAsStream("/insert/insert_lot_story.sql")));
 
     }
 
-    /**
-     * Tear down.
-     *
-     * @throws Exception the exception
-     */
+
     @AfterClass
     public void tearDown() throws Exception {
         Reader reader = new InputStreamReader(ConnectionPool.class.getResourceAsStream("/Drop.sql"));
@@ -71,28 +56,15 @@ public class LotStoryDAOTest extends Assert {
         ConnectionPool.getInstance().destroy();
     }
 
-//    boolean addLotStory(LotStoryDBO lotStoryDBO) throws DAOException;
-//
-//    List<LotStoryDBO> findLotStoriesByLotId(Long id) throws DAOException;
-
-    /**
- * Find lot stories by lot id test.
- *
- * @throws DAOException the DAO exception
- */
-@Test
-    public void findLotStoriesByLotId_Test() throws  DAOException {
-        Assert.assertEquals(lotStoryDAO.findLotStoriesByLotId(10L).size(),1);
+    @Test
+    public void findLotStoriesByLotId_Test() throws DAOException {
+        Assert.assertEquals(lotStoryDAO.findLotStoriesByLotId(10L).size(), 1);
     }
 
-    /**
-     * Adds the lot story test.
-     *
-     * @throws DAOException the DAO exception
-     */
+
     @Test
-    public void addLotStory_Test() throws  DAOException {
-        lotStoryDAO.addLotStory(new LotStoryDBO(0L,1L,10L,new BigDecimal("100.0000")));
-        Assert.assertEquals(lotStoryDAO.findLotStoriesByLotId(10L).size(),2);
+    public void addLotStory_Test() throws DAOException {
+        lotStoryDAO.addLotStory(new LotStoryDTO(0L, 1L, 10L, new BigDecimal("100.0000")));
+        Assert.assertEquals(lotStoryDAO.findLotStoriesByLotId(10L).size(), 2);
     }
 }

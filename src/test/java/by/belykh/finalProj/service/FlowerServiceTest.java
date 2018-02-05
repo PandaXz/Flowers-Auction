@@ -1,12 +1,12 @@
 package by.belykh.finalProj.service;
 
-import com.belykh.finalProj.dao.DAOFactory;
-import com.belykh.finalProj.dao.FlowerDAO;
-import com.belykh.finalProj.entity.dbo.FlowerDBO;
-import com.belykh.finalProj.exception.DAOException;
-import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.service.FlowerService;
-import com.belykh.finalProj.service.Impl.FlowerServiceImpl;
+import com.belykh.flowerAuction.dao.DAOFactory;
+import com.belykh.flowerAuction.dao.FlowerDAO;
+import com.belykh.flowerAuction.entity.dto.FlowerDTO;
+import com.belykh.flowerAuction.exception.DAOException;
+import com.belykh.flowerAuction.exception.ServiceException;
+import com.belykh.flowerAuction.service.FlowerService;
+import com.belykh.flowerAuction.service.Impl.FlowerServiceImpl;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -17,20 +17,12 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class FlowerServiceTest.
- */
 public class FlowerServiceTest {
     private FlowerService flowerService;
     private FlowerDAO flowerDAO;
 
 
-    /**
-     * Sets the up.
-     *
-     * @throws Exception the exception
-     */
+
     @BeforeClass
     public void setUp() throws Exception {
         FlowerServiceImpl flowerServiceImpl = new FlowerServiceImpl();
@@ -45,45 +37,30 @@ public class FlowerServiceTest {
     }
 
 
-    /**
-     * Find flower by id test.
-     *
-     * @throws ServiceException the service exception
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void findFlowerById_Test() throws ServiceException, DAOException {
-        FlowerDBO flower = new FlowerDBO(1L,"Test");
+        FlowerDTO flower = new FlowerDTO(1L,"Test");
 
         when(flowerDAO.findFlowerById(1l)).thenReturn(flower);
         Assert.assertEquals(flowerService.findFlowerById(1l),flower);
     }
 
-    /**
-     * Find all flowers test.
-     *
-     * @throws ServiceException the service exception
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void findAllFlowers_Test() throws ServiceException, DAOException {
-        FlowerDBO flower = new FlowerDBO(1L,"Test");
-        List<FlowerDBO> list = new ArrayList<>();
+        FlowerDTO flower = new FlowerDTO(1L,"Test");
+        List<FlowerDTO> list = new ArrayList<>();
         list.add(flower);
         list.add(flower);
         when(flowerDAO.findAllFlowers()).thenReturn(list);
         Assert.assertEquals(flowerService.findAllFlowers(),list);
     }
 
-    /**
-     * Adds the flower test.
-     *
-     * @throws ServiceException the service exception
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void addFlower_Test() throws ServiceException, DAOException {
-        FlowerDBO flower = new FlowerDBO(0L,"Test");
+        FlowerDTO flower = new FlowerDTO(0L,"Test");
         when(flowerDAO.findFlowerByName("Test")).thenReturn(true);
         when(flowerDAO.addFlower(flower)).thenReturn(true);
         Assert.assertTrue(flowerService.addFlower("Test"));

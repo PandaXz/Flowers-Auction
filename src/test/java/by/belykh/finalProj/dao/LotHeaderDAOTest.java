@@ -1,10 +1,10 @@
 package by.belykh.finalProj.dao;
 
-import com.belykh.finalProj.dao.LotHeaderDAO;
-import com.belykh.finalProj.dao.impl.LotHeaderDAOImpl;
-import com.belykh.finalProj.entity.dbo.LotState;
-import com.belykh.finalProj.exception.DAOException;
-import com.belykh.finalProj.pool.ConnectionPool;
+import com.belykh.flowerAuction.dao.LotHeaderDAO;
+import com.belykh.flowerAuction.dao.impl.LotHeaderDAOImpl;
+import com.belykh.flowerAuction.entity.dto.LotState;
+import com.belykh.flowerAuction.exception.DAOException;
+import com.belykh.flowerAuction.pool.ConnectionPool;
 import com.ibatis.common.jdbc.ScriptRunner;
 import com.mysql.jdbc.Driver;
 import org.testng.Assert;
@@ -19,20 +19,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class LotHeaderDAOTest.
- */
+
 public class LotHeaderDAOTest extends Assert {
     private ScriptRunner scriptRunner;
     private Connection connection;
     private LotHeaderDAO lotHeaderDAO;
 
-    /**
-     * Sets the up.
-     *
-     * @throws Exception the exception
-     */
+
     @BeforeClass
     public void setUp() throws Exception {
         lotHeaderDAO = new LotHeaderDAOImpl();
@@ -46,11 +39,7 @@ public class LotHeaderDAOTest extends Assert {
         ConnectionPool.init(20);
     }
 
-    /**
-     * Before method set up.
-     *
-     * @throws Exception the exception
-     */
+
     @BeforeMethod
     public void beforeMethodSetUp() throws Exception {
         scriptRunner.runScript(new InputStreamReader(ConnectionPool.class.getResourceAsStream("/insert/insert_lot.sql")));
@@ -59,11 +48,7 @@ public class LotHeaderDAOTest extends Assert {
 
     }
 
-    /**
-     * Tear down.
-     *
-     * @throws Exception the exception
-     */
+
     @AfterClass
     public void tearDown() throws Exception {
         Reader reader = new InputStreamReader(ConnectionPool.class.getResourceAsStream("/Drop.sql"));
@@ -72,31 +57,19 @@ public class LotHeaderDAOTest extends Assert {
         ConnectionPool.getInstance().destroy();
     }
 
-    /**
-     * Find lot headers by state and owner id test.
-     *
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void findLotHeadersByStateAndOwnerId_Test() throws DAOException {
         Assert.assertEquals(lotHeaderDAO.findLotHeadersByStateAndOwnerId(6l,LotState.ADDED).size(),1);
     }
 
-    /**
-     * Find lot headers by state and buyer id test.
-     *
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void findLotHeadersByStateAndBuyerId_Test() throws DAOException {
         Assert.assertEquals(lotHeaderDAO.findLotHeadersByStateAndBuyerId(5l,LotState.UNPAID).size(),1);
     }
 
-    /**
-     * Find lot headers by state test.
-     *
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void findLotHeadersByState_Test() throws DAOException {
         Assert.assertEquals(lotHeaderDAO.findLotHeadersByState(LotState.ADDED).size(),2);

@@ -14,16 +14,16 @@
     <location>/error.jsp</location>
   </error-page>
   <listener>
-    <listener-class>com.belykh.finalProj.listener.ConnectionPoolInitializeListener</listener-class>
+    <listener-class>com.belykh.flowerAuction.listener.ConnectionPoolInitializeListener</listener-class>
   </listener>
   
   <filter>
     <filter-name>AuthFilter</filter-name>
-    <filter-class>com.belykh.finalProj.controller.filter.AuthFilter</filter-class>
+    <filter-class>com.belykh.flowerAuction.controller.filter.AuthFilter</filter-class>
   </filter>
   <filter>
     <filter-name>EncodingFilter</filter-name>
-    <filter-class>com.belykh.finalProj.controller.filter.EncodingFilter</filter-class>
+    <filter-class>com.belykh.flowerAuction.controller.filter.EncodingFilter</filter-class>
     <init-param>
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
@@ -40,7 +40,7 @@
 
   <servlet>
     <servlet-name>auction</servlet-name>
-    <servlet-class>com.belykh.finalProj.controller.AuctionServlet</servlet-class>
+    <servlet-class>com.belykh.flowerAuction.controller.AuctionServlet</servlet-class>
 
   </servlet>
   <servlet-mapping>

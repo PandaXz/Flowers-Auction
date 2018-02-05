@@ -1,13 +1,13 @@
 package by.belykh.finalProj.service;
 
-import com.belykh.finalProj.dao.DAOFactory;
-import com.belykh.finalProj.dao.UserDAO;
-import com.belykh.finalProj.entity.UserInfo;
-import com.belykh.finalProj.entity.dbo.UserDBO;
-import com.belykh.finalProj.exception.DAOException;
-import com.belykh.finalProj.exception.ServiceException;
-import com.belykh.finalProj.service.Impl.UserServiceImpl;
-import com.belykh.finalProj.service.UserService;
+import com.belykh.flowerAuction.dao.DAOFactory;
+import com.belykh.flowerAuction.dao.UserDAO;
+import com.belykh.flowerAuction.entity.UserInfo;
+import com.belykh.flowerAuction.entity.dto.UserDTO;
+import com.belykh.flowerAuction.exception.DAOException;
+import com.belykh.flowerAuction.exception.ServiceException;
+import com.belykh.flowerAuction.service.Impl.UserServiceImpl;
+import com.belykh.flowerAuction.service.UserService;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -19,20 +19,13 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class UserServiceTest.
- */
+
 public class UserServiceTest{
 
     private UserService userService;
     private UserDAO userDAO;
 
-    /**
-     * Sets the up.
-     *
-     * @throws Exception the exception
-     */
+
     @BeforeClass
     public void setUp() throws Exception {
         UserServiceImpl userServiceImpl = new UserServiceImpl();
@@ -46,57 +39,37 @@ public class UserServiceTest{
     }
 
 
-    /**
-     * Authorization test.
-     *
-     * @throws ServiceException the service exception
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void Authorization_Test() throws ServiceException, DAOException {
-        UserDBO user = new UserDBO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("99900.0000"));
+        UserDTO user = new UserDTO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("99900.0000"));
         when(userDAO.findUserByLogin("SuperUser")).thenReturn(user);
         Assert.assertEquals(userService.Authorization("SuperUser","12345"),user);
     }
 
-    /**
-     * Sign up test.
-     *
-     * @throws ServiceException the service exception
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void SignUp_Test() throws ServiceException, DAOException {
-        UserDBO user = new UserDBO(0l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("0"));
+        UserDTO user = new UserDTO(0l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("0"));
         when(userDAO.addUser(user)).thenReturn(true);
         when(userDAO.isLoginFree("SuperUser")).thenReturn(true);
         Assert.assertTrue(userService.SignUp("SuperUser", "12345","12345", "super.user@gmail.com", "Super", "User"));
     }
 
-    /**
-     * Find user info test.
-     *
-     * @throws ServiceException the service exception
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void findUserInfo_Test() throws ServiceException, DAOException {
         UserInfo user = new UserInfo(5l, "SuperUser", "super.user@gmail.com", "Super", "User",  new BigDecimal("99900.0000"));
-        UserDBO userDBO = new UserDBO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("99900.0000"));
-        when(userDAO.findUserByLogin("SuperUser")).thenReturn(userDBO);
+        UserDTO userDTO = new UserDTO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("99900.0000"));
+        when(userDAO.findUserByLogin("SuperUser")).thenReturn(userDTO);
         Assert.assertEquals(userService.findUserInfo("SuperUser"),user);
     }
 
-    /**
-     * Find users info test.
-     *
-     * @throws ServiceException the service exception
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void findUsersInfo_Test() throws ServiceException, DAOException {
-        UserDBO user = new UserDBO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("99900.0000"));
-        List<UserDBO> list = new ArrayList<>();
+        UserDTO user = new UserDTO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("99900.0000"));
+        List<UserDTO> list = new ArrayList<>();
         list.add(user);
         list.add(user);
 
@@ -104,66 +77,41 @@ public class UserServiceTest{
         Assert.assertEquals(userService.findUsersInfo().size(),2);
     }
 
-    /**
-     * Find user info by id test.
-     *
-     * @throws ServiceException the service exception
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void findUserInfoById_Test() throws ServiceException, DAOException {
         UserInfo user = new UserInfo(5l, "SuperUser", "super.user@gmail.com", "Super", "User",  new BigDecimal("99900.0000"));
-        UserDBO userDBO = new UserDBO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("99900.0000"));
-        when(userDAO.findUserById(5l)).thenReturn(userDBO);
+        UserDTO userDTO = new UserDTO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("99900.0000"));
+        when(userDAO.findUserById(5l)).thenReturn(userDTO);
         Assert.assertEquals(userService.findUserInfoById(5l),user);
     }
 
-    /**
-     * Change user info test.
-     *
-     * @throws ServiceException the service exception
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void changeUserInfo_Test() throws ServiceException, DAOException {
-        UserDBO userDBO = new UserDBO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("99900.0000"));
-        UserDBO userChanged = new UserDBO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "Changed", "Changed", "Changed", 1, new BigDecimal("99900.0000"));
+        UserDTO userDTO = new UserDTO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "super.user@gmail.com", "Super", "User", 1, new BigDecimal("99900.0000"));
+        UserDTO userChanged = new UserDTO(5l, "SuperUser", "827CCB0EEA8A706C4C34A16891F84E7B", "Changed", "Changed", "Changed", 1, new BigDecimal("99900.0000"));
 
         when(userDAO.changeUserInfo(userChanged)).thenReturn(true);
-        when(userDAO.findUserByLogin("SuperUser")).thenReturn(userDBO);
+        when(userDAO.findUserByLogin("SuperUser")).thenReturn(userDTO);
         Assert.assertTrue(userService.changeUserInfo("SuperUser", "Changed", "Changed", "Changed"));
     }
 
-    /**
-     * Change password positive test.
-     *
-     * @throws ServiceException the service exception
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void changePassword_PositiveTest() throws ServiceException, DAOException {
         when(userDAO.changePassword("SuperUser","827CCB0EEA8A706C4C34A16891F84E7B")).thenReturn(true);
         Assert.assertTrue(userService.changePassword("SuperUser", "12345", "12345"));
     }
 
-    /**
-     * Change password negative test.
-     *
-     * @throws ServiceException the service exception
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void changePassword_NegativeTest() throws ServiceException, DAOException {
         when(userDAO.changePassword("SuperUser","827CCB0EEA8A706C4C34A16891F84E7B")).thenReturn(true);
         Assert.assertFalse(userService.changePassword("SuperUser", "12344", "12345"));
     }
 
-    /**
-     * Change balance test.
-     *
-     * @throws ServiceException the service exception
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void changeBalance_Test() throws ServiceException, DAOException {
         when(userDAO.changeMoney(0l,new BigDecimal(0.0))).thenReturn(true);

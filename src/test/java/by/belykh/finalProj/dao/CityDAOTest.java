@@ -1,10 +1,10 @@
 package by.belykh.finalProj.dao;
 
-import com.belykh.finalProj.dao.CityDAO;
-import com.belykh.finalProj.dao.impl.CityDAOImpl;
-import com.belykh.finalProj.entity.dbo.CityDBO;
-import com.belykh.finalProj.exception.DAOException;
-import com.belykh.finalProj.pool.ConnectionPool;
+import com.belykh.flowerAuction.dao.CityDAO;
+import com.belykh.flowerAuction.dao.impl.CityDAOImpl;
+import com.belykh.flowerAuction.entity.dto.CityDTO;
+import com.belykh.flowerAuction.exception.DAOException;
+import com.belykh.flowerAuction.pool.ConnectionPool;
 import com.ibatis.common.jdbc.ScriptRunner;
 import com.mysql.jdbc.Driver;
 import org.testng.Assert;
@@ -21,20 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class CityDAOTest.
- */
+
 public class CityDAOTest extends Assert {
     private ScriptRunner scriptRunner;
     private Connection connection;
     private CityDAO cityDAO;
 
-    /**
-     * Sets the up.
-     *
-     * @throws Exception the exception
-     */
+
     @BeforeClass
     public void setUp() throws Exception {
         cityDAO = new CityDAOImpl();
@@ -48,22 +41,14 @@ public class CityDAOTest extends Assert {
         ConnectionPool.init(20);
     }
 
-    /**
-     * Before method set up.
-     *
-     * @throws Exception the exception
-     */
+
     @BeforeMethod
     public void beforeMethodSetUp() throws Exception {
         scriptRunner.runScript(new InputStreamReader(ConnectionPool.class.getResourceAsStream("/insert/insert_city.sql")));
 
     }
 
-    /**
-     * Tear down.
-     *
-     * @throws Exception the exception
-     */
+
     @AfterClass
     public void tearDown() throws Exception {
         Reader reader = new InputStreamReader(ConnectionPool.class.getResourceAsStream("/Drop.sql"));
@@ -73,59 +58,39 @@ public class CityDAOTest extends Assert {
     }
 
 
-    /**
-     * Find city by id test.
-     *
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void findCityById_Test() throws DAOException {
-        Assert.assertEquals(cityDAO.findCityById(1l),new CityDBO(1l,"Minsk"));
+        Assert.assertEquals(cityDAO.findCityById(1l),new CityDTO(1l,"Minsk"));
     }
 
-    /**
-     * Find all cities test.
-     *
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void findAllCities_Test() throws DAOException {
-        List<CityDBO> list= new ArrayList<>();
-        list.add(new CityDBO(1l,"Minsk"));
-        list.add(new CityDBO(2l,"Homyel"));
-        list.add(new CityDBO(3l,"Vitebsk"));
-        list.add(new CityDBO(4l,"Brest"));
-        Assert.assertEquals(cityDAO.findCityById(1l),new CityDBO(1l,"Minsk"));
+        List<CityDTO> list= new ArrayList<>();
+        list.add(new CityDTO(1l,"Minsk"));
+        list.add(new CityDTO(2l,"Homyel"));
+        list.add(new CityDTO(3l,"Vitebsk"));
+        list.add(new CityDTO(4l,"Brest"));
+        Assert.assertEquals(cityDAO.findCityById(1l),new CityDTO(1l,"Minsk"));
     }
 
-    /**
-     * Adds the city test.
-     *
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void addCity_Test() throws DAOException {
 
-        CityDBO cityDBO= new CityDBO(5l,"Grodno");
-        cityDAO.addCity(cityDBO);
-        Assert.assertEquals(cityDAO.findCityById(5l),cityDBO);
+        CityDTO cityDTO = new CityDTO(5l,"Grodno");
+        cityDAO.addCity(cityDTO);
+        Assert.assertEquals(cityDAO.findCityById(5l), cityDTO);
     }
 
-    /**
-     * Find city by name positive test.
-     *
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void findCityByName_PositiveTest() throws  DAOException {
         Assert.assertTrue(cityDAO.findCityByName("Minsk"));
     }
 
-    /**
-     * Find city by name negative test.
-     *
-     * @throws DAOException the DAO exception
-     */
+
     @Test
     public void findCityByName_NegativeTest() throws  DAOException {
         Assert.assertFalse(cityDAO.findCityByName("test"));
